@@ -75,7 +75,8 @@ n_r:=2^{r+1},
 
 Для каждой active cell \(I\in\mathcal C_i(h)\) с center \(c_I\) хранятся:
 
-- designated count \(n_I\);
+- generated designated-source count \(m_I\);
+- finalized designated count \(n_I\);
 - finalized designated observations \(B_s^{(w)}\), пришедшие именно из deployments в \(c_I\);
 - empirical mean \(\widehat g_I\);
 - sample variance \(V_I\);
@@ -87,7 +88,7 @@ n_r:=2^{r+1},
 **Samples не наследуются между разными centers.** После split каждый child получает новый estimator:
 
 \[
-n_J=0,\qquad \texttt{resolved}(J)=\texttt{false}.
+m_J=n_J=0,\qquad \texttt{resolved}(J)=\texttt{false}.
 \]
 
 Это консервативная версия алгоритма; reuse samples между parent/child здесь не предполагается.
@@ -150,7 +151,7 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
         \STATE \(n_r\leftarrow2^{r+1}\).
 
         \FOR{unresolved active cells in a fixed round-robin order}
-            \WHILE{\(n_I<n_r\)}
+            \WHILE{\(m_I<n_r\)}
                 \IF{\(t=B\)}
                     \STATE Build \(\mathsf{Acct}\) from
                            \(t,\delta_{\rm cert},\mathcal S_{\rm cert}\).
@@ -158,7 +159,8 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
                 \ENDIF
                 \STATE Deploy \((i,c_I)\) as a designated source at round \(t+1\).
                 \STATE Tag round \(t+1\) as certification-owned,
-                       add it to \(\mathcal S_{\rm cert}\), and set \(t\leftarrow t+1\).
+                       add it to \(\mathcal S_{\rm cert}\), increment
+                       \(m_I\leftarrow m_I+1\), and set \(t\leftarrow t+1\).
             \ENDWHILE
         \ENDFOR
 
@@ -177,11 +179,12 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
                    and set \(t\leftarrow t+1\).
         \ENDFOR
 
-        \STATE For every designated source included in this checkpoint,
-               finalize
+        \STATE Finalize every newly generated designated source since the previous
+               checkpoint update as
                \(B_s^{(w)}=\mathbf 1\{Z_s=1,D_s\le w\}\).
         \FOR{each still-unresolved active cell \(I\)}
-            \STATE Recompute \(n_I,\widehat g_I,V_I\) from finalized
+            \STATE Set \(n_I\leftarrow m_I\) and recompute
+                   \(\widehat g_I,V_I\) from finalized
                    designated observations generated at \(c_I\).
             \STATE
             \(\operatorname{rad}_I\leftarrow
