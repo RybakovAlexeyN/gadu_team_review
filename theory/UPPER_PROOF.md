@@ -69,12 +69,12 @@ Fix a center `c` at depth `h`, write `mu=g(c)`, and let
 lambda = log(6/eta).
 ```
 
-The frozen empirical-Bernstein calculation gives a sufficient sample size of the form
+Using the supporting sample-variance comparison from the frozen concentration audit, a sufficient sample size is
 
 ```text
 n
 >=
-4
+2
 + 512 mu lambda / a_h^2
 + 70 lambda / a_h
 ```
@@ -87,7 +87,7 @@ Because the algorithm samples only at geometric cumulative targets
 n_r = 2^(r+1),
 ```
 
-the first target above a sufficient sample size overshoots by less than a factor two. Thus the actual designated count at resolution is bounded by
+the first target above this sufficient sample size overshoots by less than a factor two. Thus the actual designated count at resolution is bounded by
 
 ```text
 N_c(h)
