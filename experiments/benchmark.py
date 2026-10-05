@@ -5,6 +5,8 @@ import argparse
 import json
 import math
 
+import numpy as np
+
 MAX_CHECKPOINTS = 23
 DEFAULT_SEEDS = 400
 DEFAULT_RADIUS = 0.05
@@ -26,8 +28,6 @@ def hoeffding_radius_f(sample_count, q, eta):
 
 def empirical_bernstein_radius(sample_var, sample_count, eta):
     """Observable empirical-Bernstein radius on the scaled g=q*f scale."""
-    import numpy as np
-
     log_term = math.log(6.0 / eta)
     variance_term = np.sqrt(
         2.0 * sample_var * log_term / sample_count
@@ -45,8 +45,6 @@ def deterministic_seed(q, f, seed_count):
 
 def vectorized_regime(f, q, target_radius_f, delta, seed_count):
     """Run one (q, f) regime over many independent Bernoulli streams."""
-    import numpy as np
-
     p = q * f
     rng = np.random.default_rng(
         deterministic_seed(q, f, seed_count)
