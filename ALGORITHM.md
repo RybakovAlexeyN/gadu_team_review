@@ -1,182 +1,291 @@
-# VS-Certify-Delayed — алгоритм в одном месте
+# VS-Certify-Delayed — каноническая процедура
 
-Это текущая исполнимая процедура, вокруг которой собран новый variance-sensitive backend.
+Это текущая исполнимая версия variance-sensitive certification backend.
 
-Главная цель этого файла — чтобы алгоритм можно было понять до чтения теорем и proof outline.
+Ниже сначала дан **сам алгоритм целиком**, а уже после — короткое объяснение его блоков. Цель: чтобы процедуру можно было проверить построчно, не восстанавливая её из теорем и proof outline.
 
-## В двух словах
+## Inputs / output
 
-Алгоритм постепенно уточняет области поиска внутри каждой family, использует empirical-Bernstein confidence для Bernoulli-наблюдений и принимает новое геометрическое решение только после того, как designated feedback для текущего checkpoint успел дозреть.
+**Inputs**
 
-Короткая схема:
+- families (i=1,ldots,K) with domains (X_i=[0,1]^{d_i});
+- known latent Lipschitz constants (L_i);
+- fixed attribution window (w\in\mathbb Z_{\ge0});
+- common known (q_w=F(w)>0);
+- total certification risk (delta_{\rm cert});
+- predeclared hard calendar cutoff (B).
+
+Choose per-family risks (delta_i>0) such that
 
 ```text
-active cells
-→ designated pulls
-→ synchronized checkpoint
-→ w legal filler rounds
-→ finalize matured Bernoulli outcomes
-→ update empirical-Bernstein intervals
-→ prune impossible cells
-→ split survivors
-→ check family separation
-→ CERTIFIED / continue / NOT_CERTIFIED
+sum_i delta_i <= delta_cert.
 ```
 
-## Что именно модернизировано
-
-По сравнению с более ранним описанием теперь явно зафиксировано:
-
-- статистическое решение принимается на synchronized checkpoints;
-- для confidence используется observable empirical-Bernstein radius;
-- designated и filler rounds разделены;
-- после последнего designated source checkpoint выполняется ровно `w` legal filler deployments;
-- unresolved feedback никогда не интерпретируется как zero;
-- active set не меняется во время одного flush;
-- после flush все дозревшие designated outcomes финализируются одновременно;
-- prune/split происходит только после обновления confidence;
-- hard cutoff возвращает `NOT_CERTIFIED`, а не искусственную сертификацию;
-- при нескольких families confidence budget делится между ними заранее;
-- результат переводится из scaled mean `g_i=q_w f_i` обратно в latent-scale certificate перед GADU continuation.
-
-## Пошаговая процедура
-
-### 1. Активные области
-
-Для каждой family поддерживается набор активных dyadic cells.
-
-У каждой cell есть center `c` и geometric uncertainty `a_h`.
-
-### 2. Designated sampling
-
-В центрах unresolved cells собираются designated Bernoulli observations.
-
-Для `n>=2` finalized samples используется empirical-Bernstein radius
+For dyadic depth (h),
 
 ```text
-r_n =
-sqrt(2 V_n log(6/eta) / n)
+rho_h      = 2^(-h-1)
+L_i^g      = q_w L_i
+a_{i,h}    = min{1, L_i^g rho_h}
+n_r        = 2^(r+1)
+```
+
+and for every possible level-(h) cell (I) of family (i) and checkpoint (r),
+
+```text
+eta_{i,h,I,r}
+=
+36 delta_i /
+[pi^4 * 2^(d_i h) * (h+1)^2 * (r+1)^2].
+```
+
+For (n>=2) finalized designated samples,
+
+```text
+rad(n,V,eta)
+=
+sqrt(2 V log(6/eta)/n)
 +
-7 log(6/eta) / (3(n-1)).
+7 log(6/eta)/(3(n-1)).
 ```
 
-Cell считается statistically resolved на текущем уровне, когда radius достаточно мал относительно `a_h`.
+**Output**
 
-### 3. Synchronized checkpoint
-
-Cumulative sample targets идут геометрически:
+Either
 
 ```text
-n_r = 2^(r+1).
+CERTIFIED(i, z_i, ell_i, U_i, Xi_i, accounting)
 ```
 
-До checkpoint все unresolved cells доводятся до текущего target.
+or
 
-### 4. Delayed flush
+```text
+NOT_CERTIFIED.
+```
 
-После последнего designated source текущего checkpoint выполняется ровно `w` legal filler deployments.
+## Canonical pseudocode
 
-Во время flush:
+LaTeX version used for the manuscript:
 
-- алгоритм продолжает делать legal deployment каждый calendar round;
-- filler feedback не входит в designated estimator;
-- active set заморожен до конца flush.
+```latex
+\begin{algorithm}[t]
+\caption{\textsc{VS-Certify-Delayed}}
+\label{alg:vs-certify-delayed}
+\begin{algorithmic}[1]
+\REQUIRE Families \(i=1,\ldots,K\), domains \(X_i=[0,1]^{d_i}\),
+         Lipschitz bounds \(L_i\), common known \(q_w>0\),
+         window \(w\in\mathbb Z_{\ge0}\),
+         risks \((\delta_i)_i\) with
+         \(\sum_i\delta_i\le\delta_{\rm cert}\),
+         hard calendar cutoff \(B\).
+\ENSURE \textsc{Certified}\((i,z_i,\ell_i,U_i,\Xi_i,\mathcal A)\)
+        or \textsc{Not-Certified}.
 
-Если `w=0`, flush пустой.
+\STATE \(t\leftarrow0\), \(h\leftarrow0\);
+       \(\mathcal S_{\rm cert}\leftarrow\varnothing\).
+\FOR{each family \(i\)}
+    \STATE \(\mathcal A_i\leftarrow\{X_i\}\) and
+           \(L_i^g\leftarrow q_w L_i\).
+\ENDFOR
 
-### 5. Finalization
+\WHILE{true}
+    \STATE Set \(\rho_h\leftarrow2^{-h-1}\) and
+           \(a_{i,h}\leftarrow\min\{1,L_i^g\rho_h\}\) for every \(i\).
+    \STATE \(r\leftarrow0\).
 
-После flush designated source с delay не больше `w` превращается в
+    \WHILE{some active cell is not statistically resolved}
+        \STATE \(n_r\leftarrow2^{r+1}\).
+
+        \FOR{unresolved active centers in a fixed round-robin order}
+            \WHILE{the designated count of center \(c_I\) is below \(n_r\)}
+                \IF{another deployment would make \(t>B\)}
+                    \RETURN \textsc{Not-Certified}.
+                \ENDIF
+                \STATE Deploy \((i,c_I)\) as a designated source;
+                       tag source round \(t+1\) as certification-owned.
+                \STATE Add the source round to \(\mathcal S_{\rm cert}\);
+                       \(t\leftarrow t+1\).
+            \ENDWHILE
+        \ENDFOR
+
+        \STATE Freeze the active sets for the flush.
+        \FOR{\(u=1,\ldots,w\)}
+            \IF{another deployment would make \(t>B\)}
+                \RETURN \textsc{Not-Certified}.
+            \ENDIF
+            \STATE Deploy the center of the first active cell under a fixed
+                   deterministic order as a filler action.
+            \STATE Tag this source round as certification-owned, exclude its
+                   feedback from designated estimators, and set \(t\leftarrow t+1\).
+        \ENDFOR
+
+        \STATE For every designated source generated before this flush, finalize
+               \[
+               B_s^{(w)}=\mathbf 1\{Z_s=1,\ D_s\le w\}.
+               \]
+        \STATE Recompute designated empirical means, sample variances, and
+               \[
+               r_n=
+               \sqrt{\frac{2V_n\log(6/\eta_{i,h,I,r})}{n}}
+               +
+               \frac{7\log(6/\eta_{i,h,I,r})}{3(n-1)}.
+               \]
+        \STATE Mark cell \(I\) resolved when \(r_n\le a_{i,h}/8\).
+        \STATE \(r\leftarrow r+1\).
+    \ENDWHILE
+
+    \FOR{each family \(i\)}
+        \FOR{each active cell \(I\) with center \(c_I\)}
+            \STATE
+            \(\mathrm{LCB}(I)\leftarrow
+              \max\{0,\widehat g(c_I)-r_I\}\).
+            \STATE
+            \(U_{\rm cell}(I)\leftarrow
+              \min\{1,\widehat g(c_I)+r_I+a_{i,h}\}\).
+        \ENDFOR
+        \STATE
+        \(L_i^g\leftarrow\max_{I\in\mathcal A_i}\mathrm{LCB}(I)\).
+        \STATE
+        \(U_i^g\leftarrow\max_{I\in\mathcal A_i}U_{\rm cell}(I)\).
+        \STATE Choose
+        \(I_i^L\in\arg\max_{I\in\mathcal A_i}\mathrm{LCB}(I)\),
+        set \(z_i\leftarrow c_{I_i^L}\), and
+        \(\xi_i^g\leftarrow\min\{1,U_i^g-L_i^g\}\).
+    \ENDFOR
+
+    \IF{there exists \(i\) with
+         \(L_i^g>\max_{j\ne i}U_j^g\)}
+        \STATE
+        \(\ell_i\leftarrow\max\{0,L_i^g/q_w\}\),
+        \(U_i\leftarrow\min\{1,U_i^g/q_w\}\),
+        \(\Xi_i\leftarrow\min\{1,\xi_i^g/q_w\}\).
+        \RETURN \textsc{Certified}
+        \((i,z_i,\ell_i,U_i,\Xi_i,\mathcal A)\),
+        where \(\mathcal A\) contains \(t\), the failure budget,
+        and \(\mathcal S_{\rm cert}\).
+    \ENDIF
+
+    \FOR{each family \(i\)}
+        \STATE Remove every active cell \(I\) satisfying
+               \(U_{\rm cell}(I)<L_i^g\).
+        \STATE Split every surviving cell into its dyadic children.
+    \ENDFOR
+    \STATE \(h\leftarrow h+1\).
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+```
+
+## Что происходит в одном цикле
+
+Если убрать техническую нотацию, один refinement cycle выглядит так:
+
+```text
+designated sampling
+→ w legal filler rounds
+→ finalize matured designated outcomes
+→ empirical-Bernstein update
+→ Lipschitz cell bounds
+→ family-separation test
+→ prune
+→ split survivors
+→ next level
+```
+
+То есть алгоритм не содержит неопределенного шага «подождать feedback».
+
+После последнего designated source checkpoint он делает ровно (w) допустимых deployments. После этого все designated sources текущего checkpoint уже имеют возраст не меньше (w), поэтому для них можно вычислить
 
 ```text
 B_s^(w) = 1{Z_s=1 and D_s<=w}.
 ```
 
-Неразрешенная тишина до этого момента не считается нулем.
+До этого момента отсутствие события не кодируется как zero.
 
-### 6. Confidence + cell bounds
+## Почему pruning безопасен
 
-После finalization пересчитываются:
-
-- empirical mean;
-- sample variance;
-- empirical-Bernstein interval;
-- Lipschitz cell upper bound.
-
-### 7. Prune / split
-
-Cell удаляется, если ее valid upper bound уже ниже лучшего lower bound внутри той же family.
-
-Все surviving cells делятся на dyadic children, и процесс повторяется на следующем уровне.
-
-### 8. Family certification
-
-Для family `i` строятся learner-computable bounds
+Для активной cell (I) с center (c_I),
 
 ```text
-ell_i^g <= g_i(z_i) <= g_i^* <= U_i^g.
+LCB(I) <= g_i(c_I)
+```
+
+и Lipschitz property дает
+
+```text
+sup_{x in I} g_i(x) <= U_cell(I).
+```
+
+Поэтому если
+
+```text
+U_cell(I) < L_i^g,
+```
+
+cell уже не может содержать maximizer своей family и может быть удалена.
+
+На simultaneous confidence event cell с настоящим maximizer не удаляется.
+
+## Почему family certification корректна
+
+Для каждой family строятся
+
+```text
+L_i^g <= g_i^* <= U_i^g.
 ```
 
 Если
 
 ```text
-ell_i^g > max_{j != i} U_j^g,
+L_i^g > max_{j != i} U_j^g,
 ```
 
-то family `i` сертифицирована как лучшая в scaled model.
-
-Поскольку `g_i=q_w f_i` и общий `q_w>0`, ordering families сохраняется.
-
-### 9. Возврат в latent scale
-
-Для continuation используются
+то
 
 ```text
-ell_i = max(0, ell_i^g/q_w)
-U_i   = min(1, U_i^g/q_w)
-Xi_i  = min(1, xi_i^g/q_w).
+g_i^* > g_j^*
 ```
 
-Критично: downstream gate использует именно latent deployment error `Xi_i`.
+для любого (j\ne i).
 
-### 10. Hard cutoff
-
-Если до заранее заданного calendar cutoff `B` certificate не получен, алгоритм возвращает
+Поскольку
 
 ```text
-NOT_CERTIFIED
+g_i = q_w f_i
 ```
 
-и может быть запущен clean fallback на оставшемся horizon.
+и один и тот же (q_w>0) используется для всех families, ordering сохраняется и в latent problem.
 
-Все source rounds, принадлежавшие certification phase, включая fillers и их поздние arrivals, исключаются из fresh fallback statistics.
+## Delayed execution и accounting
 
-## Calendar accounting
+Filler feedback не используется в designated certification estimator.
+
+Все source rounds certification phase — и designated, и filler — остаются source-tagged. Если после `NOT_CERTIFIED` запускается clean fallback, эти source rounds и их поздние arrivals не используются как fresh fallback data.
 
 Если:
 
-- `D` — число designated source pulls;
-- `C_h` — число synchronized checkpoints на уровне `h`;
+- (D) — число designated source pulls;
+- (C_h) — число synchronized checkpoints на уровне (h);
 
-то до hard-horizon truncation
+то до hard-cutoff truncation
 
 ```text
 T_cal = D + w * sum_h C_h.
 ```
 
-То есть delay cost учитывается явно как pipeline/checkpoint overhead.
+## Что именно является текущим claim
 
-## Что этот алгоритм не утверждает
+Этот алгоритм — executable certification backend при фиксированном общем известном (q_w>0).
 
-Сам по себе этот файл не означает, что:
+Он не означает автоматически, что:
 
-- новый backend всегда лучше текущего;
-- batching/checkpoint schedule оптимален;
-- `q_w^-1` является новой закономерностью;
-- текущие GADU Theorem 1/8 или scheduler theorem автоматически заменяются;
+- backend всегда лучше Hoeffding;
+- checkpoint schedule оптимален;
+- (q_w^{-1}) сам по себе является новой закономерностью;
+- текущие GADU Theorem 1/8 или Theorem 9 автоматически заменяются;
 - доказана end-to-end superiority на реальных данных.
 
-## Куда идти дальше
+## Связанная математика
 
 - [Upper theorem](theory/UPPER_THEOREM.md)
 - [Upper proof outline](theory/UPPER_PROOF.md)
