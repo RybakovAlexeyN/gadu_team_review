@@ -70,7 +70,8 @@ hard alternatives
 
 ## 3. Каноническая процедура
 
-→ [VS-Certify-Delayed](ALGORITHM.md)
+→ [VS-Certify-Delayed](ALGORITHM.md)  
+→ [Algorithm → proof obligation map](theory/ALGORITHM_PROOF_MAP.md)
 
 Перед theorem review отдельно проверить, что pseudocode определяет одну исполнимую процедуру.
 
