@@ -145,12 +145,13 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 \WHILE{true}
     \STATE \(\rho_h\leftarrow2^{-h-1}\);
            \(a_{i,h}\leftarrow\min\{1,\mathcal L_i^g\rho_h\}\).
-    \STATE Mark every \(I\in\mathcal C_i(h)\) unresolved and set \(r\leftarrow0\).
+    \STATE For every family \(i\), mark every \(I\in\mathcal C_i(h)\) unresolved;
+           set \(r\leftarrow0\).
 
     \WHILE{some active cell is unresolved}
         \STATE \(n_r\leftarrow2^{r+1}\).
 
-        \FOR{unresolved active cells in a fixed round-robin order}
+        \FOR{unresolved pairs \((i,I)\) in a fixed round-robin order}
             \WHILE{\(m_I<n_r\)}
                 \IF{\(t=B\)}
                     \STATE Build \(\mathsf{Acct}\) from
@@ -218,7 +219,7 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
         using fixed tie-breaking; set \(z_i\leftarrow c_{I_i^L}\).
         \STATE
         \(\xi_i^g\leftarrow
-          \min\{1,\overline M_i^g-\underline M_i^g\}\).
+          \min\{1,\max\{0,\overline M_i^g-\underline M_i^g\}\}\).
     \ENDFOR
 
     \IF{there exists \(i\) such that
@@ -226,7 +227,7 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
         \STATE
         \(\ell_i\leftarrow\max\{0,\underline M_i^g/q_w\}\),
         \(U_i\leftarrow\min\{1,\overline M_i^g/q_w\}\),
-        \(\Xi_i\leftarrow\min\{1,\xi_i^g/q_w\}\).
+        \(\Xi_i\leftarrow\min\{1,\max\{0,\xi_i^g/q_w\}\}\).
         \STATE Build \(\mathsf{Acct}\) from
                \(t,\delta_{\rm cert},\mathcal S_{\rm cert}\).
         \RETURN \textsc{Certified}
