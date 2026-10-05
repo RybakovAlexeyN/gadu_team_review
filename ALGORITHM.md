@@ -8,20 +8,20 @@
 
 **Inputs**
 
-- families (i=1,ldots,K) with domains (X_i=[0,1]^{d_i});
-- known latent Lipschitz constants (L_i);
-- fixed attribution window (w\in\mathbb Z_{\ge0});
-- common known (q_w=F(w)>0);
-- total certification risk (delta_{\rm cert});
-- predeclared hard calendar cutoff (B).
+- families $i=1,\ldots,K$ with domains $X_i=[0,1]^{d_i}$;
+- known latent Lipschitz constants $L_i$;
+- fixed attribution window $w\in\mathbb Z_{\ge0}$;
+- common known $q_w=F(w)>0$;
+- total certification risk $\delta_{\rm cert}$;
+- predeclared hard calendar cutoff $B$.
 
-Choose per-family risks (delta_i>0) such that
+Choose per-family risks $\delta_i>0$ such that
 
 ```text
 sum_i delta_i <= delta_cert.
 ```
 
-For dyadic depth (h),
+For dyadic depth $h$,
 
 ```text
 rho_h      = 2^(-h-1)
@@ -30,7 +30,7 @@ a_{i,h}    = min{1, L_i^g rho_h}
 n_r        = 2^(r+1)
 ```
 
-and for every possible level-(h) cell (I) of family (i) and checkpoint (r),
+and for every possible level-$h$ cell $I$ of family $i$ and checkpoint $r$,
 
 ```text
 eta_{i,h,I,r}
@@ -39,7 +39,7 @@ eta_{i,h,I,r}
 [pi^4 * 2^(d_i h) * (h+1)^2 * (r+1)^2].
 ```
 
-For (n>=2) finalized designated samples,
+For $n\ge2$ finalized designated samples,
 
 ```text
 rad(n,V,eta)
@@ -254,7 +254,7 @@ g_i^* > g_j^*
 g_i = q_w f_i
 ```
 
-и один и тот же (q_w>0) используется для всех families, ordering сохраняется и в latent problem.
+и один и тот же $q_w>0$ используется для всех families, ordering сохраняется и в latent problem.
 
 ## Delayed execution и accounting
 
@@ -275,7 +275,7 @@ T_cal = D + w * sum_h C_h.
 
 ## Что именно является текущим claim
 
-Этот алгоритм — executable certification backend при фиксированном общем известном (q_w>0).
+Этот алгоритм — executable certification backend при фиксированном общем известном $q_w>0$.
 
 Он не означает автоматически, что:
 
