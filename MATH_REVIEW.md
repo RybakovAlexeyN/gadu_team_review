@@ -68,7 +68,26 @@ hard alternatives
 7. достаточно ли широк model class для change-of-measure alternatives;
 8. корректно ли определены `delta in (0,1/2)`, `delta`-correctness и stopping model.
 
-## 3. Связь с delayed GADU
+## 3. Каноническая процедура
+
+→ [VS-Certify-Delayed](ALGORITHM.md)
+
+Перед theorem review отдельно проверить, что pseudocode определяет одну исполнимую процедуру.
+
+Особенно атаковать:
+
+1. не используется ли одно обозначение для двух разных объектов;
+2. различены ли generated designated sources (m_I) и finalized observations (n_I);
+3. завершается ли каждый inner loop при фиксированном checkpoint target;
+4. определено ли состояние resolved cell и сохраняется ли ее radius после resolution;
+5. не наследуются ли samples между разными parent/child centers без отдельного доказательства;
+6. возвращает ли `NOT_CERTIFIED` полный accounting/source ownership;
+7. отделена ли statistical family certification от downstream GADU commit;
+8. совпадает ли within-family core, анализируемый upper theorem, с тем state update, который реально использует delayed controller;
+9. корректно ли считается incomplete checkpoint при hard cutoff;
+10. имеет ли algorithm legal behavior для всех заявленных input assumptions.
+
+## 4. Связь с delayed GADU
 
 → [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
 
@@ -86,6 +105,7 @@ hard alternatives
 
 | Блок | Вердикт | Где проблема, если есть |
 |---|---|---|
+| Canonical algorithm | PASS / FIX / BLOCK | ... |
 | Upper theorem | PASS / FIX / BLOCK | ... |
 | Lower theorem | PASS / FIX / BLOCK | ... |
 | Delayed/GADU bridge | PASS / FIX / BLOCK | ... |
