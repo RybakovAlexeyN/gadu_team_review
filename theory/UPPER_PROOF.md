@@ -4,21 +4,43 @@ This file is a reviewable proof roadmap. The goal is to make every nontrivial im
 
 ## A. Simultaneous empirical-Bernstein confidence
 
-For each dyadic center stream and each geometric sample checkpoint, allocate a summable failure budget. On the resulting event of probability at least `1-delta`, every center mean lies in its interval at every used checkpoint.
-
-For Bernoulli mean `m`, observable empirical-Bernstein stopping gives sample count of the form
+The public theorem now fixes one concrete allocation. For every possible depth-`h` cell and checkpoint `r`:
 
 ```text
-n <= C * lambda * [ m/a^2 + 1/a ]
+eta_{h,I,r}
+=
+36 delta /
+[pi^4 * 2^(d h) * (h+1)^2 * (r+1)^2].
 ```
 
-to reach confidence half-width at most a fixed fraction of the geometric uncertainty `a`.
+The total budget is at most `delta`.
+
+For `n>=2` finalized Bernoulli samples use
+
+```text
+r_n =
+sqrt(2 V_n log(6/eta)/n)
++
+7 log(6/eta)/(3(n-1)).
+```
+
+The learner stops from this observable radius.
+
+The frozen analysis gives the explicit center-wise bound
+
+```text
+N_c(h)
+<=
+4
++ 1024 m Lambda / a_h^2
++ 140 Lambda / a_h.
+```
 
 The algorithm does not need to know `m`; `m` appears only in the analysis.
 
 ## B. Valid cell upper bounds and safe pruning
 
-At level `h`, let `a_h = L rho_h` for cell radius `rho_h`.
+At level `h`, use `rho_h=2^(-h-1)` and `a_h=min{1,L rho_h}`. The parent/child identity `a_{h-1}=2a_h` is used only after leaving the clipped coarse regime.
 
 For a cell `I` with center `c`,
 
@@ -48,10 +70,10 @@ for an absolute constant `C_1`.
 
 Once every active center is statistically resolved to a small fraction of `a_h`, the family upper envelope and best lower bound differ by `O(a_h)`.
 
-Therefore the algorithm stops once
+The explicit certificate calculation gives width at most `5 a_h/2`, so the algorithm stops once
 
 ```text
-a_h <= c * epsilon.
+a_h <= 2 epsilon / 5.
 ```
 
 ## E. Weighted packing bound
@@ -94,9 +116,11 @@ g(x)/(gap(x)+epsilon)^(d+2)
 1/(gap(x)+epsilon)^(d+1).
 ```
 
-## H. Coarse levels
+## H. Coarse levels and flat case
 
-The finitely many levels with geometric uncertainty clipped at one contribute at most `O_d(1+L^d)`. For `epsilon <= 1`, this is absorbed by the displayed target functional up to dimension-dependent constants.
+The finitely many levels with `a_h=1` contribute at most `O_d(1+L^d)`. For `epsilon<=1`, this is absorbed by the displayed target functional up to dimension-dependent constants.
+
+If `L=0`, the function is constant, every point is optimal, and this branch is handled separately before the geometric proof.
 
 ## Points the reviewer should try to break
 
