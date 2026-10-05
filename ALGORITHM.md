@@ -123,19 +123,25 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 
 ## 4. Canonical procedure
 
-Готовый LaTeX source алгоритма вынесен отдельно:
+Готовый reader-facing LaTeX алгоритм вынесен отдельно:
 
 → [`VS_CERTIFY_DELAYED_ALGORITHM.tex`](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex)
 
-Это именно тот файл, который можно вставлять в manuscript через `\input{...}`.
-Он использует обычный `algorithm + algorithmic`.
+Это короткий **Algorithm 1 для основного текста статьи**: только основной flow, без визуальной перегрузки.
+
+Детальные процедуры вынесены рядом:
+
+→ [`VS_CERTIFY_DELAYED_SUBROUTINES.tex`](theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex)
+
+В manuscript их можно подключать отдельно через `\input{...}`.  
+Используется `algorithm + algpseudocode`.
 
 Нужные packages:
 
 ```latex
 \usepackage{amsmath,amssymb}
 \usepackage{algorithm}
-\usepackage{algorithmic}
+\usepackage{algpseudocode}
 ```
 
 Если убрать LaTeX-синтаксис, процедура выглядит так:
@@ -169,7 +175,7 @@ if the calendar cutoff is exhausted at any point:
     return NOT_CERTIFIED with full accounting
 ```
 
-Так GitHub-страница остается читаемой, а полный формальный pseudocode живет в отдельном `.tex` файле.
+Так основной Algorithm 1 остается коротким и читаемым, а вся формальная детализация живет в отдельных subroutines и не забивает основной текст статьи.
 
 ## 5. Round chronology
 
