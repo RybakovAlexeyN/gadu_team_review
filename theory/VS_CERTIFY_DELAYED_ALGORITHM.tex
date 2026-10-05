@@ -1,45 +1,29 @@
-% VS-Certify-Delayed: canonical reader-facing pseudocode.
+% VS-Certify-Delayed: reader-facing paper pseudocode.
 %
 % Required packages:
 %   \usepackage{amsmath,amssymb}
 %   \usepackage{algorithm}
-%   \usepackage{algorithmic}
+%   \usepackage{algpseudocode}
 %
-% Design goal:
-% keep notation outside the procedure and make the execution phases
-% visible at a glance.
+% The main procedure is intentionally short. The two helper procedures
+% expose the statistical and geometric details without hiding them.
 
-\[
-\operatorname{Rad}(n,V,\eta)
-:=
-\sqrt{\frac{2V\log(6/\eta)}{n}}
-+
-\frac{7\log(6/\eta)}{3(n-1)},
-\qquad n\ge2.
-\]
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
 
-For family \(i\), depth \(h\), cell \(I\), and checkpoint \(r\), define
-\[
-\eta_{i,h,I,r}
-:=
-\frac{36\delta_i}
-{\pi^4\,2^{d_i h}(h+1)^2(r+1)^2}.
-\]
-
-Write
-\[
-\mathsf{Acct}(t)
-:=
-\bigl(t,\delta_{\rm cert},\mathcal S_{\rm cert}\bigr).
-\]
+\newcommand{\VSrad}[3]{%
+  \sqrt{\frac{2#2\log(6/#3)}{#1}}
+  +\frac{7\log(6/#3)}{3(#1-1)}%
+}
 
 \begin{algorithm}[t]
 \caption{\textsc{VS-Certify-Delayed}}
 \label{alg:vs-certify-delayed}
+\small
 \begin{algorithmic}[1]
 
-\REQUIRE
-Families \(i=1,\ldots,K\) on \(X_i=[0,1]^{d_i}\);
+\Require
+families \(i=1,\ldots,K\) on \(X_i=[0,1]^{d_i}\);
 valid Lipschitz bounds \(L_i>0\);
 common known \(q_w>0\);
 window \(w\in\mathbb Z_{\ge0}\);
@@ -47,144 +31,168 @@ risks \((\delta_i)_{i=1}^K\) with
 \(\sum_i\delta_i\le\delta_{\rm cert}\);
 calendar cutoff \(B\).
 
-\ENSURE
+\Ensure
 \(\textsc{Certified}
 \bigl(i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}\bigr)\)
 or
 \(\textsc{Not-Certified}(\mathsf{Acct})\).
 
-\STATE \textbf{Initialize}
-\STATE \(t\leftarrow0\), \(h\leftarrow0\),
-       \(\mathcal S_{\rm cert}\leftarrow\varnothing\).
-\FOR{each family \(i\)}
-    \STATE \(\mathcal L_i^g\leftarrow q_wL_i\),
-           \(\mathcal C_i(0)\leftarrow\{X_i\}\).
-    \STATE For the root cell \(I\), set
-           \(m_I=n_I=0\) and
-           \(\mathrm{resolved}(I)\leftarrow\mathrm{false}\).
-\ENDFOR
+\Statex
+\(\mathcal L_i^g\gets q_wL_i\),
+\(\rho_h\gets2^{-h-1}\),
+\[
+\eta_{i,h,I,r}
+:=
+\frac{36\delta_i}
+{\pi^4\,2^{d_i h}(h+1)^2(r+1)^2}.
+\]
+\Statex
+\textbf{Global state:}
+calendar time \(t\), owned source set \(\mathcal S_{\rm cert}\),
+and per-cell statistics
+\((m_I,n_I,\widehat g_I,V_I,\operatorname{rad}_I)\).
 
-\WHILE{true}
+\State \(t\gets0\), \(h\gets0\),
+       \(\mathcal S_{\rm cert}\gets\varnothing\).
+\For{each family \(i\)}
+    \State \(\mathcal C_i(0)\gets\{X_i\}\) with fresh root-cell state.
+\EndFor
 
-    \STATE \textbf{Phase A: choose the geometric resolution}
-    \STATE \(\rho_h\leftarrow2^{-h-1}\).
-    \FOR{each family \(i\)}
-        \STATE \(a_{i,h}\leftarrow
-               \min\{1,\mathcal L_i^g\rho_h\}\).
-        \STATE Mark every \(I\in\mathcal C_i(h)\) unresolved.
-    \ENDFOR
-    \STATE \(r\leftarrow0\).
+\While{true}
+    \If{\(\Call{ResolveLevel}{h}=\textsc{Fail}\)}
+        \State \Return \(\textsc{Not-Certified}(\Call{Acct}{t})\)
+    \EndIf
 
-    \STATE \textbf{Phase B: resolve every active center}
-    \WHILE{some active cell is unresolved}
-        \STATE \(n_r\leftarrow2^{r+1}\).
+    \For{each family \(i\)}
+        \State
+        \((z_i,\underline M_i^g,\overline M_i^g,\xi_i^g)
+        \gets \Call{FamilyCertificate}{i,h}\)
+    \EndFor
 
-        \STATE \textit{B1. Designated sampling}
-        \FOR{each unresolved pair \((i,I)\) in fixed round-robin order}
-            \WHILE{\(m_I<n_r\)}
-                \IF{\(t=B\)}
-                    \STATE \textbf{return }
-                    \(\textsc{Not-Certified}(\mathsf{Acct}(t))\).
-                \ENDIF
-                \STATE Deploy \((i,c_I)\) at round \(t+1\).
-                \STATE Tag round \(t+1\) as certification-owned:
-                       \(\mathcal S_{\rm cert}\leftarrow
-                       \mathcal S_{\rm cert}\cup\{t+1\}\).
-                \STATE \(m_I\leftarrow m_I+1\),
-                       \(t\leftarrow t+1\).
-            \ENDWHILE
-        \ENDFOR
-
-        \STATE \textit{B2. Maturation flush}
-        \STATE Freeze all active sets.
-        \FOR{\(u=1,\ldots,w\)}
-            \IF{\(t=B\)}
-                \STATE \textbf{return }
-                \(\textsc{Not-Certified}(\mathsf{Acct}(t))\).
-            \ENDIF
-            \STATE Deploy the first active center under the fixed order.
-            \STATE Tag this filler source as certification-owned and
-                   exclude its feedback from designated estimators.
-            \STATE \(\mathcal S_{\rm cert}\leftarrow
-                   \mathcal S_{\rm cert}\cup\{t+1\}\),
-                   \(t\leftarrow t+1\).
-        \ENDFOR
-
-        \STATE \textit{B3. Confidence update}
-        \STATE Finalize each newly generated designated source:
-               \(B_s^{(w)}\leftarrow
-               \mathbf 1\{Z_s=1,\ D_s\le w\}\).
-        \FOR{each still-unresolved active pair \((i,I)\)}
-            \STATE \(n_I\leftarrow m_I\).
-            \STATE Recompute \(\widehat g_I\) and \(V_I\)
-                   from finalized designated observations at \(c_I\).
-            \STATE \(\operatorname{rad}_I\leftarrow
-                   \operatorname{Rad}
-                   (n_I,V_I,\eta_{i,h,I,r})\).
-            \IF{\(\operatorname{rad}_I\le a_{i,h}/8\)}
-                \STATE Mark \(I\) resolved and freeze
-                       \((\widehat g_I,V_I,\operatorname{rad}_I,r)\)
-                       for the rest of depth \(h\).
-            \ENDIF
-        \ENDFOR
-        \STATE \(r\leftarrow r+1\).
-    \ENDWHILE
-
-    \STATE \textbf{Phase C: build family certificates}
-    \FOR{each family \(i\)}
-        \FOR{each \(I\in\mathcal C_i(h)\)}
-            \STATE \(\mathrm{LCB}(I)\leftarrow
-                   \max\{0,\widehat g_I-\operatorname{rad}_I\}\).
-            \STATE \(U_{\rm cell}(I)\leftarrow
-                   \min\{1,\widehat g_I+
-                   \operatorname{rad}_I+a_{i,h}\}\).
-        \ENDFOR
-        \STATE \(\underline M_i^g\leftarrow
-               \max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)\).
-        \STATE \(\overline M_i^g\leftarrow
-               \max_{I\in\mathcal C_i(h)}U_{\rm cell}(I)\).
-        \STATE Choose
-               \(I_i^L\in\arg\max_{I\in\mathcal C_i(h)}
-               \mathrm{LCB}(I)\) using fixed tie-breaking.
-        \STATE \(z_i\leftarrow c_{I_i^L}\).
-        \STATE \(\xi_i^g\leftarrow
-               \min\{1,\max\{0,
-               \overline M_i^g-\underline M_i^g\}\}\).
-    \ENDFOR
-
-    \STATE \textbf{Phase D: test family separation}
-    \IF{there exists \(i\) such that
+    \If{some \(i\) satisfies
         \(\underline M_i^g>
         \max_{j\ne i}\overline M_j^g\)}
-        \STATE Choose the first such \(i\) under the fixed family order.
-        \FOR{each family \(j\)}
-            \STATE \(\ell_j\leftarrow
-                   \max\{0,\underline M_j^g/q_w\}\).
-            \STATE \(U_j\leftarrow
-                   \min\{1,\overline M_j^g/q_w\}\).
-            \STATE \(\Xi_j\leftarrow
-                   \min\{1,\max\{0,\xi_j^g/q_w\}\}\).
-        \ENDFOR
-        \STATE \textbf{return }
-        \(\textsc{Certified}\bigl(
-        i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,
-        \mathsf{Acct}(t)\bigr)\).
-    \ENDIF
+        \State choose the first such \(i\) under the fixed family order
+        \For{each family \(j\)}
+            \State
+            \(\ell_j\gets\max\{0,\underline M_j^g/q_w\}\)
+            \State
+            \(U_j\gets\min\{1,\overline M_j^g/q_w\}\)
+            \State
+            \(\Xi_j\gets\min\{1,\max\{0,\xi_j^g/q_w\}\}\)
+        \EndFor
+        \State \Return
+        \(\textsc{Certified}
+        \bigl(i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,
+        \Call{Acct}{t}\bigr)\)
+    \EndIf
 
-    \STATE \textbf{Phase E: prune and refine}
-    \FOR{each family \(i\)}
-        \STATE \(\mathcal S_i\leftarrow
-               \{I\in\mathcal C_i(h):
-               U_{\rm cell}(I)\ge\underline M_i^g\}\).
-        \STATE Set \(\mathcal C_i(h+1)\) to all dyadic children
-               of cells in \(\mathcal S_i\).
-        \STATE Initialize every child \(J\) with
-               \(m_J=n_J=0\) and
-               \(\mathrm{resolved}(J)\leftarrow\mathrm{false}\).
-    \ENDFOR
-    \STATE \(h\leftarrow h+1\).
+    \For{each family \(i\)}
+        \State
+        \(\mathcal S_i\gets
+        \{I\in\mathcal C_i(h):
+        U_{\rm cell}(I)\ge\underline M_i^g\}\)
+        \State
+        \(\mathcal C_i(h+1)\gets
+        \Call{FreshChildren}{\mathcal S_i}\)
+    \EndFor
+    \State \(h\gets h+1\)
+\EndWhile
 
-\ENDWHILE
+\Statex
+\Statex \textbf{Subroutine: resolve one dyadic level}
+
+\Procedure{ResolveLevel}{\(h\)}
+    \For{each family \(i\)}
+        \State
+        \(a_{i,h}\gets
+        \min\{1,\mathcal L_i^g\rho_h\}\)
+        \State mark every \(I\in\mathcal C_i(h)\) unresolved
+    \EndFor
+    \State \(r\gets0\)
+
+    \While{some active cell is unresolved}
+        \State \(n_r\gets2^{r+1}\)
+
+        \For{each unresolved pair \((i,I)\) in fixed round-robin order}
+            \While{\(m_I<n_r\)}
+                \If{\(t=B\)}
+                    \State \Return \(\textsc{Fail}\)
+                \EndIf
+                \State deploy \((i,c_I)\) as a designated source
+                \State tag the source as certification-owned
+                \State \(m_I\gets m_I+1\), \(t\gets t+1\)
+            \EndWhile
+        \EndFor
+
+        \State freeze all active sets
+        \For{\(u=1,\ldots,w\)}
+            \If{\(t=B\)}
+                \State \Return \(\textsc{Fail}\)
+            \EndIf
+            \State deploy the first active center under the fixed order
+            \State tag it as a filler source; exclude its feedback
+                   from designated estimators
+            \State \(t\gets t+1\)
+        \EndFor
+
+        \State finalize each new designated source as
+        \(B_s^{(w)}\gets\mathbf 1\{Z_s=1,\ D_s\le w\}\)
+
+        \For{each still-unresolved pair \((i,I)\)}
+            \State \(n_I\gets m_I\)
+            \State recompute \(\widehat g_I\) and \(V_I\)
+                   from finalized designated samples at \(c_I\)
+            \State
+            \(\operatorname{rad}_I\gets
+            \VSrad{n_I}{V_I}{\eta_{i,h,I,r}}\)
+            \If{\(\operatorname{rad}_I\le a_{i,h}/8\)}
+                \State mark \(I\) resolved and freeze its statistics
+            \EndIf
+        \EndFor
+        \State \(r\gets r+1\)
+    \EndWhile
+
+    \State \Return \(\textsc{Success}\)
+\EndProcedure
+
+\Statex
+\Statex \textbf{Subroutine: extract one family certificate}
+
+\Procedure{FamilyCertificate}{\(i,h\)}
+    \For{each \(I\in\mathcal C_i(h)\)}
+        \State
+        \(\mathrm{LCB}(I)\gets
+        \max\{0,\widehat g_I-\operatorname{rad}_I\}\)
+        \State
+        \(U_{\rm cell}(I)\gets
+        \min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}\)
+    \EndFor
+
+    \State
+    \(\underline M_i^g\gets
+    \max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)\)
+    \State
+    \(\overline M_i^g\gets
+    \max_{I\in\mathcal C_i(h)}U_{\rm cell}(I)\)
+
+    \State choose
+    \(I_i^L\in
+    \arg\max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)\)
+    using fixed tie-breaking
+    \State \(z_i\gets c_{I_i^L}\)
+    \State
+    \(\xi_i^g\gets
+    \min\{1,\max\{0,\overline M_i^g-\underline M_i^g\}\}\)
+
+    \State \Return
+    \((z_i,\underline M_i^g,\overline M_i^g,\xi_i^g)\)
+\EndProcedure
+
+\Function{Acct}{\(t\)}
+    \State \Return
+    \((t,\delta_{\rm cert},\mathcal S_{\rm cert})\)
+\EndFunction
 
 \end{algorithmic}
 \end{algorithm}
