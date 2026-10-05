@@ -24,7 +24,7 @@ def hoeffding_radius_f(sample_count, q, eta):
     return math.sqrt(math.log(2.0 / eta) / (2.0 * sample_count)) / q
 
 
-def empirical_bernstein_radius(mean_g, sample_var, sample_count, eta):
+def empirical_bernstein_radius(sample_var, sample_count, eta):
     """Observable empirical-Bernstein radius on the scaled g=q*f scale."""
     import numpy as np
 
@@ -81,7 +81,6 @@ def vectorized_regime(f, q, target_radius_f, delta, seed_count):
         sample_var = (n / (n - 1.0)) * mean_g * (1.0 - mean_g)
 
         radius_vs = empirical_bernstein_radius(
-            mean_g,
             sample_var,
             n,
             eta,
