@@ -17,6 +17,13 @@
 \bigl(t,\delta_{\rm cert},\mathcal S_{\rm cert}\bigr).
 \]
 
+When a family separates, convert every scaled certificate to latent scale by
+\[
+\ell_j=\max\{0,\underline M_j^g/q_w\},\qquad
+U_j=\min\{1,\overline M_j^g/q_w\},\qquad
+\Xi_j=\min\{1,\xi_j^g/q_w\}.
+\]
+
 \begin{algorithm}[t]
 \caption{\textsc{VS-Certify-Delayed}: main procedure}
 \label{alg:vs-certify-delayed}
@@ -73,12 +80,7 @@ or
         \State
         choose the first such \(i\) under the fixed family order
         \State
-        convert all scaled family certificates to latent scale:
-        \[
-        \ell_j=\max\{0,\underline M_j^g/q_w\},\quad
-        U_j=\min\{1,\overline M_j^g/q_w\},\quad
-        \Xi_j=\min\{1,\xi_j^g/q_w\}
-        \]
+        convert all family certificates to latent scale
         \State
         \Return
         \(\textsc{Certified}
