@@ -1,6 +1,6 @@
-# Математический ревью — для Саши
+# Математическая проверка
 
-Здесь нужен не обзор проекта, а независимая попытка сломать две основные теоремы.
+Задача этого раздела — независимо попытаться сломать две основные теоремы и их связь с delayed GADU.
 
 Итог по каждому блоку:
 
@@ -8,14 +8,14 @@
 - **FIX** — результат жив, но statement/proof нужно поправить;
 - **BLOCK** — есть ошибка, которая ломает заявленный результат.
 
-Если есть FIX или BLOCK, желательно указать точный шаг и минимальный ремонт.
+Если есть FIX или BLOCK, полезно указать точный шаг и минимальный ремонт.
 
 ## 1. Upper theorem
 
 → [Формулировка](theory/UPPER_THEOREM.md)  
 → [Proof outline](theory/UPPER_PROOF.md)
 
-Нужно независимо проверить цепочку:
+Проверить цепочку:
 
 ```text
 empirical Bernstein confidence
@@ -28,7 +28,7 @@ empirical Bernstein confidence
 → final integral bound
 ```
 
-Особенно важно попытаться сломать:
+Особенно важно атаковать:
 
 1. simultaneous confidence при adaptive activation / stopping;
 2. переход parent survivor → every sampled child is near-optimal;
@@ -66,8 +66,6 @@ hard alternatives
 
 ## 3. Связь с delayed GADU
 
-После theorem pair отдельно посмотреть:
-
 → [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
 
 Ключевые вопросы:
@@ -78,11 +76,7 @@ hard alternatives
 - корректно ли переводится scaled certificate обратно в latent scale;
 - использует ли continuation gate именно latent deployment error.
 
-## Что от тебя нужно к созвону
-
-Не обязательно переписывать доказательство целиком.
-
-Достаточно таблицы:
+## Удобный формат результата
 
 | Блок | Вердикт | Где проблема, если есть |
 |---|---|---|
