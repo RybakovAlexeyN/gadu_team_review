@@ -83,9 +83,36 @@ sqrt(2 V_n log(6/eta) / n)
 
 The learner stops a center from this observable radius; the unknown mean appears only in the performance analysis.
 
+## Which procedure this theorem analyzes
+
+This theorem analyzes the **single-family within-family core** used by
+[VS-Certify-Delayed](../ALGORITHM.md), not the multi-family delayed stopping rule itself.
+
+Given target accuracy `epsilon`, run the same dyadic resolution and pruning rule in the direct Bernoulli oracle model until the first resolved depth satisfying
+
+```text
+a_h <= 2 epsilon / 5.
+```
+
+At that depth choose the sampled center `z` attaining the largest lower confidence bound and define
+
+```text
+ell^g = max LCB,
+U^g   = max cell upper bound,
+xi    = min{1, U^g - ell^g}.
+```
+
+Then the returned pair satisfies
+
+```text
+g* - g(z) <= xi <= epsilon.
+```
+
+The multi-family delayed controller uses the same per-family state update, but it may stop earlier when strict family separation is already available. Calendar delay is handled separately by the delayed execution proposition.
+
 ## Upper bound
 
-For every target accuracy `epsilon in (0,1]` and confidence `delta in (0,1)`, there exists an executable dyadic certified optimizer that returns `(x_hat, xi)` such that, with probability at least `1-delta`,
+For every target accuracy `epsilon in (0,1]` and confidence `delta in (0,1)`, the single-family core above returns `(x_hat, xi)` such that, with probability at least `1-delta`,
 
 ```text
 g* - g(x_hat) <= xi <= epsilon.
