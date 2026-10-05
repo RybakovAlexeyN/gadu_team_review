@@ -227,6 +227,7 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 
     \IF{there exists \(i\) such that
          \(\underline M_i^g>\max_{j\ne i}\overline M_j^g\)}
+        \STATE Choose the first such \(i\) under the fixed family order.
         \FOR{each family \(j\)}
             \STATE
             \(\ell_j\leftarrow\max\{0,\underline M_j^g/q_w\}\),
