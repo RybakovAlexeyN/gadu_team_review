@@ -12,9 +12,11 @@
 
 При этом мы не утверждаем uniform improvement: controlled benchmark специально содержит режимы, где новый вариант хуже.
 
-Для delayed setting результат доведен до исполнимого механизма: каждый календарный раунд имеет действие, unresolved feedback не считается нулем, а новый backend подключается к существующему GADU certified-optimizer interface.
+Для delayed setting результат доведен до отдельной исполнимой процедуры **VS-Certify-Delayed**: каждый календарный раунд имеет действие, unresolved feedback не считается нулем, confidence обновляется на synchronized checkpoints, а новый backend подключается к существующему GADU certified-optimizer interface.
 
-## Что доказано
+→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)
+
+## Текущий математический кандидат
 
 - [Variance-sensitive upper theorem](theory/UPPER_THEOREM.md)
 - [Scoped fine-gap lower theorem](theory/LOWER_THEOREM.md)
@@ -24,7 +26,7 @@
 
 → [Controlled benchmark](experiments/README.md)
 
-В заранее выбранных sparse-positive regimes:
+В выбранных sparse-positive regimes:
 
 ```text
 mean N_VS/N_H ≈ 0.123
