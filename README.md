@@ -1,37 +1,54 @@
-# GADU Team Review
+# GADU — материалы к командному ревью
 
-Public review packet for the current GADU variance-sensitive research candidate.
+Это публичный пакет к командному созвону. Здесь только то, что нужно для проверки текущего научного результата: статус, математика, интеграция, контролируемый эксперимент и выводы по реальным данным.
 
-This repository is intentionally small. It contains only the material needed to review the scientific result: theorem statements, proof outlines, delayed-execution logic, controlled benchmark evidence, and the real-data model-fit summary.
+## С чего начать
 
-## What reviewers should decide
+### Юрий — статус проекта, 3 минуты
+→ [PROJECT_STATUS.md](PROJECT_STATUS.md)
 
-For each area, please return one of:
+Что уже закрыто после созвона 29 сентября, где сейчас главный риск статьи и какие решения нужны от команды.
 
-- **PASS**
-- **WORDING / SCOPE CHANGE**
-- **BLOCK**
+### Саша — математическая проверка
+→ [MATH_REVIEW.md](MATH_REVIEW.md)
 
-A BLOCK should identify the exact claim, proof step, or interface that fails and, if possible, the smallest repair that would clear it.
+Две основные теоремы, конкретные места для атаки и требуемый итог: **PASS / FIX / BLOCK**.
 
-## Main scientific candidate
+### Ильгам — целостность статьи
+→ [PAPER_REVIEW.md](PAPER_REVIEW.md)
 
-1. A variance-sensitive certified Lipschitz continuum upper bound for Bernoulli observations.
-2. A fine-gap lower bound with the same local Bernoulli information structure.
-3. An executable delayed positive-only realization.
-4. A GADU composition rule through a certified-optimizer interface.
+Складывается ли из результата одна понятная научная история и что нужно изменить в тексте статьи.
 
-We do **not** claim uniform superiority, a new `q^-1` law by itself, a full minimax characterization, or end-to-end real-world GADU validation.
+## Технические материалы
 
-## Suggested reading order
+- [Upper theorem](theory/UPPER_THEOREM.md)
+- [Upper proof outline](theory/UPPER_PROOF.md)
+- [Lower theorem](theory/LOWER_THEOREM.md)
+- [Lower proof outline](theory/LOWER_PROOF.md)
+- [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
+- [Controlled benchmark](experiments/README.md)
+- [Criteo model-fit evidence](data/CRITEO_MODEL_FIT.md)
+- [Полный список вопросов для научного ревью](REVIEW_REQUEST.md)
 
-1. [`REVIEW_REQUEST.md`](REVIEW_REQUEST.md)
-2. [`theory/UPPER_THEOREM.md`](theory/UPPER_THEOREM.md)
-3. [`theory/UPPER_PROOF.md`](theory/UPPER_PROOF.md)
-4. [`theory/LOWER_THEOREM.md`](theory/LOWER_THEOREM.md)
-5. [`theory/LOWER_PROOF.md`](theory/LOWER_PROOF.md)
-6. [`theory/DELAYED_GADU.md`](theory/DELAYED_GADU.md)
-7. [`experiments/README.md`](experiments/README.md)
-8. [`data/CRITEO_MODEL_FIT.md`](data/CRITEO_MODEL_FIT.md)
+## Что мы утверждаем
 
-The main review question is simple: **is there a substantive mathematical or integration BLOCK?**
+Текущий кандидат состоит из четырех частей:
+
+1. variance-sensitive upper bound для certified Lipschitz continuum optimization с Bernoulli-наблюдениями;
+2. fine-gap lower bound с той же локальной Bernoulli information structure;
+3. исполнимый delayed positive-only механизм;
+4. аккуратная интеграция в GADU через существующий certified-optimizer interface.
+
+## Чего мы не утверждаем
+
+Мы не заявляем:
+
+- что новый метод всегда лучше Hoeffding;
+- что сам по себе закон `q^-1` новый;
+- полный minimax characterization;
+- end-to-end validation GADU на Criteo;
+- приоритет формулировки «first» без отдельной проверки литературы.
+
+Главный вопрос к команде перед финальной сборкой статьи:
+
+> **Есть ли substantive BLOCK в математике, интеграции или научной истории?**
