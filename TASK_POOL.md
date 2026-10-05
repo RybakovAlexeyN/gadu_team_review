@@ -6,11 +6,25 @@
 
 Нужно было довести идею до формы, которую можно реально запускать и проверять.
 
-**Статус:** существенно закрыто, с изменением научного фокуса.
+**Статус:** закрыто на уровне текущего scientific candidate.
 
-Основным кандидатом стал variance-sensitive certified-continuum backend с явной delayed execution логикой.
+Процедура немного модернизирована и оформлена как отдельный исполнимый алгоритм **VS-Certify-Delayed**.
 
-Материалы:
+Он явно задает:
+
+- dyadic active cells;
+- designated sampling;
+- empirical-Bernstein confidence;
+- synchronized checkpoints;
+- delayed flush через `w` legal filler rounds;
+- finalization matured feedback;
+- prune / split;
+- family certification;
+- hard cutoff с `NOT_CERTIFIED`.
+
+→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)
+
+Связанная математика:
 - [Upper theorem](theory/UPPER_THEOREM.md)
 - [Lower theorem](theory/LOWER_THEOREM.md)
 - [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
@@ -49,16 +63,21 @@ Criteo Attribution использован для проверки delayed-positi
 
 На обсуждении было важно убрать неопределенное `wait for maturation`: система должна иметь определенное действие в каждый момент времени.
 
-**Статус:** для нового backend разрешено.
+**Статус:** для нового backend разрешено и вынесено в отдельный алгоритм.
 
 Текущая execution logic:
 
 - имеет legal deployment каждый calendar round;
 - не кодирует unresolved feedback как zero;
-- использует явный flush/checkpoint mechanism;
+- использует synchronized checkpoints;
+- после designated sampling выполняет ровно `w` filler rounds;
+- замораживает active set на время flush;
 - отдельно учитывает designated и filler rounds;
+- делает prune/split только после finalization;
+- при hard cutoff возвращает `NOT_CERTIFIED`;
 - учитывает calendar cost задержки.
 
+→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)  
 → [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
 
 ## 5. Собрать итоговую статью и провести командное чтение
