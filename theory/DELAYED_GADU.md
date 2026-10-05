@@ -39,7 +39,7 @@ The delayed certifier:
 7. recomputes confidence intervals and Lipschitz cell bounds;
 8. prunes impossible cells and splits survivors;
 9. checks learner-computable family separation;
-10. returns `NOT_CERTIFIED` if the predeclared hard calendar cutoff is exhausted before an accepted certificate.
+10. returns `NOT_CERTIFIED(accounting)` if the predeclared hard calendar cutoff is exhausted before an accepted certificate.
 
 Unresolved silence is never encoded as zero, including at the hard cutoff.
 
@@ -50,6 +50,8 @@ T_cal = D + w * sum_h C_h.
 ```
 
 ## Certified-optimizer interface
+
+A `CERTIFIED` output is a statistical family certificate, not an automatic GADU commit. The downstream continuation/fallback gate is evaluated separately.
 
 Suppose the scaled optimizer returns
 
@@ -97,7 +99,7 @@ s + (T-s) Xi_i <= V_fb(T,B).
 
 The conservative continuation underlying this certificate is repeated deployment of the returned point `z_i`; another continuation may be used only if it has a separately proved certificate no larger than this one.
 
-If no certificate is accepted by `B`, restart the frozen full-union fallback on the fresh remaining horizon.
+If no certificate is accepted by `B`, or if the primitive returns `NOT_CERTIFIED(accounting)`, restart the frozen full-union fallback on the fresh remaining horizon. The accounting record is used to identify every source round owned by certification.
 
 Certification-owned source rounds, including filler rounds and any later arrivals tagged to those sources, are excluded from fresh fallback statistics. Under the fresh-outcome model, future source outcomes after the clean restart are fresh conditional on the pre-cutoff history.
 
