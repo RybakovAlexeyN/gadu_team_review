@@ -2,6 +2,8 @@
 
 Задача этого раздела — независимо попытаться сломать две основные теоремы и их связь с delayed GADU.
 
+После внутреннего red-team формулировки были дополнительно ужесточены: в public theorem files теперь явно зафиксированы confidence allocation, empirical-Bernstein radius, lower-bound correctness model, fine-gap cutoff и delayed execution semantics. Это не заменяет независимый coauthor review.
+
 Итог по каждому блоку:
 
 - **PASS** — существенной проблемы нет;
@@ -35,8 +37,9 @@ empirical Bernstein confidence
 3. направление packing-to-volume inequality;
 4. boundary handling на `[0,1]^d`;
 5. coarse-scale absorption;
-6. скрытую зависимость внутри `Lambda`;
-7. крайние случаи вроде малых `L`, плоской функции и `epsilon` около 1.
+6. корректность явной confidence allocation и определения `Lambda`;
+7. переход между clipped coarse levels и fine dyadic regime;
+8. крайние случаи `L=0`, малых `L`, плоской функции и `epsilon` около 1.
 
 ## 2. Lower theorem
 
@@ -60,9 +63,10 @@ hard alternatives
 2. действительно ли каждая alternative flips the best family;
 3. корректен ли Bernoulli KL bound на всем заявленном диапазоне;
 4. честно ли учтен logarithmic loss по слоям;
-5. корректен ли fixed fine-gap cutoff;
+5. корректен ли зафиксированный cutoff `c0=1/6`;
 6. не расширяется ли statement случайно с `A_fine` на весь `X`;
-7. достаточно ли точно определены `delta`-correctness и stopping model.
+7. достаточно ли широк model class для change-of-measure alternatives;
+8. корректно ли определены `delta in (0,1/2)`, `delta`-correctness и stopping model.
 
 ## 3. Связь с delayed GADU
 
@@ -71,8 +75,10 @@ hard alternatives
 Ключевые вопросы:
 
 - каждый ли calendar round имеет legal deployment;
-- unresolved feedback нигде не считается нулем;
-- clean ли ownership данных при fallback;
+- корректны ли `w=0` и timing source с delay ровно `w`;
+- unresolved feedback нигде не считается нулем, включая hard cutoff;
+- заморожен ли active set во время flush;
+- clean ли ownership данных при fallback, включая later arrivals;
 - корректно ли переводится scaled certificate обратно в latent scale;
 - использует ли continuation gate именно latent deployment error.
 
