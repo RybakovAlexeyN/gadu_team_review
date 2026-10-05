@@ -12,7 +12,7 @@ Families индексируются \(i=1,\ldots,K\), их domains:
 X_i=[0,1]^{d_i}.
 \]
 
-Для каждой family известен latent Lipschitz bound \(L_i\).
+Для каждой family известен валидный положительный latent Lipschitz bound \(L_i>0\). Он может быть строгим upper bound на истинную Lipschitz constant; минимальность не требуется.
 
 Фиксируем:
 
@@ -129,7 +129,7 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 \label{alg:vs-certify-delayed}
 \begin{algorithmic}[1]
 \REQUIRE Families \(i=1,\ldots,K\), domains \(X_i=[0,1]^{d_i}\),
-         latent Lipschitz bounds \(L_i\), common known \(q_w>0\),
+         valid positive latent Lipschitz bounds \(L_i>0\), common known \(q_w>0\),
          window \(w\in\mathbb Z_{\ge0}\), risks \((\delta_i)_i\)
          with \(\sum_i\delta_i\le\delta_{\rm cert}\), cutoff \(B\).
 \ENSURE \textsc{Certified}\((i,z_i,\ell_i,U_i,\Xi_i,\mathsf{Acct})\)
@@ -139,7 +139,9 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
        \(\mathcal S_{\rm cert}\leftarrow\varnothing\).
 \FOR{each family \(i\)}
     \STATE \(\mathcal L_i^g\leftarrow q_wL_i\);
-           initialize \(\mathcal C_i(0)=\{X_i\}\) with fresh cell state.
+           initialize \(\mathcal C_i(0)=\{X_i\}\) with fresh state
+           \(m_I=n_I=0\), empty designated sample list, and
+           \(\texttt{resolved}(I)=\texttt{false}\).
 \ENDFOR
 
 \WHILE{true}
