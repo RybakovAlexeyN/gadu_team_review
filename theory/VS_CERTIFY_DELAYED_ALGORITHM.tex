@@ -53,7 +53,7 @@ or
     \If{\(\Call{ResolveLevel}{h}=\textsc{Fail}\)}
         \State
         \Return
-        \(\textsc{Not-Certified}(\Call{Acct}{t})\)
+        \(\textsc{Not-Certified}(\mathsf{Acct}(t))\)
     \EndIf
 
     \Statex
@@ -72,22 +72,18 @@ or
         \max_{j\ne i}\overline M_j^g\)}
         \State
         choose the first such \(i\) under the fixed family order
-        \For{each family \(j\)}
-            \State
-            \(\ell_j\gets
-            \max\{0,\underline M_j^g/q_w\}\)
-            \State
-            \(U_j\gets
-            \min\{1,\overline M_j^g/q_w\}\)
-            \State
-            \(\Xi_j\gets
-            \min\{1,\max\{0,\xi_j^g/q_w\}\}\)
-        \EndFor
+        \State
+        convert all scaled family certificates to latent scale:
+        \[
+        \ell_j=\max\{0,\underline M_j^g/q_w\},\quad
+        U_j=\min\{1,\overline M_j^g/q_w\},\quad
+        \Xi_j=\min\{1,\xi_j^g/q_w\}
+        \]
         \State
         \Return
         \(\textsc{Certified}
         \bigl(i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,
-        \Call{Acct}{t}\bigr)\)
+        \mathsf{Acct}(t)\bigr)\)
     \EndIf
 
     \Statex
