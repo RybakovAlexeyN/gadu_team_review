@@ -121,138 +121,55 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 
 `CERTIFIED` здесь означает **статистически сертифицированную лучшую family**. Это ещё не означает автоматический GADU commit: внешний continuation/fallback gate проверяется отдельно.
 
-## 4. Canonical pseudocode
+## 4. Canonical procedure
+
+Готовый LaTeX source алгоритма вынесен отдельно:
+
+→ [`VS_CERTIFY_DELAYED_ALGORITHM.tex`](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex)
+
+Это именно тот файл, который можно вставлять в manuscript через `\input{...}`.
+Он использует обычный `algorithm + algorithmic`.
+
+Нужные packages:
 
 ```latex
-\begin{algorithm}[t]
-\caption{\textsc{VS-Certify-Delayed}}
-\label{alg:vs-certify-delayed}
-\begin{algorithmic}[1]
-\REQUIRE Families \(i=1,\ldots,K\), domains \(X_i=[0,1]^{d_i}\),
-         valid positive latent Lipschitz bounds \(L_i>0\), common known \(q_w>0\),
-         window \(w\in\mathbb Z_{\ge0}\), risks \((\delta_i)_i\)
-         with \(\sum_i\delta_i\le\delta_{\rm cert}\), cutoff \(B\).
-\ENSURE \textsc{Certified}
-        \((i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct})\)
-        or \textsc{Not-Certified}\((\mathsf{Acct})\).
-
-\STATE \(t\leftarrow0\), \(h\leftarrow0\),
-       \(\mathcal S_{\rm cert}\leftarrow\varnothing\).
-\FOR{each family \(i\)}
-    \STATE \(\mathcal L_i^g\leftarrow q_wL_i\);
-           initialize \(\mathcal C_i(0)=\{X_i\}\) with fresh state
-           \(m_I=n_I=0\), empty designated sample list, and
-           \(\texttt{resolved}(I)=\texttt{false}\).
-\ENDFOR
-
-\WHILE{true}
-    \STATE \(\rho_h\leftarrow2^{-h-1}\);
-           \(a_{i,h}\leftarrow\min\{1,\mathcal L_i^g\rho_h\}\).
-    \STATE For every family \(i\), mark every \(I\in\mathcal C_i(h)\) unresolved;
-           set \(r\leftarrow0\).
-
-    \WHILE{some active cell is unresolved}
-        \STATE \(n_r\leftarrow2^{r+1}\).
-
-        \FOR{unresolved pairs \((i,I)\) in a fixed round-robin order}
-            \WHILE{\(m_I<n_r\)}
-                \IF{\(t=B\)}
-                    \STATE Build \(\mathsf{Acct}\) from
-                           \(t,\delta_{\rm cert},\mathcal S_{\rm cert}\).
-                    \RETURN \textsc{Not-Certified}\((\mathsf{Acct})\).
-                \ENDIF
-                \STATE Deploy \((i,c_I)\) as a designated source at round \(t+1\).
-                \STATE Tag round \(t+1\) as certification-owned,
-                       add it to \(\mathcal S_{\rm cert}\), increment
-                       \(m_I\leftarrow m_I+1\), and set \(t\leftarrow t+1\).
-            \ENDWHILE
-        \ENDFOR
-
-        \STATE Freeze all active sets during the flush.
-        \FOR{\(u=1,\ldots,w\)}
-            \IF{\(t=B\)}
-                \STATE Build \(\mathsf{Acct}\) from
-                       \(t,\delta_{\rm cert},\mathcal S_{\rm cert}\).
-                \RETURN \textsc{Not-Certified}\((\mathsf{Acct})\).
-            \ENDIF
-            \STATE Deploy the center of the first active cell under a fixed
-                   deterministic order as a legal filler.
-            \STATE Tag the filler source round as certification-owned,
-                   exclude its feedback from designated estimators,
-                   add it to \(\mathcal S_{\rm cert}\),
-                   and set \(t\leftarrow t+1\).
-        \ENDFOR
-
-        \STATE Finalize every newly generated designated source since the previous
-               checkpoint update as
-               \(B_s^{(w)}=\mathbf 1\{Z_s=1,D_s\le w\}\).
-        \FOR{each still-unresolved active cell \(I\)}
-            \STATE Set \(n_I\leftarrow m_I\) and recompute
-                   \(\widehat g_I,V_I\) from finalized
-                   designated observations generated at \(c_I\).
-            \STATE
-            \(\operatorname{rad}_I\leftarrow
-              \operatorname{rad}
-              (n_I,V_I,\eta_{i,h,I,r})\).
-            \IF{\(\operatorname{rad}_I\le a_{i,h}/8\)}
-                \STATE Mark \(I\) resolved and store
-                       \((\widehat g_I,V_I,\operatorname{rad}_I,r_I^\star=r)\).
-            \ENDIF
-        \ENDFOR
-        \STATE \(r\leftarrow r+1\).
-    \ENDWHILE
-
-    \FOR{each family \(i\)}
-        \FOR{each \(I\in\mathcal C_i(h)\)}
-            \STATE
-            \(\mathrm{LCB}(I)\leftarrow
-              \max\{0,\widehat g_I-\operatorname{rad}_I\}\).
-            \STATE
-            \(U_{\rm cell}(I)\leftarrow
-              \min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}\).
-        \ENDFOR
-        \STATE
-        \(\underline M_i^g\leftarrow
-          \max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)\).
-        \STATE
-        \(\overline M_i^g\leftarrow
-          \max_{I\in\mathcal C_i(h)}U_{\rm cell}(I)\).
-        \STATE Choose
-        \(I_i^L\in\arg\max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)\)
-        using fixed tie-breaking; set \(z_i\leftarrow c_{I_i^L}\).
-        \STATE
-        \(\xi_i^g\leftarrow
-          \min\{1,\max\{0,\overline M_i^g-\underline M_i^g\}\}\).
-    \ENDFOR
-
-    \IF{there exists \(i\) such that
-         \(\underline M_i^g>\max_{j\ne i}\overline M_j^g\)}
-        \STATE Choose the first such \(i\) under the fixed family order.
-        \FOR{each family \(j\)}
-            \STATE
-            \(\ell_j\leftarrow\max\{0,\underline M_j^g/q_w\}\),
-            \(U_j\leftarrow\min\{1,\overline M_j^g/q_w\}\),
-            \(\Xi_j\leftarrow\min\{1,\max\{0,\xi_j^g/q_w\}\}\).
-        \ENDFOR
-        \STATE Build \(\mathsf{Acct}\) from
-               \(t,\delta_{\rm cert},\mathcal S_{\rm cert}\).
-        \RETURN \textsc{Certified}
-        \((i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct})\).
-    \ENDIF
-
-    \FOR{each family \(i\)}
-        \STATE
-        \(\mathcal S_i\leftarrow
-          \{I\in\mathcal C_i(h):
-          U_{\rm cell}(I)\ge\underline M_i^g\}\).
-        \STATE Set \(\mathcal C_i(h+1)\) to all dyadic children of
-               cells in \(\mathcal S_i\), each with fresh estimator state.
-    \ENDFOR
-    \STATE \(h\leftarrow h+1\).
-\ENDWHILE
-\end{algorithmic}
-\end{algorithm}
+\usepackage{amsmath,amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 ```
+
+Если убрать LaTeX-синтаксис, процедура выглядит так:
+
+```text
+initialize one active dyadic cell per family
+
+repeat:
+    for each unresolved active center:
+        add designated pulls up to the next geometric checkpoint
+
+    freeze the active sets
+    make exactly w legal filler deployments
+
+    finalize all designated outcomes that have matured
+    update empirical-Bernstein confidence intervals
+
+    for each family:
+        build cell lower/upper bounds
+        build family lower/upper bounds
+        choose the current recommendation
+
+    if one family lower bound is above every competing upper bound:
+        return CERTIFIED with the full family certificate bundle
+
+    prune cells that can no longer contain a family maximizer
+    split every surviving cell
+    continue at the next dyadic depth
+
+if the calendar cutoff is exhausted at any point:
+    return NOT_CERTIFIED with full accounting
+```
+
+Так GitHub-страница остается читаемой, а полный формальный pseudocode живет в отдельном `.tex` файле.
 
 ## 5. Round chronology
 
