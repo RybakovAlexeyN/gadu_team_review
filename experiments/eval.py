@@ -4,6 +4,9 @@
 import json
 import subprocess
 import sys
+from pathlib import Path
+
+BENCHMARK = Path(__file__).with_name("benchmark.py")
 
 SEEDS = 400
 TARGET_RADIUS = 0.05
@@ -18,7 +21,7 @@ def run_benchmark():
     """Execute the benchmark with the frozen evaluation settings."""
     command = [
         sys.executable,
-        "experiments/benchmark.py",
+        str(BENCHMARK),
         "synthetic",
         "--seeds",
         str(SEEDS),
@@ -98,12 +101,12 @@ def validate(metrics):
     """Fail loudly if the frozen component test no longer passes."""
     if metrics["worst_coverage_vs"] < MIN_COVERAGE:
         raise SystemExit(
-            "VS empirical coverage fell below 0.94."
+            f"VS empirical coverage fell below {MIN_COVERAGE:.2f}."
         )
 
     if metrics["worst_coverage_hoeffding"] < MIN_COVERAGE:
         raise SystemExit(
-            "Hoeffding reference coverage fell below 0.94."
+            f"Hoeffding reference coverage fell below {MIN_COVERAGE:.2f}."
         )
 
     if metrics["worst_sparse_ratio"] >= 1.0:
