@@ -1,0 +1,206 @@
+% VS-Certify-Delayed: canonical algorithmic pseudocode.
+%
+% Required packages:
+%   \usepackage{amsmath,amssymb}
+%   \usepackage{algorithm}
+%   \usepackage{algorithmic}
+%
+% This file is intended to be included in the manuscript with \input{...}.
+
+\begin{algorithm}[t]
+\caption{\textsc{VS-Certify-Delayed}}
+\label{alg:vs-certify-delayed}
+\begin{algorithmic}[1]
+
+\REQUIRE
+Families $i=1,\ldots,K$ with domains $X_i=[0,1]^{d_i}$;
+valid Lipschitz bounds $L_i>0$;
+common known $q_w>0$;
+window $w\in\mathbb Z_{\ge0}$;
+risks $(\delta_i)_{i=1}^K$ with
+$\sum_i\delta_i\le\delta_{\rm cert}$;
+calendar cutoff $B$.
+
+\ENSURE
+Either
+$\textsc{Certified}\!\left(
+i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}
+\right)$
+or
+$\textsc{Not-Certified}(\mathsf{Acct})$.
+
+\STATE $t\leftarrow0$, $h\leftarrow0$,
+       $\mathcal S_{\rm cert}\leftarrow\varnothing$.
+\FOR{each family $i$}
+    \STATE $\mathcal L_i^g\leftarrow q_wL_i$.
+    \STATE Initialize $\mathcal C_i(0)\leftarrow\{X_i\}$.
+    \STATE For its root cell $I$, set
+           $m_I=n_I=0$ and $\mathrm{resolved}(I)\leftarrow\mathrm{false}$.
+\ENDFOR
+
+\WHILE{true}
+    \STATE $\rho_h\leftarrow2^{-h-1}$.
+    \FOR{each family $i$}
+        \STATE $a_{i,h}\leftarrow\min\{1,\mathcal L_i^g\rho_h\}$.
+        \STATE Mark all $I\in\mathcal C_i(h)$ unresolved.
+    \ENDFOR
+    \STATE $r\leftarrow0$.
+
+    \WHILE{some active cell is unresolved}
+        \STATE $n_r\leftarrow2^{r+1}$.
+
+        \FOR{each unresolved pair $(i,I)$ in fixed round-robin order}
+            \WHILE{$m_I<n_r$}
+                \IF{$t=B$}
+                    \STATE Build
+                    $\mathsf{Acct}\leftarrow
+                    (t,\delta_{\rm cert},\mathcal S_{\rm cert})$.
+                    \STATE \textbf{return}
+                    $\textsc{Not-Certified}(\mathsf{Acct})$.
+                \ENDIF
+                \STATE Deploy $(i,c_I)$ as a designated source at round $t+1$.
+                \STATE Tag round $t+1$ as certification-owned.
+                \STATE
+                $\mathcal S_{\rm cert}\leftarrow
+                \mathcal S_{\rm cert}\cup\{t+1\}$.
+                \STATE $m_I\leftarrow m_I+1$; $t\leftarrow t+1$.
+            \ENDWHILE
+        \ENDFOR
+
+        \STATE Freeze all active sets for the flush.
+        \FOR{$u=1,\ldots,w$}
+            \IF{$t=B$}
+                \STATE Build
+                $\mathsf{Acct}\leftarrow
+                (t,\delta_{\rm cert},\mathcal S_{\rm cert})$.
+                \STATE \textbf{return}
+                $\textsc{Not-Certified}(\mathsf{Acct})$.
+            \ENDIF
+            \STATE Deploy the center of the first active cell
+                   under a fixed deterministic order as a legal filler.
+            \STATE Tag the filler source as certification-owned
+                   and exclude its feedback from designated estimators.
+            \STATE
+            $\mathcal S_{\rm cert}\leftarrow
+            \mathcal S_{\rm cert}\cup\{t+1\}$.
+            \STATE $t\leftarrow t+1$.
+        \ENDFOR
+
+        \STATE Finalize every newly generated designated source as
+        \[
+        B_s^{(w)}
+        \leftarrow
+        \mathbf 1\{Z_s=1,\ D_s\le w\}.
+        \]
+
+        \FOR{each still-unresolved active pair $(i,I)$}
+            \STATE Set $n_I\leftarrow m_I$ and recompute
+                   $\widehat g_I$ and $V_I$
+                   from finalized designated observations at $c_I$.
+            \STATE
+            \[
+            \operatorname{rad}_I
+            \leftarrow
+            \sqrt{
+              \frac{2V_I\log(6/\eta_{i,h,I,r})}{n_I}
+            }
+            +
+            \frac{
+              7\log(6/\eta_{i,h,I,r})
+            }{
+              3(n_I-1)
+            }.
+            \]
+            \IF{$\operatorname{rad}_I\le a_{i,h}/8$}
+                \STATE Mark $I$ resolved and freeze
+                $(\widehat g_I,V_I,\operatorname{rad}_I,r)$
+                for the rest of depth $h$.
+            \ENDIF
+        \ENDFOR
+        \STATE $r\leftarrow r+1$.
+    \ENDWHILE
+
+    \FOR{each family $i$}
+        \FOR{each $I\in\mathcal C_i(h)$}
+            \STATE
+            $\mathrm{LCB}(I)
+            \leftarrow
+            \max\{0,\widehat g_I-\operatorname{rad}_I\}$.
+            \STATE
+            $U_{\rm cell}(I)
+            \leftarrow
+            \min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}$.
+        \ENDFOR
+
+        \STATE
+        $\underline M_i^g
+        \leftarrow
+        \max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)$.
+        \STATE
+        $\overline M_i^g
+        \leftarrow
+        \max_{I\in\mathcal C_i(h)}U_{\rm cell}(I)$.
+
+        \STATE Choose
+        $I_i^L\in
+        \arg\max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)$
+        using fixed tie-breaking.
+        \STATE $z_i\leftarrow c_{I_i^L}$.
+        \STATE
+        $\xi_i^g
+        \leftarrow
+        \min\{
+          1,
+          \max\{0,\overline M_i^g-\underline M_i^g\}
+        \}$.
+    \ENDFOR
+
+    \IF{there exists $i$ such that
+        $\underline M_i^g>
+        \max_{j\ne i}\overline M_j^g$}
+        \STATE Choose the first such $i$ under the fixed family order.
+
+        \FOR{each family $j$}
+            \STATE
+            $\ell_j
+            \leftarrow
+            \max\{0,\underline M_j^g/q_w\}$.
+            \STATE
+            $U_j
+            \leftarrow
+            \min\{1,\overline M_j^g/q_w\}$.
+            \STATE
+            $\Xi_j
+            \leftarrow
+            \min\{1,\max\{0,\xi_j^g/q_w\}\}$.
+        \ENDFOR
+
+        \STATE Build
+        $\mathsf{Acct}\leftarrow
+        (t,\delta_{\rm cert},\mathcal S_{\rm cert})$.
+        \STATE \textbf{return}
+        $\textsc{Certified}\!\left(
+        i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}
+        \right)$.
+    \ENDIF
+
+    \FOR{each family $i$}
+        \STATE
+        $\mathcal S_i
+        \leftarrow
+        \{
+          I\in\mathcal C_i(h):
+          U_{\rm cell}(I)\ge\underline M_i^g
+        \}$.
+        \STATE Set $\mathcal C_i(h+1)$ to all dyadic children
+               of cells in $\mathcal S_i$.
+        \STATE Initialize every child $J$ with fresh state:
+               $m_J=n_J=0$ and
+               $\mathrm{resolved}(J)\leftarrow\mathrm{false}$.
+    \ENDFOR
+
+    \STATE $h\leftarrow h+1$.
+\ENDWHILE
+
+\end{algorithmic}
+\end{algorithm}
