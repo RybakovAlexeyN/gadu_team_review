@@ -421,6 +421,7 @@ It does **not** by itself claim:
 
 ## 12. Related files
 
+- [Algorithm → proof obligation map](theory/ALGORITHM_PROOF_MAP.md)
 - [Upper theorem](theory/UPPER_THEOREM.md)
 - [Upper proof outline](theory/UPPER_PROOF.md)
 - [Lower theorem](theory/LOWER_THEOREM.md)
