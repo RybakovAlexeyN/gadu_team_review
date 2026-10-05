@@ -167,7 +167,7 @@ For a fixed attribution window `w`, let
 g_i(x) = q_w f_i(x),    q_w = F(w) > 0.
 ```
 
-If `q_w` is common across families and known in the main model, then `Lip(g_i)<=q_w L_i`. For simultaneous family certification, preassign per-family risks `delta_i>0` with
+If `q_w` is common across families and known in the main model, define the scaled Lipschitz bound `mathcal L_i^g=q_w L_i`; then `Lip(g_i)<=mathcal L_i^g`. For simultaneous family certification, preassign per-family risks `delta_i>0` with
 
 ```text
 sum_i delta_i <= delta_cert.
