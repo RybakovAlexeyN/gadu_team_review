@@ -1,5 +1,7 @@
 # Lower-bound proof outline
 
+The theorem is evaluated at a base instance where family 1 is constant and family 2 is suboptimal, but `delta`-correctness is required uniformly over the larger Lipschitz model class containing the bump alternatives. This is necessary for the change-of-measure argument, because some alternatives make family 2 optimal.
+
 ## A. Function-class closure
 
 The base suboptimal function has Lipschitz constant `L0`. Perturbation tents use slope at most
@@ -22,13 +24,13 @@ A_s = { x : s <= G(x) < 2s },
 
 choose a maximal packing at spatial scale proportional to `s/S`.
 
-At each packed center construct a compact tent perturbation with slope at most `S` and height proportional to `s`. Supports within one layer are disjoint.
+At each packed center construct a compact tent perturbation with slope at most `S`, peak `3s`, and support radius `3s/S`. A convenient packing separation is `8s/S`, so supports within one layer are disjoint.
 
-The perturbation raises family 2 above the constant family 1 at the selected center, so every alternative flips the best family.
+The perturbation raises family 2 above the constant family 1 at the selected center, so every alternative flips the best family while remaining inside the declared `L`-Lipschitz model class.
 
 ## C. Bernoulli validity and KL
 
-Restrict to a fine-gap range (for example `s <= 1/12` with `b <= 1/2`) so all perturbed Bernoulli means stay bounded away from one.
+Use the frozen fine-gap convention `c0=1/6`, with dyadic layers satisfying `s<=1/12` and `b<=1/2`, so all perturbed Bernoulli means remain valid and bounded away from one.
 
 Inside one perturbation support, the Bernoulli KL satisfies an upper bound of the form
 
@@ -47,7 +49,7 @@ After comparison with the packed-center baseline, this yields
 
 Only pulls of family 2 inside the selected perturbation support distinguish the base instance from that alternative.
 
-For a `delta`-correct identification rule, data processing gives a binary relative-entropy lower bound between the output distributions under the two worlds.
+For `delta in (0,1/2)` and an algorithm that is `delta`-correct uniformly over the full model class, data processing gives the binary relative-entropy lower bound `kl(1-delta,delta)` between the output distributions under the base instance and each alternative.
 
 Thus expected pulls inside each support must be at least the confidence term divided by the per-pull KL.
 
@@ -65,10 +67,10 @@ where `H_s` is the weighted packing sum carrying the local factor `p/s^2 + 1/s`.
 
 Across gap layers the supports need not be disjoint. Apply the one-layer lower bound separately to each layer and select the largest layer.
 
-This costs the explicit factor
+With the frozen dyadic convention this costs the explicit factor
 
 ```text
-1 / (1 + log(c0/Delta)).
+1 / [1 + ceil(log_2(c0/Delta))].
 ```
 
 The logarithmic loss is part of the theorem and should not be hidden.
