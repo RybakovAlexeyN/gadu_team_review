@@ -104,7 +104,7 @@ m_J=n_J=0,\qquad \texttt{resolved}(J)=\texttt{false}.
 
 \[
 \textsc{Certified}
-(i,z_i,\ell_i,U_i,\Xi_i,\mathsf{Acct}),
+\bigl(i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}\bigr),
 \]
 
 либо
@@ -132,7 +132,8 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
          valid positive latent Lipschitz bounds \(L_i>0\), common known \(q_w>0\),
          window \(w\in\mathbb Z_{\ge0}\), risks \((\delta_i)_i\)
          with \(\sum_i\delta_i\le\delta_{\rm cert}\), cutoff \(B\).
-\ENSURE \textsc{Certified}\((i,z_i,\ell_i,U_i,\Xi_i,\mathsf{Acct})\)
+\ENSURE \textsc{Certified}
+        \((i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct})\)
         or \textsc{Not-Certified}\((\mathsf{Acct})\).
 
 \STATE \(t\leftarrow0\), \(h\leftarrow0\),
@@ -226,14 +227,16 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 
     \IF{there exists \(i\) such that
          \(\underline M_i^g>\max_{j\ne i}\overline M_j^g\)}
-        \STATE
-        \(\ell_i\leftarrow\max\{0,\underline M_i^g/q_w\}\),
-        \(U_i\leftarrow\min\{1,\overline M_i^g/q_w\}\),
-        \(\Xi_i\leftarrow\min\{1,\max\{0,\xi_i^g/q_w\}\}\).
+        \FOR{each family \(j\)}
+            \STATE
+            \(\ell_j\leftarrow\max\{0,\underline M_j^g/q_w\}\),
+            \(U_j\leftarrow\min\{1,\overline M_j^g/q_w\}\),
+            \(\Xi_j\leftarrow\min\{1,\max\{0,\xi_j^g/q_w\}\}\).
+        \ENDFOR
         \STATE Build \(\mathsf{Acct}\) from
                \(t,\delta_{\rm cert},\mathcal S_{\rm cert}\).
         \RETURN \textsc{Certified}
-        \((i,z_i,\ell_i,U_i,\Xi_i,\mathsf{Acct})\).
+        \((i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct})\).
     \ENDIF
 
     \FOR{each family \(i\)}
@@ -332,19 +335,21 @@ g_i^\star>g_j^\star
 
 Because \(g_i=q_wf_i\) with the same \(q_w>0\) for every family, the same family is uniquely best in the latent problem.
 
-The returned quantities satisfy
+For every family \(j\), the returned bundle satisfies
 
 \[
-\ell_i
+\ell_j
 \le
-f_i(z_i)
+f_j(z_j)
 \le
-f_i^\star
+f_j^\star
 \le
-U_i,
+U_j,
 \qquad
-0\le f_i^\star-f_i(z_i)\le\Xi_i.
+0\le f_j^\star-f_j(z_j)\le\Xi_j.
 \]
+
+The named index \(i\) is the family whose strict separation condition fired.
 
 ## 8. Relation to the upper theorem
 
