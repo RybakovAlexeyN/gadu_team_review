@@ -2,6 +2,28 @@
 
 Здесь собран текущий научный результат и материалы для командной проверки перед финальной сборкой manuscript.
 
+## Главное обновление: оформлен исполнимый алгоритм
+
+Текущую процедуру немного модернизировали и вынесли в отдельный алгоритм **VS-Certify-Delayed**.
+
+Сейчас execution flow зафиксирован явно:
+
+```text
+active cells
+→ designated pulls
+→ synchronized checkpoint
+→ w legal filler rounds
+→ finalize matured outcomes
+→ empirical-Bernstein confidence
+→ prune / split
+→ family certification
+→ CERTIFIED / continue / NOT_CERTIFIED
+```
+
+То есть теперь отдельно видно не только theorem-level идею, но и то, **что алгоритм делает по шагам в каждый момент времени**, включая delayed feedback.
+
+→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)
+
 ## Что уже сделано по статье
 
 ### 1. Сформирован новый научный кандидат
@@ -14,6 +36,7 @@
 - интеграция нового backend в GADU через certified-optimizer interface.
 
 Материалы:
+- [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)
 - [Upper theorem](theory/UPPER_THEOREM.md)
 - [Lower theorem](theory/LOWER_THEOREM.md)
 - [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
@@ -58,16 +81,23 @@ Criteo используется как real-data model-fit / attribution evidenc
 
 → [Criteo model-fit evidence](data/CRITEO_MODEL_FIT.md)
 
-### 4. Уточнена delayed execution логика
+### 4. Уточнена и оформлена delayed execution процедура
 
-Для нового backend теперь явно определено, что происходит во время ожидания feedback:
+Для нового backend теперь отдельно записан исполнимый алгоритм, а не только execution contract.
+
+В нем явно определено:
 
 - каждый calendar round имеет legal deployment;
 - unresolved silence не считается zero;
-- используются synchronized checkpoints;
+- confidence обновляется на synchronized checkpoints;
+- после designated sampling выполняется ровно `w` filler rounds;
 - filler feedback отделен от designated estimator;
+- active set не меняется во время flush;
+- prune/split выполняется после maturation и обновления confidence;
+- hard cutoff возвращает `NOT_CERTIFIED`;
 - calendar cost задержки учитывается явно.
 
+→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)  
 → [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
 
 ## Пул задач после созвона 29 сентября
