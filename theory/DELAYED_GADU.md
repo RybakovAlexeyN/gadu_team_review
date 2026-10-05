@@ -2,6 +2,12 @@
 
 This note records the execution contract and the minimal composition argument needed for review.
 
+For a reader-first description of the current procedure, start with:
+
+→ [VS-Certify-Delayed — algorithm at a glance](../ALGORITHM.md)
+
+The current version is an executable algorithm, not an unspecified "wait for feedback" procedure.
+
 ## Raw matured observation
 
 For source round `s`, after age `w` define
@@ -20,17 +26,22 @@ Define `g_i = q_w f_i`. Common positive scaling preserves family ordering.
 
 ## Executable delayed certification
 
+Take `w` to be a nonnegative integer number of calendar rounds. When `w=0`, the flush below is empty.
+
 The delayed certifier:
 
 1. maintains active dyadic cells;
-2. samples designated cell centers to geometric cumulative targets;
-3. after the last designated source of each checkpoint, makes exactly `w` legal filler deployments;
-4. excludes filler feedback from the designated certification estimator;
-5. finalizes designated Bernoulli outcomes only after the flush;
-6. prunes/splits only after finalized confidence intervals are available;
-7. returns `NOT_CERTIFIED` if the hard calendar horizon is exhausted.
+2. samples designated cell centers to geometric cumulative targets `n_r=2^(r+1)`;
+3. uses observable empirical-Bernstein confidence on finalized designated Bernoulli samples;
+4. after the last designated source of each checkpoint, freezes the active set and makes exactly `w` legal filler deployments;
+5. excludes filler feedback from the designated certification estimator;
+6. finalizes designated Bernoulli outcomes only after the flush;
+7. recomputes confidence intervals and Lipschitz cell bounds;
+8. prunes impossible cells and splits survivors;
+9. checks learner-computable family separation;
+10. returns `NOT_CERTIFIED` if the predeclared hard calendar cutoff is exhausted before an accepted certificate.
 
-Unresolved silence is never encoded as zero.
+Unresolved silence is never encoded as zero, including at the hard cutoff.
 
 If `D` is the total number of designated source pulls and `C_h` is the number of synchronized checkpoints at level `h`, then before hard-horizon truncation
 
@@ -84,7 +95,11 @@ At a certification checkpoint `s <= B`, commit only if family separation holds a
 s + (T-s) Xi_i <= V_fb(T,B).
 ```
 
-If no certificate is accepted by `B`, restart the frozen full-union fallback on the fresh remaining horizon. Certification-owned source rounds, including filler rounds, are excluded from fresh fallback statistics.
+The conservative continuation underlying this certificate is repeated deployment of the returned point `z_i`; another continuation may be used only if it has a separately proved certificate no larger than this one.
+
+If no certificate is accepted by `B`, restart the frozen full-union fallback on the fresh remaining horizon.
+
+Certification-owned source rounds, including filler rounds and any later arrivals tagged to those sources, are excluded from fresh fallback statistics. Under the fresh-outcome model, future source outcomes after the clean restart are fresh conditional on the pre-cutoff history.
 
 On the simultaneous good event, the entered branch is bounded by `V_fb`. On the failure event, finite-horizon regret is at most `T`, yielding the additive `delta_vs T` term.
 
