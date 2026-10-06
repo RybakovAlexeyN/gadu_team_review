@@ -20,15 +20,15 @@ The lower-level routines are in
 
 ## 1. What problem does the algorithm solve?
 
-There are \(K\) families. Family \(i\) has a continuous action domain
+There are $K$ families. Family $i$ has a continuous action domain
 
 $$
 X_i=[0,1]^{d_i},
 $$
 
-and an unknown latent reward function \(f_i:X_i\to[0,1]\).
+and an unknown latent reward function $f_i:X_i\to[0,1]$.
 
-The learner does not observe \(f_i(x)\) directly. With a fixed attribution window \(w\), a deployment at \(x\) produces the delayed positive-only Bernoulli observation
+The learner does not observe $f_i(x)$ directly. With a fixed attribution window $w$, a deployment at $x$ produces the delayed positive-only Bernoulli observation
 
 $$
 B_s^{(w)}
@@ -44,7 +44,7 @@ g_i(x)=q_w f_i(x),
 q_w=F(w)>0.
 $$
 
-Because the same positive factor \(q_w\) is used for every family, maximizing \(g_i\) identifies the same best family as maximizing \(f_i\).
+Because the same positive factor $q_w$ is used for every family, maximizing $g_i$ identifies the same best family as maximizing $f_i$.
 
 The task of **VS-Certify-Delayed** is therefore:
 
@@ -60,7 +60,7 @@ At a high level, the method repeatedly does the following:
 
 1. partition each family domain into active dyadic cells;
 2. sample the center of every unresolved active cell;
-3. wait exactly \(w\) legal rounds so those designated samples mature;
+3. wait exactly $w$ legal rounds so those designated samples mature;
 4. build empirical-Bernstein confidence intervals from the matured designated observations;
 5. turn the cell-wise confidence intervals into lower and upper bounds on the maximum of each family;
 6. stop if one family's lower bound is above every competitor's upper bound;
@@ -86,7 +86,7 @@ The important delayed-feedback rule is:
 
 > **Unresolved silence is never treated as zero.**
 
-Only designated source rounds whose \(w\)-window has fully matured enter the estimator.
+Only designated source rounds whose $w$-window has fully matured enter the estimator.
 
 ---
 
@@ -96,14 +96,14 @@ Only designated source rounds whose \(w\)-window has fully matured enter the est
 
 | Symbol | Meaning |
 |---|---|
-| \(K\) | number of families |
-| \(X_i=[0,1]^{d_i}\) | action domain of family \(i\) |
-| \(L_i>0\) | valid Lipschitz bound for the latent function \(f_i\) |
-| \(w\) | attribution window |
-| \(q_w=F(w)>0\) | known probability that a positive event is observed within the window |
-| \(\delta_{\rm cert}\) | total certification failure probability |
-| \(\delta_i\) | per-family confidence budgets with \(\sum_i\delta_i\le\delta_{\rm cert}\) |
-| \(B\) | hard calendar cutoff |
+| $K$ | number of families |
+| $X_i=[0,1]^{d_i}$ | action domain of family $i$ |
+| $L_i>0$ | valid Lipschitz bound for the latent function $f_i$ |
+| $w$ | attribution window |
+| $q_w=F(w)>0$ | known probability that a positive event is observed within the window |
+| $\delta_{\rm cert}$ | total certification failure probability |
+| $\delta_i$ | per-family confidence budgets with $\sum_i\delta_i\le\delta_{\rm cert}$ |
+| $B$ | hard calendar cutoff |
 
 On the observed scale,
 
@@ -111,7 +111,7 @@ $$
 \mathcal L_i^g := q_w L_i
 $$
 
-is a valid Lipschitz bound for \(g_i\).
+is a valid Lipschitz bound for $g_i$.
 
 ### Output
 
@@ -132,7 +132,7 @@ $$
 \texttt{NOT\_CERTIFIED}(\mathsf{Acct}).
 $$
 
-For each family \(i\), the returned latent-scale bundle satisfies, on the simultaneous confidence event,
+For each family $i$, the returned latent-scale bundle satisfies, on the simultaneous confidence event,
 
 $$
 \ell_i
@@ -146,7 +146,7 @@ U_i,
 0\le f_i^\star-f_i(z_i)\le \Xi_i.
 $$
 
-Here \(i^\star\) is the family whose strict separation condition fired.
+Here $i^\star$ is the family whose strict separation condition fired.
 
 **CERTIFIED** means statistically certified best family. It is not, by itself, an automatic GADU commit; the downstream continuation/fallback gate remains separate.
 
@@ -154,19 +154,19 @@ Here \(i^\star\) is the family whose strict separation condition fired.
 
 ## 4. State maintained by the procedure
 
-At dyadic depth \(h\), family \(i\) has an active cell set
+At dyadic depth $h$, family $i$ has an active cell set
 
 $$
 \mathcal C_i(h).
 $$
 
-Each active cell \(I\) has center \(c_I\) and its own estimator state:
+Each active cell $I$ has center $c_I$ and its own estimator state:
 
-- \(m_I\): generated designated-source count;
-- \(n_I\): finalized designated count;
-- \(\widehat g_I\): empirical mean;
-- \(V_I\): empirical variance;
-- \(\operatorname{rad}_I\): confidence radius;
+- $m_I$: generated designated-source count;
+- $n_I$: finalized designated count;
+- $\widehat g_I$: empirical mean;
+- $V_I$: empirical variance;
+- $\operatorname{rad}_I$: confidence radius;
 - a Boolean resolved flag.
 
 A key implementation rule is:
@@ -183,14 +183,14 @@ This avoids using any unproved parent-to-child sample reuse.
 
 The global state also contains:
 
-- calendar time \(t\);
-- the set \(\mathcal S_{\rm cert}\) of all source rounds owned by certification.
+- calendar time $t$;
+- the set $\mathcal S_{\rm cert}$ of all source rounds owned by certification.
 
 ---
 
 ## 5. Confidence scale and cell resolution
 
-At depth \(h\),
+At depth $h$,
 
 $$
 \rho_h := 2^{-h-1},
@@ -206,7 +206,7 @@ n_r:=2^{r+1},
 r=0,1,2,\ldots.
 $$
 
-For family \(i\), level \(h\), cell \(I\), and checkpoint \(r\), define
+For family $i$, level $h$, cell $I$, and checkpoint $r$, define
 
 $$
 \eta_{i,h,I,r}
@@ -215,7 +215,7 @@ $$
 {\pi^4\,2^{d_i h}(h+1)^2(r+1)^2}.
 $$
 
-For \(n\ge2\), the empirical-Bernstein radius is
+For $n\ge2$, the empirical-Bernstein radius is
 
 $$
 \operatorname{rad}(n,V,\eta)
@@ -225,7 +225,7 @@ $$
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
 
-A cell is resolved at level \(h\) once
+A cell is resolved at level $h$ once
 
 $$
 \operatorname{rad}_I\le \frac{a_{i,h}}{8}.
@@ -345,9 +345,9 @@ ResolveLevel is responsible for **sampling and delayed maturation** at the curre
 
 For each unresolved active center, it repeatedly:
 
-1. tops up designated pulls to the next geometric checkpoint \(n_r\);
+1. tops up designated pulls to the next geometric checkpoint $n_r$;
 2. freezes the active sets;
-3. performs exactly \(w\) legal filler deployments;
+3. performs exactly $w$ legal filler deployments;
 4. excludes filler feedback from the designated estimators;
 5. finalizes the designated observations as
 
@@ -357,11 +357,11 @@ B_s^{(w)}
 \mathbf 1\{Z_s=1,D_s\le w\};
 $$
 
-6. recomputes \(\widehat g_I\), \(V_I\), and the empirical-Bernstein radius;
-7. marks cells with \(\operatorname{rad}_I\le a_{i,h}/8\) as resolved;
+6. recomputes $\widehat g_I$, $V_I$, and the empirical-Bernstein radius;
+7. marks cells with $\operatorname{rad}_I\le a_{i,h}/8$ as resolved;
 8. moves to the next checkpoint if some cells remain unresolved.
 
-If the calendar cutoff \(B\) is hit during designated sampling or during the flush, it returns **FAIL**.
+If the calendar cutoff $B$ is hit during designated sampling or during the flush, it returns **FAIL**.
 
 If the cutoff arrives before a source has fully matured, that unresolved source is **not** converted into a zero.
 
@@ -372,7 +372,7 @@ The exact pseudocode is in
 
 ## 8. What FamilyCertificate does
 
-Once all active cells at the current level are resolved, define for every cell \(I\)
+Once all active cells at the current level are resolved, define for every cell $I$
 
 $$
 \mathrm{LCB}(I)
@@ -404,7 +404,7 @@ $$
 \max_{I\in\mathcal C_i(h)}U_{\rm cell}(I).
 $$
 
-The current recommendation \(z_i\) is the center of the cell with the largest lower confidence bound.
+The current recommendation $z_i$ is the center of the cell with the largest lower confidence bound.
 
 The scaled deployment-error certificate is
 
@@ -423,7 +423,7 @@ $$
 
 ### Family certification
 
-If, for some family \(i\),
+If, for some family $i$,
 
 $$
 \underline M_i^g
@@ -431,9 +431,9 @@ $$
 \max_{j\ne i}\overline M_j^g,
 $$
 
-then family \(i\) is certified as uniquely best on the observed scale.
+then family $i$ is certified as uniquely best on the observed scale.
 
-Because every family is multiplied by the same \(q_w>0\), it is also the uniquely best latent family.
+Because every family is multiplied by the same $q_w>0$, it is also the uniquely best latent family.
 
 The scaled certificates are converted back to latent scale by
 
@@ -471,13 +471,13 @@ Every surviving cell is split into its dyadic children, and each child starts wi
 
 ## 10. Why the delayed execution is explicit
 
-A designated source generated at round \(s\) is not used immediately.
+A designated source generated at round $s$ is not used immediately.
 
-After the final designated pull of a checkpoint, the active sets are frozen and the algorithm makes exactly \(w\) legal filler deployments.
+After the final designated pull of a checkpoint, the active sets are frozen and the algorithm makes exactly $w$ legal filler deployments.
 
 Only after this flush are designated sources finalized.
 
-Thus a designated source used by the estimator has age at least \(w\), and the algorithm may safely form
+Thus a designated source used by the estimator has age at least $w$, and the algorithm may safely form
 
 $$
 B_s^{(w)}
@@ -487,7 +487,7 @@ $$
 
 The filler rounds are certification-owned for accounting purposes, but their feedback is excluded from all designated estimators.
 
-If \(D\) is the number of designated pulls and \(C_h\) is the number of completed checkpoints at depth \(h\), then on a completed, non-truncated execution path,
+If $D$ is the number of designated pulls and $C_h$ is the number of completed checkpoints at depth $h$, then on a completed, non-truncated execution path,
 
 $$
 T_{\rm cal}
@@ -513,7 +513,7 @@ $$
 a_h\le\frac{2\varepsilon}{5},
 $$
 
-at which point the returned recommendation has certificate width at most \(\varepsilon\).
+at which point the returned recommendation has certificate width at most $\varepsilon$.
 
 VS-Certify-Delayed runs that within-family mechanism for every family, but the multi-family controller can stop earlier if strict family separation is already available.
 
@@ -522,19 +522,19 @@ So the roles are:
 - **upper theorem:** designated-sample complexity of the within-family core;
 - **Algorithm 1:** multi-family certification logic;
 - **ResolveLevel:** legal delayed calendar execution;
-- **calendar proposition:** \(w\)-round maturation overhead.
+- **calendar proposition:** $w$-round maturation overhead.
 
 ---
 
 ## 12. Scope
 
-The current procedure assumes a fixed common known \(q_w>0\).
+The current procedure assumes a fixed common known $q_w>0$.
 
 By itself it does **not** claim:
 
 - uniform superiority over Hoeffding;
 - optimality of the checkpoint schedule;
-- novelty of the \(q_w^{-1}\) scaling;
+- novelty of the $q_w^{-1}$ scaling;
 - a full minimax characterization;
 - automatic replacement of every existing GADU regret result;
 - end-to-end superiority on real data.
