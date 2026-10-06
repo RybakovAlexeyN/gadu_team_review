@@ -490,7 +490,7 @@ The filler rounds are certification-owned for accounting purposes, but their fee
 If $D$ is the number of designated pulls and $C_h$ is the number of completed checkpoints at depth $h$, then on a completed, non-truncated execution path,
 
 ```math
-T_{\rm cal}
+T_{\mathrm{cal}}
 =
 D+w\sum_h C_h.
 ```
