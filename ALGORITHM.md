@@ -22,27 +22,27 @@ The lower-level routines are in
 
 There are $K$ families. Family $i$ has a continuous action domain
 
-~~~math
+```math
 X_i=[0,1]^{d_i},
-~~~
+```
 
 and an unknown latent reward function $f_i:X_i\to[0,1]$.
 
 The learner does not observe $f_i(x)$ directly. With a fixed attribution window $w$, a deployment at $x$ produces the delayed positive-only Bernoulli observation
 
-~~~math
+```math
 B_s^{(w)}
 =
 \mathbf{1}\{Z_s=1,\ D_s\le w\},
-~~~
+```
 
 whose mean is
 
-~~~math
+```math
 g_i(x)=q_w f_i(x),
 \qquad
 q_w=F(w)>0.
-~~~
+```
 
 Because the same positive factor $q_w$ is used for every family, maximizing $g_i$ identifies the same best family as maximizing $f_i$.
 
@@ -101,15 +101,15 @@ Only designated source rounds whose $w$-window has fully matured enter the estim
 | $L_i>0$ | valid Lipschitz bound for the latent function $f_i$ |
 | $w$ | attribution window |
 | $q_w=F(w)>0$ | known probability that a positive event is observed within the window |
-| $\delta_{\rm cert}$ | total certification failure probability |
-| $\delta_i$ | per-family confidence budgets with $\sum_i\delta_i\le\delta_{\rm cert}$ |
+| $\delta_{\mathrm{cert}}$ | total certification failure probability |
+| $\delta_i$ | per-family confidence budgets with $\sum_i\delta_i\le\delta_{\mathrm{cert}}$ |
 | $B$ | hard calendar cutoff |
 
 On the observed scale,
 
-~~~math
+```math
 \mathcal L_i^g := q_w L_i
-~~~
+```
 
 is a valid Lipschitz bound for $g_i$.
 
@@ -117,24 +117,24 @@ is a valid Lipschitz bound for $g_i$.
 
 The algorithm returns either
 
-~~~math
+```math
 \mathrm{CERTIFIED}
 \left(
 i^\star,
 \{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,
 \mathsf{Acct}
 \right),
-~~~
+```
 
 or
 
-~~~math
+```math
 \mathrm{NOT\_CERTIFIED}(\mathsf{Acct}).
-~~~
+```
 
 For each family $i$, the returned latent-scale bundle satisfies, on the simultaneous confidence event,
 
-~~~math
+```math
 \ell_i
 \le
 f_i(z_i)
@@ -144,7 +144,7 @@ f_i^\star
 U_i,
 \qquad
 0\le f_i^\star-f_i(z_i)\le \Xi_i.
-~~~
+```
 
 Here $i^\star$ is the family whose strict separation condition fired.
 
@@ -156,9 +156,9 @@ Here $i^\star$ is the family whose strict separation condition fired.
 
 At dyadic depth $h$, family $i$ has an active cell set
 
-~~~math
+```math
 \mathcal C_i(h).
-~~~
+```
 
 Each active cell $I$ has center $c_I$ and its own estimator state:
 
@@ -175,16 +175,16 @@ A key implementation rule is:
 
 When a surviving cell is split, every child starts with a fresh estimator:
 
-~~~math
+```math
 m_J=n_J=0.
-~~~
+```
 
 This avoids using any unproved parent-to-child sample reuse.
 
 The global state also contains:
 
 - calendar time $t$;
-- the set $\mathcal S_{\rm cert}$ of all source rounds owned by certification.
+- the set $\mathcal S_{\mathrm{cert}}$ of all source rounds owned by certification.
 
 ---
 
@@ -192,44 +192,44 @@ The global state also contains:
 
 At depth $h$,
 
-~~~math
+```math
 \rho_h := 2^{-h-1},
 \qquad
 a_{i,h}:=\min\{1,\mathcal L_i^g\rho_h\}.
-~~~
+```
 
 The geometric checkpoint targets are
 
-~~~math
+```math
 n_r:=2^{r+1},
 \qquad
 r=0,1,2,\ldots.
-~~~
+```
 
 For family $i$, level $h$, cell $I$, and checkpoint $r$, define
 
-~~~math
+```math
 \eta_{i,h,I,r}
 =
 \frac{36\delta_i}
 {\pi^4\,2^{d_i h}(h+1)^2(r+1)^2}.
-~~~
+```
 
 For $n\ge2$, the empirical-Bernstein radius is
 
-~~~math
+```math
 \operatorname{rad}(n,V,\eta)
 =
 \sqrt{\frac{2V\log(6/\eta)}{n}}
 +
 \frac{7\log(6/\eta)}{3(n-1)}.
-~~~
+```
 
 A cell is resolved at level $h$ once
 
-~~~math
+```math
 \operatorname{rad}_I\le \frac{a_{i,h}}{8}.
-~~~
+```
 
 Once resolved, its statistics are frozen for the remainder of that level.
 
@@ -258,7 +258,7 @@ Required packages:
 families $\{(X_i,L_i)\}_{i=1}^K$ with $X_i=[0,1]^{d_i}$;
 known $q_w=F(w)>0$ and window $w$;
 risks $\{\delta_i\}_{i=1}^K$ with
-$\sum_i\delta_i\le\delta_{\rm cert}$;
+$\sum_i\delta_i\le\delta_{\mathrm{cert}}$;
 calendar cutoff $B$
 
 \Ensure
@@ -268,7 +268,7 @@ i^\star,\{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,\mathsf{Acct}
 or
 \textsc{Not-Certified}$\bigl(\mathsf{Acct}\bigr)$
 
-\State $t\gets0$, $h\gets0$, $\mathcal S_{\rm cert}\gets\varnothing$
+\State $t\gets0$, $h\gets0$, $\mathcal S_{\mathrm{cert}}\gets\varnothing$
 
 \For{$i=1,\ldots,K$}
     \State $\mathcal L_i^g\gets q_wL_i$
@@ -319,7 +319,7 @@ or
         $\mathcal S_i
         \gets
         \{I\in\mathcal C_i(h):
-        U_{\rm cell}(I)\ge\underline M_i^g\}$
+        U_{\mathrm{cell}}(I)\ge\underline M_i^g\}$
 
         \State
         $\mathcal C_i(h+1)\gets$
@@ -351,11 +351,11 @@ For each unresolved active center, it repeatedly:
 4. excludes filler feedback from the designated estimators;
 5. finalizes the designated observations as
 
-~~~math
+```math
 B_s^{(w)}
 =
 \mathbf{1}\{Z_s=1,D_s\le w\};
-~~~
+```
 
 6. recomputes $\widehat g_I$, $V_I$, and the empirical-Bernstein radius;
 7. marks cells with $\operatorname{rad}_I\le a_{i,h}/8$ as resolved;
@@ -374,48 +374,48 @@ The exact pseudocode is in
 
 Once all active cells at the current level are resolved, define for every cell $I$
 
-~~~math
+```math
 \mathrm{LCB}(I)
 =
 \max\{0,\widehat g_I-\operatorname{rad}_I\},
-~~~
+```
 
 and
 
-~~~math
-U_{\rm cell}(I)
+```math
+U_{\mathrm{cell}}(I)
 =
 \min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}.
-~~~
+```
 
 The family lower and upper bounds are
 
-~~~math
+```math
 \underline M_i^g
 =
 \max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I),
-~~~
+```
 
 and
 
-~~~math
+```math
 \overline M_i^g
 =
-\max_{I\in\mathcal C_i(h)}U_{\rm cell}(I).
-~~~
+\max_{I\in\mathcal C_i(h)}U_{\mathrm{cell}}(I).
+```
 
 The current recommendation $z_i$ is the center of the cell with the largest lower confidence bound.
 
 The scaled deployment-error certificate is
 
-~~~math
+```math
 \xi_i^g
 =
 \min\left\{
 1,\,
 \max\{0,\overline M_i^g-\underline M_i^g\}
 \right\}.
-~~~
+```
 
 ---
 
@@ -425,11 +425,11 @@ The scaled deployment-error certificate is
 
 If, for some family $i$,
 
-~~~math
+```math
 \underline M_i^g
 >
 \max_{j\ne i}\overline M_j^g,
-~~~
+```
 
 then family $i$ is certified as uniquely best on the observed scale.
 
@@ -437,7 +437,7 @@ Because every family is multiplied by the same $q_w>0$, it is also the uniquely 
 
 The scaled certificates are converted back to latent scale by
 
-~~~math
+```math
 \ell_i
 =
 \max\{0,\underline M_i^g/q_w\},
@@ -445,23 +445,23 @@ The scaled certificates are converted back to latent scale by
 U_i
 =
 \min\{1,\overline M_i^g/q_w\},
-~~~
+```
 
 and
 
-~~~math
+```math
 \Xi_i
 =
 \min\{1,\xi_i^g/q_w\}.
-~~~
+```
 
 ### Pruning
 
 If no family is separated, remove every cell for which
 
-~~~math
-U_{\rm cell}(I)<\underline M_i^g.
-~~~
+```math
+U_{\mathrm{cell}}(I)<\underline M_i^g.
+```
 
 Such a cell cannot contain a family maximizer on the simultaneous confidence event.
 
@@ -479,21 +479,21 @@ Only after this flush are designated sources finalized.
 
 Thus a designated source used by the estimator has age at least $w$, and the algorithm may safely form
 
-~~~math
+```math
 B_s^{(w)}
 =
 \mathbf{1}\{Z_s=1,D_s\le w\}.
-~~~
+```
 
 The filler rounds are certification-owned for accounting purposes, but their feedback is excluded from all designated estimators.
 
 If $D$ is the number of designated pulls and $C_h$ is the number of completed checkpoints at depth $h$, then on a completed, non-truncated execution path,
 
-~~~math
+```math
 T_{\rm cal}
 =
 D+w\sum_h C_h.
-~~~
+```
 
 ---
 
@@ -509,9 +509,9 @@ It uses the same:
 
 The direct-oracle core continues until the first resolved depth with
 
-~~~math
+```math
 a_h\le\frac{2\varepsilon}{5},
-~~~
+```
 
 at which point the returned recommendation has certificate width at most $\varepsilon$.
 
