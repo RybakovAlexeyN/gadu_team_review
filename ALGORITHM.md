@@ -121,61 +121,94 @@ Accounting record \(\mathsf{Acct}\) в обоих случаях содержи�
 
 `CERTIFIED` здесь означает **статистически сертифицированную лучшую family**. Это ещё не означает автоматический GADU commit: внешний continuation/fallback gate проверяется отдельно.
 
-## 4. Canonical procedure
+## 4. Final procedure (LaTeX algorithmic)
 
-Готовый reader-facing LaTeX алгоритм вынесен отдельно:
+Ниже — конечная reader-facing процедура, которую можно напрямую вставлять в manuscript как **Algorithm 1**.
 
-→ [`VS_CERTIFY_DELAYED_ALGORITHM.tex`](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex)
+Полный исходник также лежит отдельно:
 
-Это короткий **Algorithm 1 для основного текста статьи**: только основной flow, без визуальной перегрузки.
+→ [theory/VS_CERTIFY_DELAYED_ALGORITHM.tex](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex)
 
-Детальные процедуры вынесены рядом:
+Детальные helper procedures (\textsc{ResolveLevel} и \textsc{FamilyCertificate}) вынесены в:
 
-→ [`VS_CERTIFY_DELAYED_SUBROUTINES.tex`](theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex)
+→ [theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex](theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex)
 
-В manuscript их можно подключать отдельно через `\input{...}`.  
-Используется `algorithm + algpseudocode`.
+Используем:
 
-Нужные packages:
-
-```latex
+~~~latex
 \usepackage{amsmath,amssymb}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-```
+~~~
 
-Если убрать LaTeX-синтаксис, процедура выглядит так:
+~~~latex
+\begin{algorithm}[t]
+\caption{Delayed variance-sensitive family certification}
+\label{alg:vs-certify-delayed}
+\small
+\begin{algorithmic}[1]
+\Require
+families $\{(X_i,L_i)\}_{i=1}^K$ with $X_i=[0,1]^{d_i}$;
+known $q_w=F(w)>0$ and window $w$;
+risks $\{\delta_i\}_{i=1}^K$ with
+$\sum_i\delta_i\le\delta_{\rm cert}$;
+calendar cutoff $B$
+\Ensure
+\textsc{Certified}$\bigl(i^\star,\{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,\mathsf{Acct}\bigr)$
+or \textsc{Not-Certified}$\bigl(\mathsf{Acct}\bigr)$
 
-```text
-initialize one active dyadic cell per family
+\State $t\gets0$, $h\gets0$, $\mathcal S_{\rm cert}\gets\varnothing$
+\For{$i=1,\ldots,K$}
+    \State $\mathcal L_i^g\gets q_wL_i$
+    \State initialize $\mathcal C_i(0)\gets\{X_i\}$ with fresh root-cell state
+\EndFor
 
-repeat:
-    for each unresolved active center:
-        add designated pulls up to the next geometric checkpoint
+\While{true}
+    \If{$\Call{ResolveLevel}{h}=\textsc{Fail}$}
+        \State \Return \textsc{Not-Certified}$\bigl(\mathsf{Acct}(t)\bigr)$
+    \EndIf
 
-    freeze the active sets
-    make exactly w legal filler deployments
+    \For{$i=1,\ldots,K$}
+        \State $(z_i,\underline M_i^g,\overline M_i^g,\xi_i^g)
+        \gets \Call{FamilyCertificate}{i,h}$
+    \EndFor
 
-    finalize all designated outcomes that have matured
-    update empirical-Bernstein confidence intervals
+    \If{some $i$ satisfies
+        $\underline M_i^g>\max_{j\ne i}\overline M_j^g$}
+        \State let $i^\star$ be the first such family under the fixed order
+        \For{$j=1,\ldots,K$}
+            \State $\ell_j\gets\max\{0,\underline M_j^g/q_w\}$,
+            $U_j\gets\min\{1,\overline M_j^g/q_w\}$
+            \State $\Xi_j\gets\min\{1,\xi_j^g/q_w\}$
+        \EndFor
+        \State \Return \textsc{Certified}$\bigl(i^\star,
+        \{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}(t)\bigr)$
+    \EndIf
 
-    for each family:
-        build cell lower/upper bounds
-        build family lower/upper bounds
-        choose the current recommendation
+    \For{$i=1,\ldots,K$}
+        \State $\mathcal S_i\gets
+        \{I\in\mathcal C_i(h):U_{\rm cell}(I)\ge\underline M_i^g\}$
+        \State $\mathcal C_i(h+1)\gets$
+        all dyadic children of cells in $\mathcal S_i$, each with fresh state
+    \EndFor
+    \State $h\gets h+1$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+~~~
 
-    if one family lower bound is above every competing upper bound:
-        return CERTIFIED with the full family certificate bundle
+Смысл Algorithm 1 теперь читается сверху вниз как одна процедура:
 
-    prune cells that can no longer contain a family maximizer
-    split every surviving cell
-    continue at the next dyadic depth
+~~~text
+resolve current level
+→ construct family certificates
+→ certify if one family separates
+→ otherwise prune and refine
+→ repeat
+~~~
 
-if the calendar cutoff is exhausted at any point:
-    return NOT_CERTIFIED with full accounting
-```
-
-Так основной Algorithm 1 остается коротким и читаемым, а вся формальная детализация живет в отдельных subroutines и не забивает основной текст статьи.
+Вся delayed-механика внутри \textsc{ResolveLevel} формально определена в appendix subroutine:
+designated pulls → exactly \(w\) legal filler rounds → finalize matured outcomes → empirical-Bernstein update → resolve cells.
 
 ## 5. Round chronology
 
