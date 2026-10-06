@@ -1,109 +1,63 @@
-% VS-Certify-Delayed: main reader-facing procedure.
-%
-% Required packages:
+% Main paper-facing pseudocode for VS-Certify-Delayed.
+% Required packages in the manuscript preamble:
 %   \usepackage{amsmath,amssymb}
 %   \usepackage{algorithm}
 %   \usepackage{algpseudocode}
-%   \usepackage{float}
 %
-% Detailed subroutines are in:
-%   theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex
+% Optional, if the manuscript prefers Input/Output labels:
+%   \algrenewcommand\algorithmicrequire{\textbf{Input:}}
+%   \algrenewcommand\algorithmicensure{\textbf{Output:}}
 
-\algrenewcommand\algorithmicrequire{\textbf{Input:}}
-\algrenewcommand\algorithmicensure{\textbf{Output:}}
-
-\[
-\mathsf{Acct}(t)
-:=
-\bigl(t,\delta_{\rm cert},\mathcal S_{\rm cert}\bigr).
-\]
-
-When a family separates, convert every scaled certificate to latent scale by
-\[
-\ell_j=\max\{0,\underline M_j^g/q_w\},\qquad
-U_j=\min\{1,\overline M_j^g/q_w\},\qquad
-\Xi_j=\min\{1,\xi_j^g/q_w\}.
-\]
-
-\begin{algorithm}[H]
-\caption{\textsc{VS-Certify-Delayed}}
+\begin{algorithm}[t]
+\caption{Delayed variance-sensitive family certification}
 \label{alg:vs-certify-delayed}
 \small
 \begin{algorithmic}[1]
-
 \Require
-families \(i=1,\ldots,K\) on \(X_i=[0,1]^{d_i}\);
-valid Lipschitz bounds \(L_i>0\);
-common known \(q_w>0\);
-window \(w\in\mathbb Z_{\ge0}\);
-risks \((\delta_i)_{i=1}^K\) with
-\(\sum_i\delta_i\le\delta_{\rm cert}\);
-calendar cutoff \(B\).
-
+families $\{(X_i,L_i)\}_{i=1}^K$ with $X_i=[0,1]^{d_i}$;
+known $q_w=F(w)>0$ and window $w$;
+risks $\{\delta_i\}_{i=1}^K$ with
+$\sum_i\delta_i\le\delta_{\rm cert}$;
+calendar cutoff $B$
 \Ensure
-\(\textsc{Certified}
-\bigl(i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}\bigr)\)
-or
-\(\textsc{Not-Certified}(\mathsf{Acct})\).
+\textsc{Certified}$\bigl(i^\star,\{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,\mathsf{Acct}\bigr)$
+or \textsc{Not-Certified}$\bigl(\mathsf{Acct}\bigr)$
 
-\State
-\(t\gets0\), \(h\gets0\),
-\(\mathcal S_{\rm cert}\gets\varnothing\).
-\For{each family \(i\)}
-    \State
-    \(\mathcal L_i^g\gets q_wL_i\),
-    \(\mathcal C_i(0)\gets\{X_i\}\) with fresh root-cell state.
+\State $t\gets0$, $h\gets0$, $\mathcal S_{\rm cert}\gets\varnothing$
+\For{$i=1,\ldots,K$}
+    \State $\mathcal L_i^g\gets q_wL_i$
+    \State initialize $\mathcal C_i(0)\gets\{X_i\}$ with fresh root-cell state
 \EndFor
 
 \While{true}
-    \Statex
-    \Statex \(\triangleright\) \textit{Resolve the current dyadic level from matured feedback.}
-    \If{\(\Call{ResolveLevel}{h}=\textsc{Fail}\)}
-        \State
-        \Return
-        \(\textsc{Not-Certified}(\mathsf{Acct}(t))\)
+    \If{$\Call{ResolveLevel}{h}=\textsc{Fail}$}
+        \State \Return \textsc{Not-Certified}$\bigl(\mathsf{Acct}(t)\bigr)$
     \EndIf
 
-    \Statex
-    \Statex \(\triangleright\) \textit{Build simultaneous certificates for all families.}
-    \For{each family \(i\)}
-        \State
-        \((z_i,\underline M_i^g,\overline M_i^g,\xi_i^g)
-        \gets
-        \Call{FamilyCertificate}{i,h}\)
+    \For{$i=1,\ldots,K$}
+        \State $(z_i,\underline M_i^g,\overline M_i^g,\xi_i^g)
+        \gets \Call{FamilyCertificate}{i,h}$
     \EndFor
 
-    \Statex
-    \Statex \(\triangleright\) \textit{Stop once one family is separated from every competitor.}
-    \If{some \(i\) satisfies
-        \(\underline M_i^g>
-        \max_{j\ne i}\overline M_j^g\)}
-        \State
-        choose the first such \(i\) under the fixed family order
-        \State
-        convert all family certificates to latent scale
-        \State
-        \Return
-        \(\textsc{Certified}
-        \bigl(i,\{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,
-        \mathsf{Acct}(t)\bigr)\)
+    \If{some $i$ satisfies
+        $\underline M_i^g>\max_{j\ne i}\overline M_j^g$}
+        \State let $i^\star$ be the first such family under the fixed order
+        \For{$j=1,\ldots,K$}
+            \State $\ell_j\gets\max\{0,\underline M_j^g/q_w\}$,
+            $U_j\gets\min\{1,\overline M_j^g/q_w\}$
+            \State $\Xi_j\gets\min\{1,\xi_j^g/q_w\}$
+        \EndFor
+        \State \Return \textsc{Certified}$\bigl(i^\star,
+        \{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}(t)\bigr)$
     \EndIf
 
-    \Statex
-    \Statex \(\triangleright\) \textit{Prune cells that cannot contain a family maximizer and refine.}
-    \For{each family \(i\)}
-        \State
-        \(\mathcal S_i\gets
-        \{I\in\mathcal C_i(h):
-        U_{\rm cell}(I)\ge\underline M_i^g\}\)
-        \State
-        \(\mathcal C_i(h+1)\gets\)
-        all dyadic children of cells in \(\mathcal S_i\),
-        each with fresh estimator state
+    \For{$i=1,\ldots,K$}
+        \State $\mathcal S_i\gets
+        \{I\in\mathcal C_i(h):U_{\rm cell}(I)\ge\underline M_i^g\}$
+        \State $\mathcal C_i(h+1)\gets$
+        all dyadic children of cells in $\mathcal S_i$, each with fresh state
     \EndFor
-    \State
-    \(h\gets h+1\)
+    \State $h\gets h+1$
 \EndWhile
-
 \end{algorithmic}
 \end{algorithm}
