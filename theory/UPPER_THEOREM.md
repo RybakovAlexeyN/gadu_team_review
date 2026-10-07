@@ -47,8 +47,7 @@ $$
 For every possible depth-$h$ cell $I$ and geometric checkpoint $r$, preassign
 
 $$
-\eta_{h,I,r}
-=
+\eta_{h,I,r} =
 \frac{36\delta}
 {\pi^4\,2^{dh}(h+1)^2(r+1)^2}.
 $$
@@ -69,16 +68,14 @@ $$
 n_r
 \ge
 4+
-\frac{1024\lambda_{h,r}}{a_h^2}
-+
+\frac{1024\lambda_{h,r}}{a_h^2} +
 \frac{140\lambda_{h,r}}{a_h}.
 $$
 
 Define the explicit confidence factor
 
 $$
-\Lambda(\varepsilon,\delta,L_g,d)
-=
+\Lambda(\varepsilon,\delta,L_g,d) =
 \max_{0\le h\le h_\varepsilon,\ 0\le r\le R_h}
 \lambda_{h,r}.
 $$
@@ -88,8 +85,7 @@ $$
 For $n\ge2$ finalized Bernoulli observations $Y_1,\dots,Y_n$, let
 
 $$
-V_n
-=
+V_n =
 \frac{1}{n-1}
 \sum_{j=1}^n
 \left(Y_j-\overline Y_n\right)^2.
@@ -98,10 +94,8 @@ $$
 The learner uses the computable radius
 
 $$
-\operatorname{rad}(n,V_n,\eta)
-=
-\sqrt{\frac{2V_n\log(6/\eta)}{n}}
-+
+\operatorname{rad}(n,V_n,\eta) =
+\sqrt{\frac{2V_n\log(6/\eta)}{n}} +
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
 
@@ -158,8 +152,7 @@ C_d\,\Lambda(\varepsilon,\delta,L_g,d)
 L_g^d
 \int_X
 \left(
-\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}}
-+
+\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}} +
 \frac{1}{(\operatorname{gap}(x)+\varepsilon)^{d+1}}
 \right)\,dx
 \right],
@@ -178,8 +171,7 @@ C
 \sum_{c\in A_h}
 \lambda_{h,r(c)}
 \left[
-\frac{g(c)}{a_h^2}
-+
+\frac{g(c)}{a_h^2} +
 \frac{1}{a_h}
 \right],
 $$
@@ -200,8 +192,7 @@ $$
 N_c(h)
 \le
 4+
-\frac{1024\,g(c)\,\Lambda}{a_h^2}
-+
+\frac{1024\,g(c)\,\Lambda}{a_h^2} +
 \frac{140\,\Lambda}{a_h}.
 $$
 
@@ -230,8 +221,7 @@ $$
 Define
 
 $$
-\Lambda_i
-=
+\Lambda_i =
 \Lambda(q_w\varepsilon,\delta_i,q_wL_i,d_i).
 $$
 
@@ -246,8 +236,7 @@ C\,\Lambda_i
 \frac{L_i^{d_i}}{q_w}
 \int_{X_i}
 \left(
-\frac{f_i(x)}{(\Delta_i(x)+\varepsilon)^{d_i+2}}
-+
+\frac{f_i(x)}{(\Delta_i(x)+\varepsilon)^{d_i+2}} +
 \frac{1}{(\Delta_i(x)+\varepsilon)^{d_i+1}}
 \right)\,dx
 \right].

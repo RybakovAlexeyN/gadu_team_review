@@ -33,8 +33,7 @@ $$
 For every possible depth-$h$ dyadic cell $I$ and checkpoint $r$, preassign
 
 $$
-\eta_{h,I,r}
-=
+\eta_{h,I,r} =
 \frac{36\delta}
 {\pi^4\,2^{dh}(h+1)^2(r+1)^2}.
 $$
@@ -42,22 +41,18 @@ $$
 There are exactly $2^{dh}$ possible cells at depth $h$. Hence
 
 $$
-\sum_{h,I,r}\eta_{h,I,r}
-=
+\sum_{h,I,r}\eta_{h,I,r} =
 \frac{36\delta}{\pi^4}
 \left(\sum_{h\ge0}\frac1{(h+1)^2}\right)
-\left(\sum_{r\ge0}\frac1{(r+1)^2}\right)
-=
+\left(\sum_{r\ge0}\frac1{(r+1)^2}\right) =
 \delta.
 $$
 
 For $n\ge2$ Bernoulli observations at a center, use
 
 $$
-\operatorname{rad}(n,V,\eta)
-=
-\sqrt{\frac{2V\log(6/\eta)}{n}}
-+
+\operatorname{rad}(n,V,\eta) =
+\sqrt{\frac{2V\log(6/\eta)}{n}} +
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
 
@@ -87,8 +82,7 @@ $$
 n
 \ge
 2+
-\frac{512\mu\lambda}{a_h^2}
-+
+\frac{512\mu\lambda}{a_h^2} +
 \frac{70\lambda}{a_h}
 $$
 
@@ -106,8 +100,7 @@ $$
 N_c(h)
 \le
 4+
-\frac{1024\,g(c)\,\Lambda}{a_h^2}
-+
+\frac{1024\,g(c)\,\Lambda}{a_h^2} +
 \frac{140\Lambda}{a_h}.
 $$
 
@@ -144,16 +137,14 @@ $$
 so
 
 $$
-U_{\mathrm{cell}}(I)
-=
+U_{\mathrm{cell}}(I) =
 \min\{1,\widehat g_I+\operatorname{rad}_I+a_h\}
 $$
 
 is a valid upper bound on the whole cell. Likewise,
 
 $$
-\operatorname{LCB}(I)
-=
+\operatorname{LCB}(I) =
 \max\{0,\widehat g_I-\operatorname{rad}_I\}
 \le
 g(c_I).
@@ -164,8 +155,7 @@ $$
 Let $I_h^\star$ be an active depth-$h$ cell containing a maximizer $x^\star$. Define
 
 $$
-\ell_h
-=
+\ell_h =
 \max_I\operatorname{LCB}(I).
 $$
 
@@ -214,8 +204,7 @@ $$
 \ge
 g(c_{I_h^\star})-2\operatorname{rad}_{I_h^\star}
 \ge
-g^\star-a_h-\frac{a_h}{4}
-=
+g^\star-a_h-\frac{a_h}{4} =
 g^\star-\frac{5a_h}{4}.
 $$
 
@@ -266,8 +255,7 @@ $$
 For all depths,
 
 $$
-a_{h-1}
-=
+a_{h-1} =
 \min\{1,2L_g\rho_h\}
 \le
 2a_h.
@@ -300,12 +288,10 @@ This also covers the transition out of the clipped regime; the proof uses only $
 At a resolved depth define
 
 $$
-\ell^g
-=
+\ell^g =
 \max_I\operatorname{LCB}(I),
 \qquad
-U^g
-=
+U^g =
 \max_I U_{\mathrm{cell}}(I).
 $$
 
@@ -346,8 +332,7 @@ then on $\mathcal E_{\mathrm{conf}}$,
 $$
 g^\star-g(z)
 \le
-U^g-\ell^g
-=
+U^g-\ell^g =
 \xi
 \le
 \frac{5a_h}{2}.
@@ -373,8 +358,7 @@ C
 \sum_{c\in A_h}
 \lambda_{h,r(c)}
 \left[
-\frac{g(c)}{a_h^2}
-+
+\frac{g(c)}{a_h^2} +
 \frac{1}{a_h}
 \right],
 $$
@@ -394,8 +378,7 @@ This is the strongest discrete form feeding the geometric part of the proof.
 At a fixed fine depth, distinct dyadic centers are separated in $\ell_\infty$ norm at scale
 
 $$
-2^{-h}
-=
+2^{-h} =
 \frac{2a_h}{L_g}.
 $$
 
@@ -428,15 +411,13 @@ $$
 Multiplying a center cost by the reciprocal ball volume yields
 
 $$
-\frac{g(c)}{a_h^2}
-+
+\frac{g(c)}{a_h^2} +
 \frac1{a_h}
 \le
 C_dL_g^d
 \int_{B(c)}
 \left[
-\frac{g(x)}{a_h^{d+2}}
-+
+\frac{g(x)}{a_h^{d+2}} +
 \frac1{a_h^{d+1}}
 \right]dx.
 $$
@@ -486,8 +467,7 @@ C_d\Lambda
 L_g^d
 \int_X
 \left(
-\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}}
-+
+\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}} +
 \frac1{(\operatorname{gap}(x)+\varepsilon)^{d+1}}
 \right)dx
 \right].

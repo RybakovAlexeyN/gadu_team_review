@@ -50,8 +50,7 @@ $$
 and define the fine-gap region
 
 $$
-A_{\mathrm{fine}}
-=
+A_{\mathrm{fine}} =
 \{x:\Delta\le G(x)<c_0\}.
 $$
 
@@ -84,8 +83,7 @@ c_{d,\kappa}
 \,S^d
 \int_{A_{\mathrm{fine}}}
 \left(
-\frac{\mu(x)}{G(x)^{d+2}}
-+
+\frac{\mu(x)}{G(x)^{d+2}} +
 \frac{1}{G(x)^{d+1}}
 \right)\,dx,
 $$
@@ -119,8 +117,7 @@ Since
 $$
 \operatorname{Lip}(\mu+\text{tent})
 \le
-L_0+S
-=
+L_0+S =
 L,
 $$
 

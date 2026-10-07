@@ -50,8 +50,7 @@ $$
 With a fixed attribution window $w$, a deployment at $x$ produces the matured positive-only Bernoulli observation
 
 $$
-B_s^{(w)}
-=
+B_s^{(w)} =
 \mathbf 1\{Z_s=1,\ D_s\le w\},
 $$
 
@@ -211,8 +210,7 @@ $$
 For family $i$, level $h$, cell $I$, and checkpoint $r$, define
 
 $$
-\eta_{i,h,I,r}
-=
+\eta_{i,h,I,r} =
 \frac{36\delta_i}
 {\pi^4\,2^{d_i h}(h+1)^2(r+1)^2}.
 $$
@@ -220,10 +218,8 @@ $$
 For $n\ge2$, the empirical-Bernstein radius is
 
 $$
-\operatorname{rad}(n,V,\eta)
-=
-\sqrt{\frac{2V\log(6/\eta)}{n}}
-+
+\operatorname{rad}(n,V,\eta) =
+\sqrt{\frac{2V\log(6/\eta)}{n}} +
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
 
@@ -294,32 +290,28 @@ If the cutoff arrives before a source has fully matured, that source is **not** 
 Once all active cells at the current level are resolved, define
 
 $$
-\operatorname{LCB}(I)
-=
+\operatorname{LCB}(I) =
 \max\{0,\widehat g_I-\operatorname{rad}_I\},
 $$
 
 and
 
 $$
-U_{\mathrm{cell}}(I)
-=
+U_{\mathrm{cell}}(I) =
 \min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}.
 $$
 
 The family lower and upper envelopes are
 
 $$
-\underline M_i^g
-=
+\underline M_i^g =
 \max_{I\in\mathcal C_i(h)}\operatorname{LCB}(I),
 $$
 
 and
 
 $$
-\overline M_i^g
-=
+\overline M_i^g =
 \max_{I\in\mathcal C_i(h)}U_{\mathrm{cell}}(I).
 $$
 
@@ -328,8 +320,7 @@ The current recommendation $z_i$ is the center of the cell with the largest lowe
 The scaled deployment-error certificate is
 
 $$
-\xi_i^g
-=
+\xi_i^g =
 \min\left\{
 1,
 \max\{0,\overline M_i^g-\underline M_i^g\}
@@ -343,8 +334,7 @@ $$
 If, for some family $i$,
 
 $$
-\underline M_i^g
->
+\underline M_i^g >
 \max_{j\ne i}\overline M_j^g,
 $$
 
@@ -385,8 +375,7 @@ Only after this flush are the designated source outcomes finalized. Thus every d
 If $D$ is the number of designated pulls and $C_h$ is the number of completed checkpoints at depth $h$, then on a completed, non-truncated execution path,
 
 $$
-T_{\mathrm{cal}}
-=
+T_{\mathrm{cal}} =
 D+w\sum_h C_h.
 $$
 
