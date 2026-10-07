@@ -2,6 +2,8 @@
 
 > **Cold-start summary.** This repository is the post–29 September scientific review packet for the current GADU paper. It is designed so that a coauthor or senior reviewer can understand the scientific delta without reconstructing the project history first.
 
+**Snapshot:** 7 October 2026. **Submission target:** The Web Conference.
+
 **Baseline manuscript:** *Gap-Adaptive Family Certification for Continuum Bandits with Delayed Positive-Only Feedback*. This repository is a **scientific-delta/review packet**, not a mirror of the full baseline manuscript; inherited theorem numbers are mentioned only when needed to explain the interface boundary.
 
 **Current reader-first candidate:** variance-sensitive certified continuum optimization  
