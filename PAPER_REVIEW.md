@@ -1,76 +1,81 @@
-# Проверка научной истории статьи
+# Paper Story Review
 
-Главный вопрос этого раздела:
+The central review question is:
 
-> **Получается ли из текущего результата одна понятная и защищаемая статья?**
+> **Does the current candidate form one clear, defensible paper?**
 
-## Научная история в одном абзаце
+This is a story/claims review, not a substitute for the mathematical review in [`MATH_REVIEW.md`](MATH_REVIEW.md).
 
-Мы рассматриваем certified optimization / family selection в ситуации, где положительные события могут быть редкими, а обратная связь приходит с задержкой.
+## Scientific story in one paragraph
 
-Текущий Hoeffding-style подход использует глобально консервативную статистическую цену. Новый variance-sensitive backend использует локальную Bernoulli information structure и в sparse-positive режимах может существенно уменьшать число наблюдений.
+We study certified optimization and family selection when positive outcomes may be rare and feedback arrives after a delay. The current Hoeffding-style route pays a globally conservative statistical price. The new variance-sensitive backend exploits local Bernoulli information and can require substantially fewer designated observations in sparse-positive regimes, while not being uniformly better. The statistical core is coupled to an executable delayed procedure in which every calendar round has a legal deployment, unresolved silence is never interpreted as failure, and family certificates are passed conservatively through the existing GADU certified-optimizer interface.
 
-При этом мы не утверждаем uniform improvement: controlled benchmark специально содержит режимы, где новый вариант хуже.
+## Scientific objects under review
 
-Для delayed setting результат доведен до отдельной исполнимой процедуры **VS-Certify-Delayed**: каждый календарный раунд имеет действие, unresolved feedback не считается нулем, confidence обновляется на synchronized checkpoints, а новый backend подключается к существующему GADU certified-optimizer interface.
-
-→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)
-
-## Текущий математический кандидат
+### Theory
 
 - [Variance-sensitive upper theorem](theory/UPPER_THEOREM.md)
-- [Scoped fine-gap lower theorem](theory/LOWER_THEOREM.md)
+- [Fine-gap lower theorem](theory/LOWER_THEOREM.md)
 - [Delayed execution and GADU composition](theory/DELAYED_GADU.md)
 
-## Что показано экспериментально
+### Controlled evidence
 
-→ [Controlled benchmark](experiments/README.md)
+The controlled component benchmark compares the variance-sensitive confidence mechanism against the current Hoeffding-style mechanism on the same Bernoulli stream.
 
-В выбранных sparse-positive regimes:
+In the predeclared sparse-positive regimes,
 
-```text
-mean N_VS/N_H ≈ 0.123
-```
+$$
+\operatorname{mean}\!\left(\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}\right)
+\approx 0.123.
+$$
 
-Но есть regimes с ratio `2.0`.
+But the frozen grid also contains regimes with
 
-Следовательно правильный empirical claim:
+$$
+\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}=2.
+$$
 
-> **instance-dependent sparse-positive sample efficiency**
+The supported claim is therefore **instance-dependent sparse-positive sample efficiency**, not uniform superiority.
 
-а не «новый метод всегда лучше».
+[Controlled benchmark →](experiments/README.md)
 
-## Что дали реальные данные
+### Real-data model-fit evidence
 
-→ [Criteo model-fit evidence](data/CRITEO_MODEL_FIT.md)
+On the 1,200-row Criteo slice, one physical conversion may be attached to multiple positive impression rows. Therefore
 
-Criteo показал, что наивное соответствие
+$$
+\text{one positive row}
+\not\equiv
+\text{one independent Bernoulli success}.
+$$
 
-```text
-one positive row = one independent Bernoulli success
-```
+Criteo is useful here as attribution/model-fit falsification evidence, not as an end-to-end GADU policy benchmark.
 
-неверно: один physical conversion может быть связан с несколькими impression rows.
+[Criteo model-fit evidence →](data/CRITEO_MODEL_FIT.md)
 
-Поэтому Criteo — полезное model-fit/falsification evidence, но не end-to-end validation GADU.
+## What the reviewer should decide
 
-## Что нужно проверить с точки зрения статьи
+1. **Yes / no:** does this form one coherent paper story?
+2. Is the main contribution clearly distinguishable from the historical GADU-Cover result?
+3. Is novelty stated narrowly enough to survive comparison with adjacent certified-continuum, variance-dependent identification, and delayed-bandit work?
+4. Should the upper/lower theorem pair be the main theoretical result in the body?
+5. Does the experiment section support the theorem rather than promise more?
+6. Are the three evidence types kept distinct?
+   - theorem/proof;
+   - controlled component evidence;
+   - real-data model-fit/falsification evidence.
+7. What are the 2–3 mandatory changes to the abstract, contribution bullets, or section order before a full coauthor read?
 
-1. Понятна ли проблема с первых абзацев без знания внутренней истории проекта?
-2. Ясно ли, чем новый результат отличается от старого GADU-Cover?
-3. Достаточно ли узко и честно сформулирована novelty?
-4. Должен ли theorem pair быть главным результатом основной части статьи?
-5. Правильно ли experiment section поддерживает theorem, а не обещает больше?
-6. Достаточно ли четко разделены:
-   - теория;
-   - controlled evidence;
-   - real-data model-fit evidence?
-7. Какие 2–3 изменения сильнее всего улучшат abstract / contributions / story?
+## Claims that must remain out of scope
 
-## Удобный формат результата
+Do not approve wording that implies:
 
-1. **Да / нет:** складывается ли из этого одна paper story?
-2. Что сейчас мешает читателю понять главный contribution?
-3. Какие изменения текста обязательны до общего финального чтения?
+- uniform superiority over Hoeffding;
+- a novel $q_w^{-1}$ law by itself;
+- a full minimax characterization;
+- automatic improvement of the existing GADU Theorem 1/8 or Theorem 9;
+- closure of unrelated moving-center regret gaps;
+- end-to-end real-data GADU validation;
+- an unsupported “first” claim.
 
-Если математика получает PASS, следующий шаг — перестроить manuscript вокруг той истории, которая выдержала review.
+If the mathematics receives PASS, the next writing step is to build the manuscript around the story that survives this review rather than around the chronology of the project.
