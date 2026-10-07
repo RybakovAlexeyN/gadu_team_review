@@ -18,8 +18,7 @@ The current algorithm makes both clocks explicit. It does not contain an unspeci
 For source round $s$, after age $w$, define
 
 $$
-B_s^{(w)}
-=
+B_s^{(w)} =
 \mathbf 1\{Z_s=1,\ D_s\le w\}.
 $$
 
@@ -61,8 +60,7 @@ The delayed certifier:
 If $D$ is the total number of designated source pulls and $C_h$ is the number of synchronized checkpoints at depth $h$, then on a completed, non-truncated path,
 
 $$
-T_{\mathrm{cal}}
-=
+T_{\mathrm{cal}} =
 D+w\sum_h C_h.
 $$
 
@@ -127,8 +125,7 @@ The continuation gate must use the **latent-scale** error $\Xi_i$, not the scale
 Let $I_T$ be the immediate full-union certificate and let $C_T(u)$ be the compatible prefix certificate. For a predeclared cutoff $B$, define
 
 $$
-V_{\mathrm{fb}}(T,B)
-=
+V_{\mathrm{fb}}(T,B) =
 B+C_T(T-B).
 $$
 
