@@ -1,123 +1,169 @@
-# Fine-gap local-information lower bound
+# Fine-Gap Local-Information Lower Bound
 
-Consider two Bernoulli families on `X=[0,1]^d`.
+This note states the current **scoped** Bernoulli lower-bound candidate. It is intentionally narrower than a full minimax characterization.
+
+## Setting
+
+Consider two Bernoulli families on
+
+$$
+X=[0,1]^d.
+$$
 
 The base instance is:
 
-- family 1 is constant with mean `b`;
-- family 2 has mean `mu(x)<b`.
+- family 1 is constant with mean $b$;
+- family 2 has mean $\mu(x)<b$.
 
 Define
 
-```text
-Delta = b - max_x mu(x) > 0,
-G(x)  = b - mu(x).
-```
+$$
+\Delta=b-\max_x\mu(x)>0,
+\qquad
+G(x)=b-\mu(x).
+$$
 
 Assume
 
-```text
-b <= 1/2,
-L0 = Lip(mu) <= (1-kappa)L,
-kappa in (0,1),
-S = L - L0 > 0.
-```
+$$
+b\le\frac12,
+\qquad
+L_0=\operatorname{Lip}(\mu)\le(1-\kappa)L,
+\qquad
+\kappa\in(0,1),
+$$
+
+and define the roughness slack
+
+$$
+S=L-L_0>0.
+$$
 
 Fix
 
-```text
-c0 = 1/6,
-0 < Delta < c0,
-A_fine = {x : Delta <= G(x) < c0}.
-```
+$$
+c_0=\frac16,
+\qquad
+0<\Delta<c_0,
+$$
+
+and define the fine-gap region
+
+$$
+A_{\mathrm{fine}}
+=
+\{x:\Delta\le G(x)<c_0\}.
+$$
 
 ## Correctness model
 
-Let `M_L` be the two-family Bernoulli model class in which both family mean functions:
+Let $\mathcal M_L$ be the two-family Bernoulli model class in which both family mean functions
 
-- are `L`-Lipschitz on `X`;
-- take values in `[0,1]`;
+- are $L$-Lipschitz on $X$;
+- take values in $[0,1]$;
 - have a unique best family.
 
-The base instance above is the point at which the lower bound is evaluated. The local bump alternatives used in the proof are also required to remain inside `M_L`; under some of them family 2 becomes optimal.
+The base instance is the point at which the lower bound is evaluated. The local bump alternatives used in the proof must also remain inside $\mathcal M_L$; under some alternatives, family 2 becomes optimal.
 
-Fix `delta in (0,1/2)`.
+Fix $\delta\in(0,1/2)$. An algorithm is $\delta$-correct on $\mathcal M_L$ if, for every instance $\nu\in\mathcal M_L$,
 
-An algorithm is `delta`-correct on `M_L` if, for every instance `nu in M_L`:
+- it has an almost surely finite stopping time $\tau$ with respect to the natural adaptive-sampling filtration;
+- it returns an $\mathcal F_\tau$-measurable family label;
+- it identifies the unique optimal family with probability at least $1-\delta$.
 
-- it has an almost surely finite stopping time `tau` with respect to the natural adaptive-sampling filtration;
-- it returns an `F_tau`-measurable family label;
-- it identifies the unique optimal family with probability at least `1-delta`.
+## Theorem — lower bound
 
-## Lower bound
+Every algorithm that is $\delta$-correct on $\mathcal M_L$ satisfies, at the displayed base instance,
 
-Every algorithm that is `delta`-correct on `M_L` satisfies, at the displayed base instance,
+$$
+\mathbb E[\tau]
+\ge
+c_{d,\kappa}
+\frac{\operatorname{kl}(1-\delta,\delta)}
+{1+\left\lceil\log_2(c_0/\Delta)\right\rceil}
+\,S^d
+\int_{A_{\mathrm{fine}}}
+\left(
+\frac{\mu(x)}{G(x)^{d+2}}
++
+\frac{1}{G(x)^{d+1}}
+\right)\,dx,
+$$
 
-```text
-E[tau] >= c_{d,kappa}
-  * kl(1-delta,delta)
-    / [1 + ceil(log_2(c0/Delta))]
-  * S^d
-  * integral_{A_fine} {
-      mu(x)/G(x)^(d+2)
-      + 1/G(x)^(d+1)
-    } dx,
-```
+up to fixed dimension/$\ell_\infty$ packing constants.
 
-up to fixed dimension/infinity-norm packing constants.
-
-This is deliberately scoped:
-
-- fine-gap region only;
-- strict roughness slack;
-- logarithmic loss from layer selection;
-- no claim of a full-X minimax characterization.
-
-## Verified one-layer mechanism
+## One-layer mechanism
 
 For a dyadic fine layer
 
-```text
-A_s = {x : s <= G(x) < 2s},
-s <= 1/12,
-```
+$$
+A_s=\{x:s\le G(x)<2s\},
+\qquad
+s\le\frac1{12},
+$$
 
-use a maximal packing with separation proportional to `s/S`.
+use a maximal packing with separation proportional to $s/S$.
 
-The perturbation tents have:
+The perturbation tents have
 
-```text
-peak = 3s,
-slope <= S,
-support radius = 3s/S.
-```
+$$
+\text{peak}=3s,
+\qquad
+\text{slope}\le S,
+\qquad
+\text{support radius}=\frac{3s}{S}.
+$$
 
 Since
 
-```text
-Lip(mu + tent) <= L0 + S = L,
-```
+$$
+\operatorname{Lip}(\mu+\text{tent})
+\le
+L_0+S
+=
+L,
+$$
 
-the alternatives remain in the declared class and flip the best family at the selected center.
+the alternatives remain in the declared Lipschitz class and flip the best family at the selected center.
 
 The local Bernoulli information scale is
 
-```text
-p/s^2 + 1/s.
-```
+$$
+\frac{p}{s^2}+\frac1s.
+$$
 
 Consequently the one-layer lower bound has the form
 
-```text
-E[tau] >= c_{d,kappa}
-  * (S/s)^d
-  * kl(1-delta,delta)
-  * [p/s^2 + 1/s],
-```
+$$
+\mathbb E[\tau]
+\ge
+c_{d,\kappa}
+\left(\frac{S}{s}\right)^d
+\operatorname{kl}(1-\delta,\delta)
+\left(
+\frac{p}{s^2}+\frac1s
+\right),
+$$
 
 up to fixed packing constants.
 
 Selecting the largest dyadic layer produces the explicit logarithmic factor in the theorem.
 
-→ [Proof outline](LOWER_PROOF.md)  
-→ [Mathematical review checklist](../MATH_REVIEW.md)
+## Scope
+
+The result is deliberately restricted to:
+
+- the **fine-gap region** $A_{\mathrm{fine}}$;
+- strict roughness slack $S>0$;
+- an explicit logarithmic layer-selection loss;
+- the declared fixed-confidence model class.
+
+It does **not** claim:
+
+- a full-$X$ lower bound;
+- a full minimax characterization;
+- exact matching without the logarithmic loss;
+- a broader model class than the one stated above.
+
+[Proof outline →](LOWER_PROOF.md)  
+[Mathematical review checklist →](../MATH_REVIEW.md)
