@@ -36,8 +36,7 @@ $$
 The mean sparse-regime ratio is
 
 $$
-\operatorname{mean}\!\left(\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}\right)
-=
+\operatorname{mean}\!\left(\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}\right) =
 0.122852.
 $$
 
