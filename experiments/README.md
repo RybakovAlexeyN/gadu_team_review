@@ -64,3 +64,7 @@ python3 experiments/eval.py
 ```
 
 `numpy` is required for the vectorized benchmark.
+
+### Reproducibility note
+
+The benchmark uses a deterministic seed derived from `(q, f, seed_count)` and `numpy.random.default_rng`, so repeated runs under a compatible NumPy/Python environment are intended to reproduce the frozen table. The repository does **not** currently pin an exact Python/NumPy environment; if exact environment-level reproducibility becomes submission-critical, freeze it explicitly rather than inferring a version from these scripts.

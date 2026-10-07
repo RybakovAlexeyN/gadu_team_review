@@ -6,6 +6,16 @@ Authoritative dataset page: <https://ailab.criteo.com/criteo-attribution-modelin
 
 The raw dataset is **not redistributed** in this review packet.
 
+## Exact slice provenance
+
+The audited artifact is the **first 1,200 data rows after the header** from the canonical public file `criteo_attribution_dataset.tsv.gz`.
+
+Slice SHA-256:
+
+`ec166095e4c8067c540c7f7da8b8d90ae1146b9feead215b76118e5f93878feb`
+
+The upstream whole-file SHA-256 recorded during acquisition was `94ac7a465564349bc7ba008602211d5990a3c53cc133abc0aadef61ea2391a98`; the acquisition run did not download the full upstream object, so that whole-file hash is recorded for provenance but is **not claimed as locally reverified** by this run.
+
 ## Observed facts
 
 | Quantity | Observed value |
