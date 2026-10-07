@@ -4,7 +4,7 @@ This note records the interpretation of a deterministic 1,200-row prefix of the 
 
 Authoritative dataset page: <https://ailab.criteo.com/criteo-attribution-modeling-bidding-dataset/>
 
-The raw dataset is **not redistributed** in this review packet.
+The raw dataset is **not redistributed** in this review packet. This public review repository records the slice identity and audit result, but it does not currently include the acquisition/audit scripts or the raw slice itself; treat this as **provenance-recorded evidence**, not self-contained reproduction.
 
 ## Exact slice provenance
 

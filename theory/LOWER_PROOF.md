@@ -69,7 +69,7 @@ $$
 C\frac{a^2}{p+a}.
 $$
 
-After comparison with the packed-center baseline, this yields
+At a packed center $c$, write $p_0=\mu(c)$ for the base Bernoulli mean. After comparison with that packed-center baseline, this yields
 
 $$
 \frac{1}{\mathrm{KL}_{\mathrm{per\ informative\ pull}}}
@@ -104,11 +104,11 @@ $$
 c\,\mathrm{kl}(1-\delta,\delta)\,H_s,
 $$
 
-where $H_s$ is the weighted packing sum carrying the local factor
+where $H_s$ is the weighted packing sum carrying, at each packed center $c$, the local factor
 
-$$
-\frac{p}{s^2}+\frac1s.
-$$
+$
+\frac{\mu(c)}{s^2}+\frac1s.
+$
 
 ## F. Multiple layers
 

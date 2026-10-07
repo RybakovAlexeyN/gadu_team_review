@@ -265,8 +265,8 @@ A cold reader should distinguish **specified**, **supported**, and **accepted**.
 | Upper theorem | Structured proof candidate | Human check of concentration, packing-to-volume, dyadic summation, coarse levels |
 | Lower theorem | Structured scoped candidate | Human check of bumps, Bernoulli KL, change of measure, layer aggregation |
 | Delayed/GADU bridge | Explicit composition candidate | Human source-ownership / clean-restart audit |
-| Component benchmark | Reproducible narrow experiment | No broader claim should be inferred |
-| Criteo evidence | Reproducible model-fit falsifier | No policy claim should be inferred |
+| Component benchmark | Runnable narrow experiment | No broader claim should be inferred |
+| Criteo evidence | Provenance-recorded model-fit falsifier | No policy claim should be inferred |
 | Novelty framing | Conservative but not closed | Final literature kill-pass |
 | Final manuscript | Not frozen | One reader-first integrated draft + full coauthor read |
 
