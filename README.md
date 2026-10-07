@@ -23,8 +23,7 @@ $$
 A deployment at source round $s$ may generate a positive event $Z_s=1$ after delay $D_s$. For a fixed attribution window $w$, the matured positive-only observation is
 
 $$
-B_s^{(w)}
-=
+B_s^{(w)} =
 \mathbf 1\{Z_s=1,\ D_s\le w\}.
 $$
 
@@ -45,9 +44,8 @@ $$
 Because the same positive factor $q_w$ multiplies every family,
 
 $$
-\arg\max_i\sup_{x\in X_i}g_i(x)
-=
-\arg\max_i\sup_{x\in X_i}f_i(x).
+\operatorname*{arg\,max}_i\sup_{x\in X_i}g_i(x) =
+\operatorname*{arg\,max}_i\sup_{x\in X_i}f_i(x).
 $$
 
 The task is therefore to **certify the best family**, not merely estimate one point, while never interpreting unresolved delayed silence as an observed failure.
@@ -95,8 +93,7 @@ C_d\,\Lambda(\varepsilon,\delta,L_g,d)
 L_g^d
 \int_X
 \left(
-\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}}
-+
+\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}} +
 \frac{1}{(\operatorname{gap}(x)+\varepsilon)^{d+1}}
 \right)\,dx
 \right].
@@ -105,8 +102,7 @@ $$
 The two local terms come from the empirical-Bernstein sample cost at a center:
 
 $$
-\frac{g(c)}{a_h^2}
-+
+\frac{g(c)}{a_h^2} +
 \frac{1}{a_h}.
 $$
 
@@ -123,8 +119,7 @@ $$
 S^d
 \int_{A_{\mathrm{fine}}}
 \left(
-\frac{\mu(x)}{G(x)^{d+2}}
-+
+\frac{\mu(x)}{G(x)^{d+2}} +
 \frac{1}{G(x)^{d+1}}
 \right)\,dx,
 $$
@@ -148,8 +143,7 @@ The delayed certifier emits one legal deployment every calendar round. At each s
 On a completed non-truncated path,
 
 $$
-T_{\mathrm{cal}}
-=
+T_{\mathrm{cal}} =
 D+w\sum_h C_h,
 $$
 
@@ -191,8 +185,7 @@ The controlled component benchmark compares inverse-weighted Hoeffding confidenc
 For the predeclared sparse-positive regimes $q\in\{0.1,0.2\}$ and $f\in\{0.05,0.1\}$,
 
 $$
-\operatorname{mean}\!\left(\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}\right)
-=
+\operatorname{mean}\!\left(\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}\right) =
 0.122852.
 $$
 
