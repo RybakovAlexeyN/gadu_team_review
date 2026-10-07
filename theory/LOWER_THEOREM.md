@@ -28,7 +28,7 @@ Assume
 $$
 b\le\frac12,
 \qquad
-L_0=\operatorname{Lip}(\mu)\le(1-\kappa)L,
+L_0=\mathrm{Lip}(\mu)\le(1-\kappa)L,
 \qquad
 \kappa\in(0,1),
 $$
@@ -78,7 +78,7 @@ $$
 \mathbb E[\tau]
 \ge
 c_{d,\kappa}
-\frac{\operatorname{kl}(1-\delta,\delta)}
+\frac{\mathrm{kl}(1-\delta,\delta)}
 {1+\left\lceil\log_2(c_0/\Delta)\right\rceil}
 \,S^d
 \int_{A_{\mathrm{fine}}}
@@ -115,7 +115,7 @@ $$
 Since
 
 $$
-\operatorname{Lip}(\mu+\text{tent})
+\mathrm{Lip}(\mu+\text{tent})
 \le
 L_0+S =
 L,
@@ -136,7 +136,7 @@ $$
 \ge
 c_{d,\kappa}
 \left(\frac{S}{s}\right)^d
-\operatorname{kl}(1-\delta,\delta)
+\mathrm{kl}(1-\delta,\delta)
 \left(
 \frac{p}{s^2}+\frac1s
 \right),

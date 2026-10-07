@@ -64,7 +64,7 @@ This keeps the perturbed Bernoulli means valid and bounded away from one.
 Inside one perturbation support, use a Bernoulli KL upper bound of the form
 
 $$
-\operatorname{kl}(p,p+a)
+\mathrm{kl}(p,p+a)
 \le
 C\frac{a^2}{p+a}.
 $$
@@ -87,7 +87,7 @@ Only pulls of family 2 inside the selected perturbation support distinguish the 
 For $\delta\in(0,1/2)$ and an algorithm that is $\delta$-correct uniformly over the full model class, data processing gives the binary relative-entropy lower bound
 
 $$
-\operatorname{kl}(1-\delta,\delta)
+\mathrm{kl}(1-\delta,\delta)
 $$
 
 between the output distributions under the base instance and each alternative.
@@ -101,7 +101,7 @@ Because supports are disjoint within a layer, summing over alternatives gives
 $$
 \mathbb E[\tau]
 \ge
-c\,\operatorname{kl}(1-\delta,\delta)\,H_s,
+c\,\mathrm{kl}(1-\delta,\delta)\,H_s,
 $$
 
 where $H_s$ is the weighted packing sum carrying the local factor

@@ -84,8 +84,8 @@ $$
 Because $q_w>0$ is common across families,
 
 $$
-\operatorname*{arg\,max}_i\sup_{x\in X_i}g_i(x) =
-\operatorname*{arg\,max}_i\sup_{x\in X_i}f_i(x).
+\mathrm{arg\,max}_i\sup_{x\in X_i}g_i(x) =
+\mathrm{arg\,max}_i\sup_{x\in X_i}f_i(x).
 $$
 
 The new statistical core combines
@@ -211,7 +211,7 @@ $$
 the mean designated-sample ratio is
 
 $$
-\operatorname{mean}\!\left(
+\mathrm{mean}\!\left(
 \frac{N_{\mathrm{VS}}}{N_{\mathrm H}}
 \right) =
 0.122852.
