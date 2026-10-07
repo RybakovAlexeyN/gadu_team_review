@@ -52,8 +52,7 @@ This is the most important context for a reader who already knows the earlier GA
 For a source round $s$ and attribution window $w$, the baseline manuscript uses the inverse-weighted pseudo-reward
 
 $$
-Y_s^{(w)}
-=
+Y_s^{(w)} =
 \frac{\mathbf 1\{Z_s=1,\ D_s\le w\}}{q_w},
 \qquad
 q_w=F(w)>0.
@@ -68,8 +67,7 @@ The baseline manuscript already recognizes narrower raw-Bernoulli / $q_w^{-1}$ b
 Instead, work directly with the matured Bernoulli indicator
 
 $$
-B_s^{(w)}
-=
+B_s^{(w)} =
 \mathbf 1\{Z_s=1,\ D_s\le w\}
 \sim
 \mathrm{Bernoulli}\!\left(q_w f_i(x_s)\right).
@@ -84,8 +82,7 @@ $$
 Because $q_w>0$ is common across families,
 
 $$
-\operatorname*{arg\,max}_i\sup_{x\in X_i}g_i(x)
-=
+\operatorname*{arg\,max}_i\sup_{x\in X_i}g_i(x) =
 \operatorname*{arg\,max}_i\sup_{x\in X_i}f_i(x).
 $$
 
@@ -104,8 +101,7 @@ $$
 The local center cost has the variance-sensitive form
 
 $$
-\frac{g(c)}{a_h^2}
-+
+\frac{g(c)}{a_h^2} +
 \frac{1}{a_h},
 $$
 
@@ -134,8 +130,7 @@ C_d\,\Lambda
 L_g^d
 \int
 \left(
-\frac{g(x)}{(\Delta_g(x)+\varepsilon)^{d+2}}
-+
+\frac{g(x)}{(\Delta_g(x)+\varepsilon)^{d+2}} +
 \frac{1}{(\Delta_g(x)+\varepsilon)^{d+1}}
 \right)\,dx
 \right].
@@ -183,8 +178,7 @@ At every synchronized checkpoint, the active set is frozen, designated pulls are
 On a completed non-truncated execution,
 
 $$
-T_{\mathrm{cal}}
-=
+T_{\mathrm{cal}} =
 D+w\sum_h C_h.
 $$
 
@@ -217,16 +211,14 @@ the mean designated-sample ratio is
 $$
 \operatorname{mean}\!\left(
 \frac{N_{\mathrm{VS}}}{N_{\mathrm H}}
-\right)
-=
+\right) =
 0.122852.
 $$
 
 But the same frozen grid contains regimes with
 
 $$
-\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}
-=
+\frac{N_{\mathrm{VS}}}{N_{\mathrm H}} =
 2.
 $$
 
