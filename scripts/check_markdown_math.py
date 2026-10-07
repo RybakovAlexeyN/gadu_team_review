@@ -5,7 +5,23 @@ from pathlib import Path
 import re
 import sys
 
-FORBIDDEN_MACROS = (r"\\operatorname",)
+FORBIDDEN_FRAGMENTS = (
+    r"\operatorname",
+    r"\left(",
+    r"\left[",
+    r"\left\{",
+    r"\left\lceil",
+    r"\left\lfloor",
+    r"\left|",
+    r"\right)",
+    r"\right]",
+    r"\right\}",
+    r"\right\rceil",
+    r"\right\rfloor",
+    r"\right|",
+    r"\bigl(",
+    r"\bigr)",
+)
 STANDALONE_MARKDOWN_TOKENS = {"=", "+", "-", ">", "<"}
 
 errors = []
@@ -27,10 +43,10 @@ for path in sorted(Path(".").rglob("*.md")):
 
         line = re.sub(r"`[^`]*`", "", raw)
 
-        for macro in FORBIDDEN_MACROS:
-            if macro in line:
+        for fragment in FORBIDDEN_FRAGMENTS:
+            if fragment in line:
                 errors.append(
-                    f"{path}:{lineno}: forbidden GitHub math macro {macro}"
+                    f"{path}:{lineno}: GitHub-incompatible math fragment {fragment}"
                 )
 
         if stripped == "$$":
