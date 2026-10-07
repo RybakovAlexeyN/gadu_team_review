@@ -15,20 +15,20 @@ The purpose is adversarial review: a reviewer should be able to point to one row
 
 | Algorithm block | Mathematical obligation | Current support | Status |
 |---|---|---|---|
-| Common known $q_w>0$ and valid $L_i>0$ | $g_i=q_wf_i$ preserves family ordering and satisfies $\operatorname{Lip}(g_i)\le q_wL_i$ | `DELAYED_GADU.md` | **CLOSED** |
+| Common known $q_w>0$ and valid $L_i>0$ | $g_i=q_wf_i$ preserves family ordering and satisfies $\mathrm{Lip}(g_i)\le q_wL_i$ | `DELAYED_GADU.md` | **CLOSED** |
 | Preallocate $\delta_i$ and $\eta_{i,h,I,r}$ | All adaptive cell/checkpoint confidence statements hold on one event with probability at least $1-\delta_{\rm cert}$ | Upper proof, Lemma A | **CLOSED / EXTERNAL CONCENTRATION CHECK** |
 | Initialize fresh cell state | A child estimator contains only samples from deployments at its own center | `ALGORITHM.md` | **CLOSED** |
 | Top up unresolved center until $m_I=n_r$ | Generated-source count increases on every designated deployment; loop is well-defined | canonical pseudocode | **CLOSED** |
-| Geometric targets $n_r=2^{r+1}$ | Every center reaches $\operatorname{rad}\le a_h/8$ after finitely many checkpoints in the no-cutoff core | Upper proof, Lemma B | **CLOSED / EXTERNAL CONCENTRATION CHECK** |
+| Geometric targets $n_r=2^{r+1}$ | Every center reaches $\mathrm{rad}\le a_h/8$ after finitely many checkpoints in the no-cutoff core | Upper proof, Lemma B | **CLOSED / EXTERNAL CONCENTRATION CHECK** |
 | Designated deployment at $c_I$ | Finalized designated observations at one center are Bernoulli with mean $g_i(c_I)$ under the fresh-outcome model | `DELAYED_GADU.md` | **CLOSED** |
 | Exactly $w$ legal filler deployments | Every designated source generated before the flush has age at least $w$ at checkpoint update; delay exactly $w$ is observable | `ALGORITHM.md`, `DELAYED_GADU.md` | **CLOSED** |
 | Exclude filler feedback | The confidence sequence contains only the designated source-tagged observations analyzed by the theorem | execution contract | **CLOSED** |
 | Hard cutoff returns `NOT_CERTIFIED(Acct)` | No unresolved silence is converted to zero; no false certificate is emitted; ownership is preserved | `ALGORITHM.md`, bridge note | **CLOSED** |
 | Finalize $B_s^{(w)}$ | $B_s^{(w)}=\mathbf1\{Z_s=1,D_s\le w\}\sim\mathrm{Bernoulli}(q_w f_i(c_I))$ | `DELAYED_GADU.md` | **CLOSED** |
-| Empirical mean / variance / radius | On the simultaneous event, $|\widehat g_I-g_i(c_I)|\le\operatorname{rad}_I$ | Upper proof, Lemma A | **CLOSED / EXTERNAL CONCENTRATION CHECK** |
-| Resolve when $\operatorname{rad}\le a/8$ | Resolution yields the constants needed for safe pruning, $5a/2$ certificate width, and $6a$ sampled-child gap | Upper proof, Lemmas E–G | **CLOSED** |
-| $U_{\rm cell}(I)=\min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}$ | Upper-bounds $\sup_{x\in I}g_i(x)$ | Upper proof, Lemma C | **CLOSED** |
-| $\operatorname{LCB}(I)$ | $\operatorname{LCB}(I)\le g_i(c_I)$ on the same event | Upper proof, Lemma C | **CLOSED** |
+| Empirical mean / variance / radius | On the simultaneous event, $|\widehat g_I-g_i(c_I)|\le\mathrm{rad}_I$ | Upper proof, Lemma A | **CLOSED / EXTERNAL CONCENTRATION CHECK** |
+| Resolve when $\mathrm{rad}\le a/8$ | Resolution yields the constants needed for safe pruning, $5a/2$ certificate width, and $6a$ sampled-child gap | Upper proof, Lemmas E–G | **CLOSED** |
+| $U_{\rm cell}(I)=\min\{1,\widehat g_I+\mathrm{rad}_I+a_{i,h}\}$ | Upper-bounds $\sup_{x\in I}g_i(x)$ | Upper proof, Lemma C | **CLOSED** |
+| $\mathrm{LCB}(I)$ | $\mathrm{LCB}(I)\le g_i(c_I)$ on the same event | Upper proof, Lemma C | **CLOSED** |
 | Family envelopes $\underline M_i^g,\overline M_i^g$ | $\underline M_i^g\le g_i^\star\le\overline M_i^g$ | maximizer survival + cell envelopes | **CLOSED** |
 | Choose $z_i$ by largest LCB | $g_i^\star-g_i(z_i)\le\xi_i^g:=\overline M_i^g-\underline M_i^g$ | interface extraction; Upper proof, Lemma G | **CLOSED** |
 | Family separation | $\underline M_i^g>\max_{j\ne i}\overline M_j^g$ implies a unique best family | best-family proposition / bridge | **CLOSED** |
@@ -41,7 +41,7 @@ The purpose is adversarial review: a reviewer should be able to point to one row
 | Center sample bound | $N_c(h)\lesssim g(c)\Lambda/a_h^2+\Lambda/a_h$ | Upper proof, Lemma B | **CLOSED / EXTERNAL CONCENTRATION CHECK** |
 | Sum over sampled centers | Discrete complexity bound | Upper proof, Lemma H | **CLOSED** |
 | Packing-to-volume | Discrete near-optimal centers convert to the local integral | Upper proof, Lemma I | **CLOSED / GEOMETRIC CHECK** |
-| Dyadic sum | Produces denominators $(\operatorname{gap}+\varepsilon)^{d+2}$ and $(\operatorname{gap}+\varepsilon)^{d+1}$ | Upper proof, Lemma J | **CLOSED / GEOMETRIC CHECK** |
+| Dyadic sum | Produces denominators $(\mathrm{gap}+\varepsilon)^{d+2}$ and $(\mathrm{gap}+\varepsilon)^{d+1}$ | Upper proof, Lemma J | **CLOSED / GEOMETRIC CHECK** |
 | Clipped coarse levels | Coarse contribution is absorbed by the theorem functional | Upper proof, Lemma K | **CLOSED / GEOMETRIC CHECK** |
 | Calendar identity | On a completed non-truncated path, $T_{\rm cal}=D+w\sum_h C_h$ | delayed calendar proposition | **CLOSED** |
 | Clean fallback | Later arrivals from certification-owned sources are excluded; future source outcomes are conditionally fresh | bridge / source-ownership audit | **INTERFACE-CLOSED** |
@@ -52,13 +52,13 @@ The purpose is adversarial review: a reviewer should be able to point to one row
 The current proof roadmap exposes the central geometric constants:
 
 $$
-\operatorname{gap}(\text{survivor center})
+\mathrm{gap}(\text{survivor center})
 \le
 \frac52a_h,
 $$
 
 $$
-\operatorname{gap}(\text{sampled child})
+\mathrm{gap}(\text{sampled child})
 \le
 6a_h,
 $$
@@ -91,7 +91,7 @@ which remains valid at the clipped/fine transition and does not require equality
 
 1. **Empirical-Bernstein source theorem and constants.** Re-derive the two-sided computable radius and sufficient sample-size constants used in Lemmas A–B.
 2. **Packing-to-volume direction.** Check the exact ball radius, boundary volume, and conversion of the $g(c)/a_h^2$ term.
-3. **Dyadic summation.** Check pointwise level membership and the replacement of $\max\{\operatorname{gap},\varepsilon\}$ by $\operatorname{gap}+\varepsilon$.
+3. **Dyadic summation.** Check pointwise level membership and the replacement of $\max\{\mathrm{gap},\varepsilon\}$ by $\mathrm{gap}+\varepsilon$.
 4. **Coarse absorption.** Check the claimed $O_d(1+L_g^d)$ contribution uniformly over the allowed parameter range.
 5. **Source-exact GADU composition.** Confirm that no historical Theorem 1/8 or Theorem 9 numerical quantity is silently reused by the VS branch.
 

@@ -23,7 +23,7 @@ Define
 $$
 g^\star=\max_{x\in X}g(x),
 \qquad
-\operatorname{gap}(x)=g^\star-g(x).
+\mathrm{gap}(x)=g^\star-g(x).
 $$
 
 If $L_g=0$, then every point is optimal and no query is needed. Assume below that $L_g>0$.
@@ -94,7 +94,7 @@ $$
 The learner uses the computable radius
 
 $$
-\operatorname{rad}(n,V_n,\eta) =
+\mathrm{rad}(n,V_n,\eta) =
 \sqrt{\frac{2V_n\log(6/\eta)}{n}} +
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
@@ -114,7 +114,7 @@ $$
 At that depth choose the sampled center $z$ attaining the largest lower confidence bound, and define
 
 $$
-\ell^g=\max_I \operatorname{LCB}(I),
+\ell^g=\max_I \mathrm{LCB}(I),
 \qquad
 U^g=\max_I U_{\mathrm{cell}}(I),
 $$
@@ -152,8 +152,8 @@ C_d\,\Lambda(\varepsilon,\delta,L_g,d)
 L_g^d
 \int_X
 \left(
-\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}} +
-\frac{1}{(\operatorname{gap}(x)+\varepsilon)^{d+1}}
+\frac{g(x)}{(\mathrm{gap}(x)+\varepsilon)^{d+2}} +
+\frac{1}{(\mathrm{gap}(x)+\varepsilon)^{d+1}}
 \right)\,dx
 \right],
 $$
@@ -181,7 +181,7 @@ where $A_h$ is the set of all centers sampled at level $h$.
 Every sampled center in the fine dyadic regime satisfies
 
 $$
-\operatorname{gap}(c)\le 6a_h.
+\mathrm{gap}(c)\le 6a_h.
 $$
 
 The clipped coarse levels $a_h=1$ are bounded separately and absorbed into the same target functional for $\varepsilon\le1$.

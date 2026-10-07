@@ -11,7 +11,7 @@ X=[0,1]^d,
 \qquad
 g^\star=\max_{x\in X}g(x),
 \qquad
-\operatorname{gap}(x)=g^\star-g(x),
+\mathrm{gap}(x)=g^\star-g(x),
 $$
 
 and
@@ -25,7 +25,7 @@ $$
 At every active center on depth $h$, the core resolves the center only when
 
 $$
-\operatorname{rad}_I\le\frac{a_h}{8}.
+\mathrm{rad}_I\le\frac{a_h}{8}.
 $$
 
 ## Lemma A — simultaneous empirical-Bernstein confidence
@@ -51,7 +51,7 @@ $$
 For $n\ge2$ Bernoulli observations at a center, use
 
 $$
-\operatorname{rad}(n,V,\eta) =
+\mathrm{rad}(n,V,\eta) =
 \sqrt{\frac{2V\log(6/\eta)}{n}} +
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
@@ -61,7 +61,7 @@ After the node/checkpoint allocation and a union bound, there is one event $\mat
 $$
 \left|\widehat g_I-g(c_I)\right|
 \le
-\operatorname{rad}_I.
+\mathrm{rad}_I.
 $$
 
 Preallocating risk to **all possible cells and checkpoints** is what makes adaptive activation harmless here.
@@ -131,21 +131,21 @@ On $\mathcal E_{\mathrm{conf}}$,
 $$
 g(c_I)
 \le
-\widehat g_I+\operatorname{rad}_I,
+\widehat g_I+\mathrm{rad}_I,
 $$
 
 so
 
 $$
 U_{\mathrm{cell}}(I) =
-\min\{1,\widehat g_I+\operatorname{rad}_I+a_h\}
+\min\{1,\widehat g_I+\mathrm{rad}_I+a_h\}
 $$
 
 is a valid upper bound on the whole cell. Likewise,
 
 $$
-\operatorname{LCB}(I) =
-\max\{0,\widehat g_I-\operatorname{rad}_I\}
+\mathrm{LCB}(I) =
+\max\{0,\widehat g_I-\mathrm{rad}_I\}
 \le
 g(c_I).
 $$
@@ -156,7 +156,7 @@ Let $I_h^\star$ be an active depth-$h$ cell containing a maximizer $x^\star$. De
 
 $$
 \ell_h =
-\max_I\operatorname{LCB}(I).
+\max_I\mathrm{LCB}(I).
 $$
 
 By Lemma C,
@@ -186,7 +186,7 @@ Thus at least one cell containing a global maximizer remains active at every ref
 At a resolved level,
 
 $$
-\operatorname{rad}_I\le\frac{a_h}{8}
+\mathrm{rad}_I\le\frac{a_h}{8}
 $$
 
 for every active cell.
@@ -194,15 +194,15 @@ for every active cell.
 For the maximizer cell $I_h^\star$,
 
 $$
-\operatorname{gap}(c_{I_h^\star})\le a_h.
+\mathrm{gap}(c_{I_h^\star})\le a_h.
 $$
 
 On $\mathcal E_{\mathrm{conf}}$,
 
 $$
-\operatorname{LCB}(I_h^\star)
+\mathrm{LCB}(I_h^\star)
 \ge
-g(c_{I_h^\star})-2\operatorname{rad}_{I_h^\star}
+g(c_{I_h^\star})-2\mathrm{rad}_{I_h^\star}
 \ge
 g^\star-a_h-\frac{a_h}{4} =
 g^\star-\frac{5a_h}{4}.
@@ -219,7 +219,7 @@ If a cell $I$ survives, then $U_{\mathrm{cell}}(I)\ge\ell_h$. Also,
 $$
 U_{\mathrm{cell}}(I)
 \le
-g(c_I)+2\operatorname{rad}_I+a_h
+g(c_I)+2\mathrm{rad}_I+a_h
 \le
 g(c_I)+\frac{5a_h}{4}.
 $$
@@ -227,7 +227,7 @@ $$
 Combining the inequalities yields
 
 $$
-\operatorname{gap}(c_I)
+\mathrm{gap}(c_I)
 \le
 \frac{5a_h}{2}.
 $$
@@ -264,7 +264,7 @@ $$
 Lemma E applied to the surviving parent gives
 
 $$
-\operatorname{gap}(c_{\mathrm{parent}})
+\mathrm{gap}(c_{\mathrm{parent}})
 \le
 \frac{5a_{h-1}}{2}
 \le
@@ -274,9 +274,9 @@ $$
 Therefore
 
 $$
-\operatorname{gap}(c_{\mathrm{child}})
+\mathrm{gap}(c_{\mathrm{child}})
 \le
-\operatorname{gap}(c_{\mathrm{parent}})+a_h
+\mathrm{gap}(c_{\mathrm{parent}})+a_h
 \le
 6a_h.
 $$
@@ -289,7 +289,7 @@ At a resolved depth define
 
 $$
 \ell^g =
-\max_I\operatorname{LCB}(I),
+\max_I\mathrm{LCB}(I),
 \qquad
 U^g =
 \max_I U_{\mathrm{cell}}(I).
@@ -308,7 +308,7 @@ For every active cell,
 $$
 U_{\mathrm{cell}}(I)
 \le
-g(c_I)+2\operatorname{rad}_I+a_h
+g(c_I)+2\mathrm{rad}_I+a_h
 \le
 g^\star+\frac{5a_h}{4}.
 $$
@@ -368,7 +368,7 @@ up to the fixed initialization and geometric-overshoot constant.
 By Lemma F, every fine-scale sampled center satisfies
 
 $$
-\operatorname{gap}(c)\le6a_h.
+\mathrm{gap}(c)\le6a_h.
 $$
 
 This is the strongest discrete form feeding the geometric part of the proof.
@@ -387,7 +387,7 @@ Choose disjoint $\ell_\infty$ balls around sampled centers with radius a fixed f
 Even at the boundary of $[0,1]^d$,
 
 $$
-\operatorname{vol}\bigl(B_\infty(c,r)\cap X\bigr)
+\mathrm{vol}\bigl(B_\infty(c,r)\cap X\bigr)
 \ge
 r^d.
 $$
@@ -401,9 +401,9 @@ $$
 and
 
 $$
-\operatorname{gap}(x)
+\mathrm{gap}(x)
 \le
-\operatorname{gap}(c)+C a_h
+\mathrm{gap}(c)+C a_h
 \le
 C'a_h.
 $$
@@ -429,7 +429,7 @@ Summing over disjoint balls converts the level-wise discrete sum to a level-wise
 If a point $x$ contributes at depth $h$, Lemmas F and I imply
 
 $$
-\operatorname{gap}(x)\le C a_h.
+\mathrm{gap}(x)\le C a_h.
 $$
 
 Refinement stops when $a_h$ reaches the target scale $\Theta(\varepsilon)$. Thus the contributing dyadic scales satisfy, up to fixed constants,
@@ -437,7 +437,7 @@ Refinement stops when $a_h$ reaches the target scale $\Theta(\varepsilon)$. Thus
 $$
 a_h
 \ge
-c\max\{\operatorname{gap}(x),\varepsilon\}.
+c\max\{\mathrm{gap}(x),\varepsilon\}.
 $$
 
 Geometric summation gives
@@ -445,7 +445,7 @@ Geometric summation gives
 $$
 \sum_h\frac1{a_h^{d+2}}
 \le
-\frac{C}{(\operatorname{gap}(x)+\varepsilon)^{d+2}},
+\frac{C}{(\mathrm{gap}(x)+\varepsilon)^{d+2}},
 $$
 
 and
@@ -453,7 +453,7 @@ and
 $$
 \sum_h\frac1{a_h^{d+1}}
 \le
-\frac{C}{(\operatorname{gap}(x)+\varepsilon)^{d+1}}.
+\frac{C}{(\mathrm{gap}(x)+\varepsilon)^{d+1}}.
 $$
 
 Substituting into Lemma I yields
@@ -467,8 +467,8 @@ C_d\Lambda
 L_g^d
 \int_X
 \left(
-\frac{g(x)}{(\operatorname{gap}(x)+\varepsilon)^{d+2}} +
-\frac1{(\operatorname{gap}(x)+\varepsilon)^{d+1}}
+\frac{g(x)}{(\mathrm{gap}(x)+\varepsilon)^{d+2}} +
+\frac1{(\mathrm{gap}(x)+\varepsilon)^{d+1}}
 \right)dx
 \right].
 $$
