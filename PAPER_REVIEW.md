@@ -22,8 +22,7 @@ The strongest scientific object is the upper/lower theorem pair:
 
 - an instance-dependent upper bound with local term
   $$
-  rac{g(x)}{(Delta(x)+arepsilon)^{d+2}}
-  +
+  rac{g(x)}{(Delta(x)+arepsilon)^{d+2}} +
   rac{1}{(Delta(x)+arepsilon)^{d+1}};
   $$
 - a scoped fine-gap lower bound with the same local information structure, but with explicit roughness slack and logarithmic layer-selection loss.
