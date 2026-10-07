@@ -69,11 +69,7 @@ Check:
 - one legal deployment is emitted every calendar round;
 - unresolved silence is never converted into a zero observation;
 - filler feedback is excluded from the designated estimator;
-- the calendar identity
-  $$
-  T_{\mathrm{cal}}=D+w\sum_h C_h
-  $$
-  is correct on the stated completed paths;
+- the calendar identity $T_{\mathrm{cal}}=D+w\sum_h C_h$ is correct on the stated completed paths;
 - source ownership is clean at fallback/restart;
 - the continuation gate uses latent-scale error $\Xi_i$, not scaled error $\xi_i^g$.
 

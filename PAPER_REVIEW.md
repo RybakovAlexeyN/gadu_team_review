@@ -20,11 +20,7 @@ so local statistical cost can depend on the Bernoulli mean/variance rather than 
 
 The strongest scientific object is the upper/lower theorem pair:
 
-- an instance-dependent upper bound with local term
-  $$
-  rac{g(x)}{(Delta(x)+arepsilon)^{d+2}} +
-  rac{1}{(Delta(x)+arepsilon)^{d+1}};
-  $$
+- an instance-dependent upper bound with local term $\frac{g(x)}{(\Delta(x)+\varepsilon)^{d+2}}+\frac{1}{(\Delta(x)+\varepsilon)^{d+1}}$;
 - a scoped fine-gap lower bound with the same local information structure, but with explicit roughness slack and logarithmic layer-selection loss.
 
 The delayed layer is then an execution/composition result: it turns the statistical certificate into a legal online procedure without interpreting unresolved silence as failure.
@@ -82,17 +78,9 @@ Do not approve wording that implies:
 
 ## Suggested paper hierarchy
 
-If the scientific review survives, the default reader-first order is
+If the scientific review survives, the default reader-first order is:
 
-$$
-	ext{variance-sensitive certified continuum core}
-	o
-	ext{delayed positive-only specialization}
-	o
-	ext{best-family / GADU composition}
-	o
-	ext{controlled evidence}.
-$$
+**variance-sensitive certified continuum core → delayed positive-only specialization → best-family / GADU composition → controlled evidence.**
 
 Do not write the final manuscript as a chronology of how the project evolved.
 

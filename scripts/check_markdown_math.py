@@ -35,6 +35,23 @@ for path in sorted(Path(".").rglob("*.md")):
     for lineno, raw in enumerate(lines, start=1):
         stripped = raw.strip()
 
+        if "\t" in raw:
+            errors.append(
+                f"{path}:{lineno}: literal tab is forbidden in review Markdown"
+            )
+
+        bad_controls = [
+            ch for ch in raw
+            if ord(ch) < 32 and ch not in ("\t",)
+        ]
+        if bad_controls:
+            codes = ", ".join(
+                f"U+{ord(ch):04X}" for ch in bad_controls
+            )
+            errors.append(
+                f"{path}:{lineno}: control character(s) {codes}"
+            )
+
         if stripped.startswith("~~~") or stripped.startswith("```"):
             in_fence = not in_fence
             continue
@@ -49,7 +66,13 @@ for path in sorted(Path(".").rglob("*.md")):
                     f"{path}:{lineno}: GitHub-incompatible math fragment {fragment}"
                 )
 
-        if stripped == "$$":
+        if stripped == "$" and raw != "$":
+            errors.append(
+                f"{path}:{lineno}: indented display-math delimiter; "
+                "use inline math inside list items or an unindented block"
+            )
+
+        if stripped == "$":
             in_display = not in_display
             if in_display:
                 display_start = lineno

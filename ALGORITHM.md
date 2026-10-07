@@ -309,9 +309,9 @@ repeat:
 
 The exact paper pseudocode is in [`theory/VS_CERTIFY_DELAYED_ALGORITHM.tex`](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex).
 
-## 7. `ResolveLevel`
+## 7. ResolveLevel — sampling and maturation
 
-`ResolveLevel` handles **sampling and delayed maturation** at the current depth.
+**ResolveLevel** handles sampling and delayed maturation at the current depth.
 
 For every unresolved active center it repeatedly:
 
@@ -319,25 +319,18 @@ For every unresolved active center it repeatedly:
 2. freezes the active sets;
 3. performs exactly $w$ legal filler deployments;
 4. excludes filler feedback from the designated estimators;
-5. after maturation, finalizes designated outcomes as
-   $$
-   B_s^{(w)}=\mathbf 1\{Z_s=1,D_s\le w\};
-   $$
+5. after maturation, finalizes designated outcomes as $B_s^{(w)}=\mathbf 1\{Z_s=1,D_s\le w\}$;
 6. recomputes $\widehat g_I$, $V_I$, and $\mathrm{rad}_I$;
-7. marks cells with
-   $$
-   \mathrm{rad}_I\le\frac{a_{i,h}}8
-   $$
-   as resolved;
+7. marks cells with $\mathrm{rad}_I\le a_{i,h}/8$ as resolved;
 8. advances to the next checkpoint if some cells remain unresolved.
 
 If the hard calendar cutoff $B$ is reached during designated sampling or during the flush, the routine returns `FAIL`.
 
 If the cutoff arrives before a source has fully matured, that source is **not** converted into a zero.
 
-## 8. `FamilyCertificate`
+## 8. FamilyCertificate — certificate construction
 
-Once all active cells at the current level are resolved, define
+Once all active cells at the current level are resolved, **FamilyCertificate** defines
 
 $$
 \mathrm{LCB}(I) =
