@@ -23,8 +23,7 @@ $$
 For a dyadic layer
 
 $$
-A_s
-=
+A_s =
 \{x:s\le G(x)<2s\},
 $$
 
@@ -76,8 +75,7 @@ $$
 \frac{1}{\mathrm{KL}_{\mathrm{per\ informative\ pull}}}
 \ge
 c\left(
-\frac{p_0}{s^2}
-+
+\frac{p_0}{s^2} +
 \frac1s
 \right).
 $$
@@ -137,8 +135,7 @@ H_s
 c_{d,\kappa}S^d
 \int_{A_s}
 \left[
-\frac{\mu(x)}{G(x)^{d+2}}
-+
+\frac{\mu(x)}{G(x)^{d+2}} +
 \frac{1}{G(x)^{d+1}}
 \right]dx.
 $$
