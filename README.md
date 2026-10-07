@@ -2,7 +2,7 @@
 
 > **Cold-start summary.** This repository is the post–29 September scientific review packet for the current GADU paper. It is designed so that a coauthor or senior reviewer can understand the scientific delta without reconstructing the project history first.
 
-**Baseline manuscript:** *Gap-Adaptive Family Certification for Continuum Bandits with Delayed Positive-Only Feedback*.
+**Baseline manuscript:** *Gap-Adaptive Family Certification for Continuum Bandits with Delayed Positive-Only Feedback*. This repository is a **scientific-delta/review packet**, not a mirror of the full baseline manuscript; inherited theorem numbers are mentioned only when needed to explain the interface boundary.
 
 **Current reader-first candidate:** variance-sensitive certified continuum optimization  
 $\rightarrow$ delayed positive-only execution  
@@ -15,20 +15,20 @@ $\rightarrow$ controlled evidence.
 
 ## 30-second orientation
 
-The paper studies a learner that must choose both
+The paper studies a Web-facing learner that must choose both
 
-- a discrete family $i\in[K]$; and
-- a continuous configuration $x\in X_i$
+- a discrete model/policy family $i\in[K]$; and
+- a continuous serving configuration $x\in X_i$
 
-while successes arrive with delay and failures produce no event.
+while optimizing positive outcomes such as conversions, whose successes may arrive with delay and whose failures produce no event.
 
 The practical difficulty is that before the attribution window closes, **silence is ambiguous**: it may mean failure, or a success still in flight.
 
-After the 29 September call, three concrete gaps had to be closed:
+The post-call work separated into three tracks:
 
-1. the manuscript contained an undefined “wait for maturation” step even though the system must deploy something every round;
-2. the executed certification backend was not exploiting the local Bernoulli variance structure;
-3. synthetic evidence alone was not enough to understand whether the delayed-positive model matches real attribution logs.
+1. **execution semantics:** the manuscript contained an undefined “wait for maturation” step even though the system must deploy something every round;
+2. **scientific strengthening:** replace the globally conservative executed confidence route with a backend that exploits local Bernoulli information;
+3. **empirical/model-fit evidence:** go beyond synthetic intuition and test what a real attribution log does and does not support.
 
 The current candidate addresses those three points separately:
 
@@ -140,6 +140,8 @@ L_g^d
 \right)\,dx
 \right].
 $$
+
+The current **novelty target** is the coupling of local Bernoulli mean/variance-sensitive statistical cost with nonparametric certified Lipschitz continuum geometry, together with a scoped fine-gap lower structure and a delayed positive-only execution lift. This novelty claim is still subject to a final literature kill-pass.
 
 The companion lower bound recovers the same local Bernoulli information structure on a **restricted fine-gap region**, but keeps three limitations explicit:
 
