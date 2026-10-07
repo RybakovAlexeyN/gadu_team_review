@@ -43,8 +43,8 @@ There are exactly $2^{dh}$ possible cells at depth $h$. Hence
 $$
 \sum_{h,I,r}\eta_{h,I,r} =
 \frac{36\delta}{\pi^4}
-\left(\sum_{h\ge0}\frac1{(h+1)^2}\right)
-\left(\sum_{r\ge0}\frac1{(r+1)^2}\right) =
+(\sum_{h\ge0}\frac1{(h+1)^2})
+(\sum_{r\ge0}\frac1{(r+1)^2}) =
 \delta.
 $$
 
@@ -59,7 +59,7 @@ $$
 After the node/checkpoint allocation and a union bound, there is one event $\mathcal E_{\mathrm{conf}}$ with probability at least $1-\delta$ on which every confidence interval actually used by the adaptive algorithm is valid:
 
 $$
-\left|\widehat g_I-g(c_I)\right|
+|\widehat g_I-g(c_I)|
 \le
 \mathrm{rad}_I.
 $$
@@ -357,10 +357,10 @@ C
 \sum_h
 \sum_{c\in A_h}
 \lambda_{h,r(c)}
-\left[
+[
 \frac{g(c)}{a_h^2} +
 \frac{1}{a_h}
-\right],
+],
 $$
 
 up to the fixed initialization and geometric-overshoot constant.
@@ -387,7 +387,7 @@ Choose disjoint $\ell_\infty$ balls around sampled centers with radius a fixed f
 Even at the boundary of $[0,1]^d$,
 
 $$
-\mathrm{vol}\bigl(B_\infty(c,r)\cap X\bigr)
+\mathrm{vol}(B_\infty(c,r)\cap X)
 \ge
 r^d.
 $$
@@ -416,10 +416,10 @@ $$
 \le
 C_dL_g^d
 \int_{B(c)}
-\left[
+[
 \frac{g(x)}{a_h^{d+2}} +
 \frac1{a_h^{d+1}}
-\right]dx.
+]dx.
 $$
 
 Summing over disjoint balls converts the level-wise discrete sum to a level-wise integral.
@@ -462,15 +462,15 @@ $$
 N
 \le
 C_d\Lambda
-\left[
+[
 1+
 L_g^d
 \int_X
-\left(
+(
 \frac{g(x)}{(\mathrm{gap}(x)+\varepsilon)^{d+2}} +
 \frac1{(\mathrm{gap}(x)+\varepsilon)^{d+1}}
-\right)dx
-\right].
+)dx
+].
 $$
 
 ## Lemma K — clipped coarse levels and flat case

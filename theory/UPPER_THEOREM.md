@@ -88,7 +88,7 @@ $$
 V_n =
 \frac{1}{n-1}
 \sum_{j=1}^n
-\left(Y_j-\overline Y_n\right)^2.
+(Y_j-\overline Y_n)^2.
 $$
 
 The learner uses the computable radius
@@ -147,15 +147,15 @@ $$
 N
 \le
 C_d\,\Lambda(\varepsilon,\delta,L_g,d)
-\left[
+[
 1+
 L_g^d
 \int_X
-\left(
+(
 \frac{g(x)}{(\mathrm{gap}(x)+\varepsilon)^{d+2}} +
 \frac{1}{(\mathrm{gap}(x)+\varepsilon)^{d+1}}
-\right)\,dx
-\right],
+)\,dx
+],
 $$
 
 where $C_d$ depends only on the dimension and the fixed $\ell_\infty$/dyadic convention. No optimal-constant claim is made.
@@ -170,10 +170,10 @@ C
 \sum_h
 \sum_{c\in A_h}
 \lambda_{h,r(c)}
-\left[
+[
 \frac{g(c)}{a_h^2} +
 \frac{1}{a_h}
-\right],
+],
 $$
 
 where $A_h$ is the set of all centers sampled at level $h$.
@@ -231,15 +231,15 @@ $$
 N_i(\varepsilon)
 \le
 C\,\Lambda_i
-\left[
+[
 1+
 \frac{L_i^{d_i}}{q_w}
 \int_{X_i}
-\left(
+(
 \frac{f_i(x)}{(\Delta_i(x)+\varepsilon)^{d_i+2}} +
 \frac{1}{(\Delta_i(x)+\varepsilon)^{d_i+1}}
-\right)\,dx
-\right].
+)\,dx
+].
 $$
 
 The factor $q_w^{-1}$ is **not** claimed as novel by itself.

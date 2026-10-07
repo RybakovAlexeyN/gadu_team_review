@@ -36,7 +36,7 @@ The second scientific opportunity was to avoid paying only for the inverse-weigh
 $$
 B_s^{(w)}
 \sim
-\mathrm{Bernoulli}\!\left(q_wf_i(x_s)\right)
+\mathrm{Bernoulli}\!(q_wf_i(x_s))
 $$
 
 and uses empirical-Bernstein confidence in the continuum certification geometry.

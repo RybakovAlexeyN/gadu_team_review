@@ -72,7 +72,7 @@ $$
 B_s^{(w)} =
 \mathbf 1\{Z_s=1,\ D_s\le w\}
 \sim
-\mathrm{Bernoulli}\!\left(q_w f_i(x_s)\right).
+\mathrm{Bernoulli}\!(q_w f_i(x_s)).
 $$
 
 Define
@@ -127,15 +127,15 @@ $$
 N
 \le
 C_d\,\Lambda
-\left[
+[
 1+
 L_g^d
 \int
-\left(
+(
 \frac{g(x)}{(\Delta_g(x)+\varepsilon)^{d+2}} +
 \frac{1}{(\Delta_g(x)+\varepsilon)^{d+1}}
-\right)\,dx
-\right].
+)\,dx
+].
 $$
 
 The current **novelty target** is the coupling of local Bernoulli mean/variance-sensitive statistical cost with nonparametric certified Lipschitz continuum geometry, together with a scoped fine-gap lower structure and a delayed positive-only execution lift. This novelty claim is still subject to a final literature kill-pass.
@@ -211,9 +211,9 @@ $$
 the mean designated-sample ratio is
 
 $$
-\mathrm{mean}\!\left(
+\mathrm{mean}\!(
 \frac{N_{\mathrm{VS}}}{N_{\mathrm H}}
-\right) =
+) =
 0.122852.
 $$
 

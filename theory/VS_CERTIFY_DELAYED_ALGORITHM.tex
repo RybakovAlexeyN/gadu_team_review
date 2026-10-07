@@ -1,46 +1,88 @@
-% Main paper-facing pseudocode for VS-Certify-Delayed.
-% Required packages in the manuscript preamble:
+% Self-contained paper-facing pseudocode for VS-Certify-Delayed.
+% Required packages:
 %   \usepackage{amsmath,amssymb}
 %   \usepackage{algorithm}
 %   \usepackage{algpseudocode}
-%
-% Optional, if the manuscript prefers Input/Output labels:
-%   \algrenewcommand\algorithmicrequire{\textbf{Input:}}
-%   \algrenewcommand\algorithmicensure{\textbf{Output:}}
 
 \begin{algorithm}[t]
-\caption{Delayed variance-sensitive family certification}
+\caption{VS-Certify-Delayed: delayed variance-sensitive family certification}
 \label{alg:vs-certify-delayed}
 \small
 \begin{algorithmic}[1]
-\Require
-families $\{(X_i,L_i)\}_{i=1}^K$ with $X_i=[0,1]^{d_i}$;
-known $q_w=F(w)>0$ and window $w$;
-risks $\{\delta_i\}_{i=1}^K$ with
-$\sum_i\delta_i\le\delta_{\rm cert}$;
-calendar cutoff $B$
-\Ensure
-\textsc{Certified}$\bigl(i^\star,\{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,\mathsf{Acct}\bigr)$
+\Require families $\{(X_i,L_i)\}_{i=1}^K$ with $X_i=[0,1]^{d_i}$;
+known $q_w=F(w)>0$ and integer window $w$;
+risks $\{\delta_i\}_{i=1}^K$ with $\sum_i\delta_i\le\delta_{\rm cert}$;
+hard calendar cutoff $B$
+\Ensure \textsc{Certified}$\bigl(i^\star,\{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,\mathsf{Acct}\bigr)$
 or \textsc{Not-Certified}$\bigl(\mathsf{Acct}\bigr)$
 
 \State $t\gets0$, $h\gets0$, $\mathcal S_{\rm cert}\gets\varnothing$
 \For{$i=1,\ldots,K$}
     \State $\mathcal L_i^g\gets q_wL_i$
-    \State initialize $\mathcal C_i(0)\gets\{X_i\}$ with fresh root-cell state
+    \State $\mathcal C_i(0)\gets\{X_i\}$ with fresh root-cell state
 \EndFor
 
 \While{true}
-    \If{$\Call{ResolveLevel}{h}=\textsc{Fail}$}
-        \State \Return \textsc{Not-Certified}$\bigl(\mathsf{Acct}(t)\bigr)$
-    \EndIf
+    \State $\rho_h\gets2^{-h-1}$
+    \For{$i=1,\ldots,K$}
+        \State $a_{i,h}\gets\min\{1,\mathcal L_i^g\rho_h\}$
+        \State mark every $I\in\mathcal C_i(h)$ unresolved
+    \EndFor
+    \State $r\gets0$
+
+    \While{some active cell is unresolved}
+        \State $n_r\gets2^{r+1}$
+        \For{each unresolved pair $(i,I)$ in fixed round-robin order}
+            \While{$m_I<n_r$}
+                \If{$t=B$}
+                    \State \Return \textsc{Not-Certified}$\bigl(\mathsf{Acct}(t,\mathcal S_{\rm cert})\bigr)$
+                \EndIf
+                \State deploy $(i,c_I)$ as a designated source at round $t+1$
+                \State $\mathcal S_{\rm cert}\gets\mathcal S_{\rm cert}\cup\{t+1\}$
+                \State $m_I\gets m_I+1$, $t\gets t+1$
+            \EndWhile
+        \EndFor
+
+        \State freeze all active sets for the maturation flush
+        \For{$u=1,\ldots,w$}
+            \If{$t=B$}
+                \State \Return \textsc{Not-Certified}$\bigl(\mathsf{Acct}(t,\mathcal S_{\rm cert})\bigr)$
+            \EndIf
+            \State deploy the first active center under the fixed deterministic order
+            \State tag this filler source as certification-owned and exclude its feedback from designated estimators
+            \State $\mathcal S_{\rm cert}\gets\mathcal S_{\rm cert}\cup\{t+1\}$, $t\gets t+1$
+        \EndFor
+
+        \State finalize each newly generated designated source as
+        $B_s^{(w)}\gets\mathbf 1\{Z_s=1,\ D_s\le w\}$
+        \For{each still-unresolved pair $(i,I)$}
+            \State $n_I\gets m_I$; recompute $\widehat g_I$ and unbiased sample variance $V_I$
+            \State $\eta_{i,h,I,r}\gets
+            \dfrac{36\delta_i}{\pi^4 2^{d_i h}(h+1)^2(r+1)^2}$
+            \State $\mathrm{rad}_I\gets
+            \sqrt{\dfrac{2V_I\log(6/\eta_{i,h,I,r})}{n_I}}
+            +\dfrac{7\log(6/\eta_{i,h,I,r})}{3(n_I-1)}$
+            \If{$\mathrm{rad}_I\le a_{i,h}/8$}
+                \State mark $I$ resolved and freeze its statistics for level $h$
+            \EndIf
+        \EndFor
+        \State $r\gets r+1$
+    \EndWhile
 
     \For{$i=1,\ldots,K$}
-        \State $(z_i,\underline M_i^g,\overline M_i^g,\xi_i^g)
-        \gets \Call{FamilyCertificate}{i,h}$
+        \For{each $I\in\mathcal C_i(h)$}
+            \State $\mathrm{LCB}(I)\gets\max\{0,\widehat g_I-\mathrm{rad}_I\}$
+            \State $U_{\rm cell}(I)\gets
+            \min\{1,\widehat g_I+\mathrm{rad}_I+a_{i,h}\}$
+        \EndFor
+        \State $\underline M_i^g\gets\max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)$
+        \State $\overline M_i^g\gets\max_{I\in\mathcal C_i(h)}U_{\rm cell}(I)$
+        \State choose $I_i^L\in\arg\max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I)$ using fixed tie-breaking
+        \State $z_i\gets c_{I_i^L}$
+        \State $\xi_i^g\gets\min\{1,\max\{0,\overline M_i^g-\underline M_i^g\}\}$
     \EndFor
 
-    \If{some $i$ satisfies
-        $\underline M_i^g>\max_{j\ne i}\overline M_j^g$}
+    \If{some $i$ satisfies $\underline M_i^g>\max_{j\ne i}\overline M_j^g$}
         \State let $i^\star$ be the first such family under the fixed order
         \For{$j=1,\ldots,K$}
             \State $\ell_j\gets\max\{0,\underline M_j^g/q_w\}$,
@@ -48,14 +90,15 @@ or \textsc{Not-Certified}$\bigl(\mathsf{Acct}\bigr)$
             \State $\Xi_j\gets\min\{1,\xi_j^g/q_w\}$
         \EndFor
         \State \Return \textsc{Certified}$\bigl(i^\star,
-        \{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,\mathsf{Acct}(t)\bigr)$
+        \{z_j,\ell_j,U_j,\Xi_j\}_{j=1}^K,
+        \mathsf{Acct}(t,\mathcal S_{\rm cert})\bigr)$
     \EndIf
 
     \For{$i=1,\ldots,K$}
         \State $\mathcal S_i\gets
         \{I\in\mathcal C_i(h):U_{\rm cell}(I)\ge\underline M_i^g\}$
-        \State $\mathcal C_i(h+1)\gets$
-        all dyadic children of cells in $\mathcal S_i$, each with fresh state
+        \State $\mathcal C_i(h+1)\gets$ all dyadic children of cells in $\mathcal S_i$
+        \State initialize every child with fresh estimator state
     \EndFor
     \State $h\gets h+1$
 \EndWhile

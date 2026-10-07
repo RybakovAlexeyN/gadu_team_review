@@ -79,13 +79,13 @@ $$
 \ge
 c_{d,\kappa}
 \frac{\mathrm{kl}(1-\delta,\delta)}
-{1+\left\lceil\log_2(c_0/\Delta)\right\rceil}
+{1+\lceil\log_2(c_0/\Delta)\rceil}
 \,S^d
 \int_{A_{\mathrm{fine}}}
-\left(
+(
 \frac{\mu(x)}{G(x)^{d+2}} +
 \frac{1}{G(x)^{d+1}}
-\right)\,dx,
+)\,dx,
 $$
 
 up to fixed dimension/$\ell_\infty$ packing constants.
@@ -135,11 +135,11 @@ $$
 \mathbb E[\tau]
 \ge
 c_{d,\kappa}
-\left(\frac{S}{s}\right)^d
+(\frac{S}{s})^d
 \mathrm{kl}(1-\delta,\delta)
-\left(
+(
 \frac{p}{s^2}+\frac1s
-\right),
+),
 $$
 
 up to fixed packing constants.

@@ -9,7 +9,57 @@ This page gives the **paper-facing description of the executable certification a
 5. what certificate it returns;
 6. where delayed feedback enters.
 
-The exact LaTeX source intended for the manuscript is in [`theory/VS_CERTIFY_DELAYED_ALGORITHM.tex`](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex). Detailed helper routines are in [`theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex`](theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex).
+The exact LaTeX source intended for the manuscript is in [`theory/VS_CERTIFY_DELAYED_ALGORITHM.tex`](theory/VS_CERTIFY_DELAYED_ALGORITHM.tex). It now contains the **complete self-contained procedure in one `algorithmic` block**. The helper file [`theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex`](theory/VS_CERTIFY_DELAYED_SUBROUTINES.tex) is an expanded reference, not a semantic dependency of Algorithm 1.
+
+## Final procedure (Algorithm 1)
+
+This is the operational object to review. Everything after this section explains notation, invariants, and proof interfaces; it does not add hidden steps.
+
+```text
+Input: families (X_i, L_i), known q_w and window w,
+       risk budgets delta_i, hard calendar cutoff B
+
+initialize one root cell for every family
+initialize calendar time t = 0 and depth h = 0
+
+repeat:
+    set the dyadic scale for depth h
+    mark every active cell unresolved
+    r = 0
+
+    while some active cell is unresolved:
+        n_r = 2^(r+1)
+        top up every unresolved center to n_r designated pulls
+        if cutoff is hit: return NOT_CERTIFIED
+
+        freeze the active sets
+        emit exactly w legal filler deployments
+        if cutoff is hit: return NOT_CERTIFIED
+
+        finalize the newly generated designated outcomes
+        recompute empirical means, variances, and Bernstein radii
+        mark cells with radius <= a_(i,h)/8 as resolved
+        r = r + 1
+
+    for every family i:
+        build cell lower/upper bounds
+        build family lower/upper envelopes
+        choose z_i from the largest lower bound
+        compute the family certificate width
+
+    if one family lower envelope exceeds every competing upper envelope:
+        translate all certificates from g-scale to latent f-scale
+        return CERTIFIED(best family, certificate bundle, accounting)
+
+    for every family:
+        prune cells below that family's lower envelope
+        split every surviving cell
+        start every child with fresh estimator state
+
+    h = h + 1
+```
+
+> **No implicit waiting step exists.** Every calendar round emits a legal deployment. Filler feedback is excluded from the designated estimator, and an unresolved source is never converted into zero merely because the cutoff is reached.
 
 ## Algorithm at a glance
 
@@ -127,11 +177,11 @@ The algorithm returns either
 
 $$
 \mathrm{CERTIFIED}
-\left(
+(
 i^\star,
 \{z_i,\ell_i,U_i,\Xi_i\}_{i=1}^K,
 \mathsf{Acct}
-\right),
+),
 $$
 
 or
@@ -321,10 +371,10 @@ The scaled deployment-error certificate is
 
 $$
 \xi_i^g =
-\min\left\{
+\min\{
 1,
 \max\{0,\overline M_i^g-\underline M_i^g\}
-\right\}.
+\}.
 $$
 
 ## 9. Family certification and pruning

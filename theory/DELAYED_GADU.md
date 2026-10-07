@@ -27,7 +27,7 @@ Under the fresh-outcome model,
 $$
 B_s^{(w)}
 \sim
-\mathrm{Bernoulli}\!\left(q_w f(x_s)\right).
+\mathrm{Bernoulli}\!(q_w f(x_s)).
 $$
 
 Define

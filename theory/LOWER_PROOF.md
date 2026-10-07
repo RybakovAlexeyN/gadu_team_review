@@ -74,10 +74,10 @@ After comparison with the packed-center baseline, this yields
 $$
 \frac{1}{\mathrm{KL}_{\mathrm{per\ informative\ pull}}}
 \ge
-c\left(
+c(
 \frac{p_0}{s^2} +
 \frac1s
-\right).
+).
 $$
 
 ## D. Adaptive change of measure
@@ -118,7 +118,7 @@ With the frozen dyadic convention this costs the explicit factor
 
 $$
 \frac{1}
-{1+\left\lceil\log_2(c_0/\Delta)\right\rceil}.
+{1+\lceil\log_2(c_0/\Delta)\rceil}.
 $$
 
 The logarithmic loss is part of the theorem and must not be hidden.
@@ -134,10 +134,10 @@ H_s
 \ge
 c_{d,\kappa}S^d
 \int_{A_s}
-\left[
+[
 \frac{\mu(x)}{G(x)^{d+2}} +
 \frac{1}{G(x)^{d+1}}
-\right]dx.
+]dx.
 $$
 
 Summing the fine layers gives the theorem.
