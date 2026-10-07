@@ -1,156 +1,113 @@
 # Post-Call Task Pool — 29 September
 
-This page records the concrete tasks that followed the 29 September team discussion and their current status. It is a coordination summary, not an additional scientific claim.
+This page answers one question:
 
-## 1. Make the candidate algorithm executable
+> **What did the team ask for on 29 September, what exists now, and what is still blocking the paper?**
 
-**Status: closed at the current scientific-candidate level.**
+It is a coordination summary, not an additional theorem.
 
-The main requirement was to turn the proposed mechanism into a procedure that can actually be executed and reviewed round by round.
+## Call-to-current status
 
-The current procedure is **VS-Certify-Delayed**. It now specifies:
+| 29 September ask | Current artifact | Status | Residual gap |
+|---|---|---|---|
+| Turn the idea into a testable algorithm | [VS-Certify-Delayed](ALGORITHM.md) | **Specified** | Independent human round-by-round audit |
+| Remove undefined “wait for maturation” semantics | [Delayed execution](theory/DELAYED_GADU.md) | **Specified** | Verify source ownership / clean restart |
+| Run experiments once the algorithm is testable | [Controlled benchmark](experiments/README.md) | **Component test complete** | No end-to-end real-data policy claim |
+| Find a real dataset and test model fit | [Criteo audit](data/CRITEO_MODEL_FIT.md) | **Falsification check complete** | Common delay law and policy validity remain unvalidated |
+| Strengthen the paper beyond the old executed backend | [Upper theorem](theory/UPPER_THEOREM.md) + [lower theorem](theory/LOWER_THEOREM.md) | **Scientific candidate** | Human mathematical review + final novelty kill-pass |
+| Read one coherent paper as a team | Reader-first hierarchy now documented in [README](README.md) and [PAPER_REVIEW](PAPER_REVIEW.md) | **Open** | One integrated manuscript + full coauthor read |
 
-- dyadic active cells;
-- designated sampling;
-- empirical-Bernstein confidence;
-- synchronized checkpoints;
-- a delayed flush of exactly $w$ legal filler rounds;
-- finalization of matured designated feedback;
-- pruning and refinement;
-- family certification;
-- a hard calendar cutoff returning `NOT_CERTIFIED`.
+## What was actually unresolved on the call
 
-Entry points:
+The central execution objection was simple: the manuscript said “wait for maturation,” but a deployed system cannot have a calendar round with no action.
 
-- [Algorithm: VS-Certify-Delayed](ALGORITHM.md)
-- [Upper theorem](theory/UPPER_THEOREM.md)
-- [Lower theorem](theory/LOWER_THEOREM.md)
-- [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
-
-## 2. Run a controlled experiment
-
-**Status: component-level test completed.**
-
-The variance-sensitive confidence mechanism was compared with the current Hoeffding route on the same Bernoulli stream.
-
-For the predeclared sparse-positive regimes,
-
-$$
-\operatorname{mean}\!\left(
-\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}
-\right)
-=0.122852.
-$$
-
-The same grid contains regimes with
-
-$$
-\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}=2,
-$$
-
-so the supported conclusion is **instance-dependent sparse-positive sample efficiency**, not uniform superiority.
-
-[Controlled benchmark →](experiments/README.md)
-
-## 3. Find and audit real data
-
-**Status: dataset/model-fit task completed within the stated scope.**
-
-Criteo Attribution is used to test delayed-positive and attribution semantics.
-
-The key falsification result is that one physical conversion may be linked to multiple positive impression rows. Therefore the naive mapping
-
-$$
-\text{one positive impression row}
-\equiv
-\text{one independent Bernoulli success}
-$$
-
-is invalid on the audited slice.
-
-This evidence is used for **model-fit / attribution falsification**, not end-to-end GADU policy evaluation.
-
-[Criteo model-fit evidence →](data/CRITEO_MODEL_FIT.md)
-
-## 4. Remove the undefined “wait for maturation” step
-
-**Status: resolved for the new backend and made explicit in the executable algorithm.**
-
-The current delayed execution rule now guarantees:
+The current candidate resolves that by requiring:
 
 - one legal deployment every calendar round;
-- unresolved silence is never encoded as zero;
-- confidence updates occur at synchronized checkpoints;
-- exactly $w$ legal filler deployments follow designated sampling at a checkpoint;
-- the active set is frozen during the flush;
-- designated and filler rounds are accounted for separately;
-- pruning/splitting occurs only after designated feedback is finalized;
-- a hard cutoff returns `NOT_CERTIFIED`;
-- calendar delay cost is explicit.
+- designated source pulls separated from filler deployments;
+- exactly $w$ filler deployments after a synchronized checkpoint;
+- unresolved silence never treated as zero;
+- pruning/splitting only after designated outcomes are finalized;
+- explicit calendar accounting;
+- a hard cutoff returning NOT_CERTIFIED.
 
-Entry points:
+The second scientific opportunity was to avoid paying only for the inverse-weighted range. The current candidate works directly with
 
-- [Algorithm: VS-Certify-Delayed](ALGORITHM.md)
-- [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
+$$
+B_s^{(w)}
+\sim
+\mathrm{Bernoulli}\!\left(q_wf_i(x_s)\right)
+$$
 
-## 5. Assemble one manuscript and run a full coauthor read
+and uses empirical-Bernstein confidence in the continuum certification geometry.
 
-**Status: still open.**
+The third question was empirical: synthetic-only evidence was judged insufficient for understanding real attribution semantics. The Criteo audit now gives a **negative but useful** answer: one physical conversion may map to multiple positive impression rows, so the naive iid row-level mapping is invalid.
 
-Before calling the paper submission-ready, the following tasks remain.
+## What remains on the critical path
 
-### A. Independent mathematical review
+### 1. Human mathematical red-team
 
-Each major mathematical object should receive one verdict:
+Highest-value objects:
+
+- empirical-Bernstein confidence statement and constants;
+- packing-to-volume conversion;
+- dyadic summation;
+- coarse-scale absorption;
+- fine-gap lower-bound construction;
+- delayed/GADU clean-restart composition.
+
+Preferred output for every block:
 
 - **PASS**
 - **FIX**
 - **BLOCK**
 
-The review should cover the upper theorem, lower theorem, and delayed/GADU bridge.
+A BLOCK should name the exact failed step and the smallest repair.
 
-[Mathematical review checklist →](MATH_REVIEW.md)
+[Mathematical review packet →](MATH_REVIEW.md)
 
-### B. Novelty and claim-scope review
+### 2. Novelty and paper-story decision
 
-Confirm that:
+The candidate should survive a final literature kill-pass around:
 
-- the closest literature does not directly subsume the stated contribution;
-- manuscript wording is no stronger than the proved scope;
-- unsupported claims such as “first”, “optimal”, “minimax”, or “uniformly better” do not appear.
+- heteroscedastic / variance-adaptive certified continuum optimization;
+- stochastic Lipschitz fixed-confidence certification;
+- Bernoulli local-variance continuum identification.
 
-### C. Reader-first manuscript reconstruction
+The paper-level question is whether the hierarchy
 
-The integrated manuscript still needs a single agreed hierarchy for:
+$$
+\text{variance-sensitive continuum certification}
+\to
+\text{delayed positive-only specialization}
+\to
+\text{GADU composition}
+\to
+\text{controlled evidence}
+$$
 
-- title;
-- abstract;
-- contribution bullets;
-- related work;
-- theorem-pair ordering;
-- delayed integration;
-- experimental story;
-- limitations.
+is the right primary story.
 
-[Paper-level review →](PAPER_REVIEW.md)
+[Paper review →](PAPER_REVIEW.md)
 
-### D. Full coauthor reading
+### 3. One integrated manuscript
 
-After mathematical and scientific-story freeze, all coauthors should review the same integrated manuscript version rather than separate intermediate drafts.
+The review repository contains the scientific delta, not a frozen final manuscript.
 
-### E. Final assembly
+Before submission:
 
-Once no substantive **BLOCK** remains:
+- freeze the theorem statements and Algorithm 1;
+- integrate one reader-first draft;
+- ensure limitations sit next to the corresponding claims;
+- complete the full coauthor read;
+- run final PDF / numbering / bibliography / figure QA;
+- freeze one submission SHA/version.
 
-- remove residual TODOs;
-- check proof references and numbering;
-- check figures, tables, and bibliography;
-- compile and visually inspect the final PDF;
-- freeze one submission version.
+## Requested coauthor decision
 
-## Decisions for the next team call
+The next team decision should answer exactly:
 
-1. Is there any mathematical **BLOCK**?
-2. Is the variance-sensitive theorem pair the primary scientific story?
-3. Which manuscript changes are mandatory before submission?
-4. Who owns each remaining task and deadline?
+1. **Is there a mathematical BLOCK?**
+2. **Is the variance-sensitive theorem pair strong enough to be the headline contribution?**
+3. **Does the delayed/GADU bridge preserve the intended semantics without overclaiming?**
+4. **What exact edits are mandatory before the integrated manuscript is frozen?**
