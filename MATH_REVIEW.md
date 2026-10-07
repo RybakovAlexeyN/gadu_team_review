@@ -1,114 +1,135 @@
-# Математическая проверка
+# Mathematical Review
 
-Задача этого раздела — независимо попытаться сломать две основные теоремы и их связь с delayed GADU.
+This document is for an **independent attempt to break the candidate**. The useful output is not “looks good”; it is a precise **PASS / FIX / BLOCK** verdict tied to an exact theorem step or interface.
 
-После внутреннего red-team формулировки были дополнительно ужесточены: в public theorem files теперь явно зафиксированы confidence allocation, empirical-Bernstein radius, lower-bound correctness model, fine-gap cutoff и delayed execution semantics. Это не заменяет независимый coauthor review.
+After the internal red-team pass, the public theorem files now expose the confidence allocation, empirical-Bernstein radius, lower-bound model, fine-gap cutoff, and delayed execution semantics. That hardening does **not** replace independent coauthor review.
 
-Итог по каждому блоку:
+## Verdict format
 
-- **PASS** — существенной проблемы нет;
-- **FIX** — результат жив, но statement/proof нужно поправить;
-- **BLOCK** — есть ошибка, которая ломает заявленный результат.
-
-Если есть FIX или BLOCK, полезно указать точный шаг и минимальный ремонт.
-
-## 1. Upper theorem
-
-→ [Формулировка](theory/UPPER_THEOREM.md)  
-→ [Proof outline](theory/UPPER_PROOF.md)
-
-Проверить цепочку:
-
-```text
-empirical Bernstein confidence
-→ valid cell upper bounds
-→ safe pruning
-→ near-optimality of every sampled child
-→ weighted packing
-→ packing-to-volume
-→ dyadic scale summation
-→ final integral bound
-```
-
-Особенно важно атаковать:
-
-1. simultaneous confidence при adaptive activation / stopping;
-2. переход parent survivor → every sampled child is near-optimal;
-3. направление packing-to-volume inequality;
-4. boundary handling на `[0,1]^d`;
-5. coarse-scale absorption;
-6. корректность явной confidence allocation и определения `Lambda`;
-7. переход между clipped coarse levels и fine dyadic regime;
-8. крайние случаи `L=0`, малых `L`, плоской функции и `epsilon` около 1.
-
-## 2. Lower theorem
-
-→ [Формулировка](theory/LOWER_THEOREM.md)  
-→ [Proof outline](theory/LOWER_PROOF.md)
-
-Проверить цепочку:
-
-```text
-hard alternatives
-→ Bernoulli KL
-→ adaptive change of measure
-→ disjoint packing inside a layer
-→ layer aggregation
-→ fine-gap integral
-```
-
-Особенно важно:
-
-1. все ли perturbations остаются в заявленном Lipschitz class;
-2. действительно ли каждая alternative flips the best family;
-3. корректен ли Bernoulli KL bound на всем заявленном диапазоне;
-4. честно ли учтен logarithmic loss по слоям;
-5. корректен ли зафиксированный cutoff `c0=1/6`;
-6. не расширяется ли statement случайно с `A_fine` на весь `X`;
-7. достаточно ли широк model class для change-of-measure alternatives;
-8. корректно ли определены `delta in (0,1/2)`, `delta`-correctness и stopping model.
-
-## 3. Каноническая процедура
-
-→ [VS-Certify-Delayed](ALGORITHM.md)  
-→ [Algorithm → proof obligation map](theory/ALGORITHM_PROOF_MAP.md)
-
-Перед theorem review отдельно проверить, что pseudocode определяет одну исполнимую процедуру.
-
-Особенно атаковать:
-
-1. не используется ли одно обозначение для двух разных объектов;
-2. различены ли generated designated sources (m_I) и finalized observations (n_I);
-3. завершается ли каждый inner loop при фиксированном checkpoint target;
-4. определено ли состояние resolved cell и сохраняется ли ее radius после resolution;
-5. не наследуются ли samples между разными parent/child centers без отдельного доказательства;
-6. возвращает ли `NOT_CERTIFIED` полный accounting/source ownership;
-7. отделена ли statistical family certification от downstream GADU commit;
-8. совпадает ли within-family core, анализируемый upper theorem, с тем state update, который реально использует delayed controller;
-9. корректно ли считается incomplete checkpoint при hard cutoff;
-10. имеет ли algorithm legal behavior для всех заявленных input assumptions.
-
-## 4. Связь с delayed GADU
-
-→ [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
-
-Ключевые вопросы:
-
-- каждый ли calendar round имеет legal deployment;
-- корректны ли `w=0` и timing source с delay ровно `w`;
-- unresolved feedback нигде не считается нулем, включая hard cutoff;
-- заморожен ли active set во время flush;
-- clean ли ownership данных при fallback, включая later arrivals;
-- корректно ли переводится scaled certificate обратно в latent scale;
-- использует ли continuation gate именно latent deployment error.
-
-## Удобный формат результата
-
-| Блок | Вердикт | Где проблема, если есть |
+| Block | Verdict | Exact issue / smallest repair |
 |---|---|---|
 | Canonical algorithm | PASS / FIX / BLOCK | ... |
 | Upper theorem | PASS / FIX / BLOCK | ... |
 | Lower theorem | PASS / FIX / BLOCK | ... |
-| Delayed/GADU bridge | PASS / FIX / BLOCK | ... |
+| Delayed / GADU bridge | PASS / FIX / BLOCK | ... |
 
-Самый ценный результат ревью — конкретный контрпример или точный шаг, который нельзя доказать.
+A **BLOCK** should identify one implication that cannot be proved, ideally with a counterexample or the smallest failed lemma.
+
+## 1. Upper theorem
+
+- [Statement](theory/UPPER_THEOREM.md)
+- [Proof roadmap](theory/UPPER_PROOF.md)
+
+The proof chain is
+
+$$
+\text{empirical Bernstein confidence}
+\Longrightarrow
+\text{valid cell envelopes}
+\Longrightarrow
+\text{safe pruning}
+\Longrightarrow
+\text{near-optimal sampled children}
+$$
+
+$$
+\Longrightarrow
+\text{weighted packing}
+\Longrightarrow
+\text{packing-to-volume}
+\Longrightarrow
+\text{dyadic summation}
+\Longrightarrow
+\text{final integral bound}.
+$$
+
+Highest-value attacks:
+
+1. Is the simultaneous confidence event valid under adaptive cell activation and stopping?
+2. Does parent survival really imply that **every sampled child center** is near-optimal?
+3. Is the packing-to-volume inequality in the correct direction, with the correct spatial scale and boundary volume?
+4. Are the clipped coarse levels absorbed without hiding a dependence that changes the theorem?
+5. Are the explicit confidence allocation and $\Lambda$ definition correct?
+6. Is the transition between $a_h=1$ and the fine dyadic regime correct?
+7. Do the edge cases $L_g=0$, small $L_g$, flat $g$, and $\varepsilon$ near $1$ behave as claimed?
+
+## 2. Lower theorem
+
+- [Statement](theory/LOWER_THEOREM.md)
+- [Proof outline](theory/LOWER_PROOF.md)
+
+The intended chain is
+
+$$
+\text{hard alternatives}
+\Longrightarrow
+\text{Bernoulli KL}
+\Longrightarrow
+\text{adaptive change of measure}
+\Longrightarrow
+\text{disjoint one-layer packing}
+$$
+
+$$
+\Longrightarrow
+\text{layer aggregation}
+\Longrightarrow
+\text{fine-gap integral}.
+$$
+
+Attack:
+
+1. Do all perturbations remain in the declared $L$-Lipschitz model class?
+2. Does each alternative actually flip the best family?
+3. Is the Bernoulli KL upper bound valid on the full stated parameter range?
+4. Is the logarithmic layer-selection loss explicit and correctly counted?
+5. Is the frozen cutoff $c_0=1/6$ compatible with every construction step?
+6. Does any line accidentally enlarge the statement from $A_{\mathrm{fine}}$ to all of $X$?
+7. Is the model class broad enough to contain every change-of-measure alternative?
+8. Are $\delta\in(0,1/2)$, $\delta$-correctness, stopping time, and measurability all stated consistently?
+
+## 3. Canonical procedure
+
+- [VS-Certify-Delayed](ALGORITHM.md)
+- [Algorithm → proof obligations](theory/ALGORITHM_PROOF_MAP.md)
+
+Before reviewing theorem complexity, verify that the pseudocode defines **one executable procedure**.
+
+Attack:
+
+1. Are distinct objects given distinct symbols?
+2. Are generated designated sources $m_I$ separated from finalized observations $n_I$?
+3. Does each inner loop terminate for a fixed checkpoint target in the no-cutoff core?
+4. Is a resolved cell's state frozen correctly through the current level?
+5. Are parent/child samples kept separate unless a proof explicitly permits reuse?
+6. Does `NOT_CERTIFIED` return enough accounting to preserve source ownership?
+7. Is statistical family certification separated from the downstream GADU commit decision?
+8. Is the within-family core analyzed by the upper theorem the same state update used by the delayed controller?
+9. Is an incomplete checkpoint under the hard cutoff accounted for correctly?
+10. Is there a legal action for every declared input and every calendar round?
+
+## 4. Delayed / GADU bridge
+
+- [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
+
+Check:
+
+- one legal deployment every calendar round;
+- $w=0$ and a delay exactly equal to $w$;
+- unresolved feedback is never converted into zero, including at the hard cutoff;
+- the active set is frozen during the flush;
+- filler feedback is excluded from the designated estimator;
+- source ownership remains clean after fallback, including later arrivals;
+- scaled certificates are translated back to latent scale correctly;
+- the continuation gate uses $\Xi_i$, not $\xi_i^g$.
+
+## What counts as a valuable review result?
+
+The most valuable output is one of:
+
+- a concrete counterexample;
+- an exact inequality with the wrong direction or missing factor;
+- a concentration statement whose assumptions do not match the algorithm;
+- an alternative that leaves the declared model class;
+- a delayed-execution step that depends on unavailable information;
+- a minimal wording repair that narrows the theorem back to what is actually proved.
