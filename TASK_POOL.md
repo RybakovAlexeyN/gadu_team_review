@@ -1,143 +1,156 @@
-# Пул задач после созвона 29 сентября
+# Post-Call Task Pool — 29 September
 
-Ниже зафиксированы задачи, которые нужно было довести после командного обсуждения, и их текущее состояние.
+This page records the concrete tasks that followed the 29 September team discussion and their current status. It is a coordination summary, not an additional scientific claim.
 
-## 1. Получить тестируемую версию алгоритма
+## 1. Make the candidate algorithm executable
 
-Нужно было довести идею до формы, которую можно реально запускать и проверять.
+**Status: closed at the current scientific-candidate level.**
 
-**Статус:** закрыто на уровне текущего scientific candidate.
+The main requirement was to turn the proposed mechanism into a procedure that can actually be executed and reviewed round by round.
 
-Процедура немного модернизирована и оформлена как отдельный исполнимый алгоритм **VS-Certify-Delayed**.
-
-Он явно задает:
+The current procedure is **VS-Certify-Delayed**. It now specifies:
 
 - dyadic active cells;
 - designated sampling;
 - empirical-Bernstein confidence;
 - synchronized checkpoints;
-- delayed flush через `w` legal filler rounds;
-- finalization matured feedback;
-- prune / split;
+- a delayed flush of exactly $w$ legal filler rounds;
+- finalization of matured designated feedback;
+- pruning and refinement;
 - family certification;
-- hard cutoff с `NOT_CERTIFIED`.
+- a hard calendar cutoff returning `NOT_CERTIFIED`.
 
-→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)
+Entry points:
 
-Связанная математика:
+- [Algorithm: VS-Certify-Delayed](ALGORITHM.md)
 - [Upper theorem](theory/UPPER_THEOREM.md)
 - [Lower theorem](theory/LOWER_THEOREM.md)
 - [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
 
-## 2. Провести эксперименты
+## 2. Run a controlled experiment
 
-Нужно было перейти от обсуждения алгоритма к измеримому сравнению с текущим подходом.
+**Status: component-level test completed.**
 
-**Статус:** component-level проверка сделана.
+The variance-sensitive confidence mechanism was compared with the current Hoeffding route on the same Bernoulli stream.
 
-В контролируемом benchmark новый confidence mechanism сравнен с Hoeffding на одном и том же Bernoulli-потоке.
+For the predeclared sparse-positive regimes,
 
-В sparse-positive режимах среднее отношение числа наблюдений:
+$$
+\operatorname{mean}\!\left(
+\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}
+\right)
+=0.122852.
+$$
 
-```text
-N_VS / N_H = 0.122852
-```
+The same grid contains regimes with
 
-Есть и режимы с ratio `2`, поэтому uniform superiority не утверждается.
+$$
+\frac{N_{\mathrm{VS}}}{N_{\mathrm H}}=2,
+$$
 
-→ [Controlled benchmark](experiments/README.md)
+so the supported conclusion is **instance-dependent sparse-positive sample efficiency**, not uniform superiority.
 
-## 3. Найти и проверить реальные данные
+[Controlled benchmark →](experiments/README.md)
 
-Нужно было найти dataset, соответствующий постановке, и понять, какие реальные выводы на нем допустимы.
+## 3. Find and audit real data
 
-**Статус:** dataset/model-fit часть закрыта в корректном scope.
+**Status: dataset/model-fit task completed within the stated scope.**
 
-Criteo Attribution использован для проверки delayed-positive / attribution semantics.
+Criteo Attribution is used to test delayed-positive and attribution semantics.
 
-Главный результат: одна physical conversion может соответствовать нескольким positive impression rows, поэтому row-level iid Bernoulli mapping неверен.
+The key falsification result is that one physical conversion may be linked to multiple positive impression rows. Therefore the naive mapping
 
-→ [Criteo model-fit evidence](data/CRITEO_MODEL_FIT.md)
+$$
+\text{one positive impression row}
+\equiv
+\text{one independent Bernoulli success}
+$$
 
-## 4. Устранить неопределенность вокруг ожидания feedback
+is invalid on the audited slice.
 
-На обсуждении было важно убрать неопределенное `wait for maturation`: система должна иметь определенное действие в каждый момент времени.
+This evidence is used for **model-fit / attribution falsification**, not end-to-end GADU policy evaluation.
 
-**Статус:** для нового backend разрешено и вынесено в отдельный алгоритм.
+[Criteo model-fit evidence →](data/CRITEO_MODEL_FIT.md)
 
-Текущая execution logic:
+## 4. Remove the undefined “wait for maturation” step
 
-- имеет legal deployment каждый calendar round;
-- не кодирует unresolved feedback как zero;
-- использует synchronized checkpoints;
-- после designated sampling выполняет ровно `w` filler rounds;
-- замораживает active set на время flush;
-- отдельно учитывает designated и filler rounds;
-- делает prune/split только после finalization;
-- при hard cutoff возвращает `NOT_CERTIFIED`;
-- учитывает calendar cost задержки.
+**Status: resolved for the new backend and made explicit in the executable algorithm.**
 
-→ [Алгоритм: VS-Certify-Delayed](ALGORITHM.md)  
-→ [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
+The current delayed execution rule now guarantees:
 
-## 5. Собрать итоговую статью и провести командное чтение
+- one legal deployment every calendar round;
+- unresolved silence is never encoded as zero;
+- confidence updates occur at synchronized checkpoints;
+- exactly $w$ legal filler deployments follow designated sampling at a checkpoint;
+- the active set is frozen during the flush;
+- designated and filler rounds are accounted for separately;
+- pruning/splitting occurs only after designated feedback is finalized;
+- a hard cutoff returns `NOT_CERTIFIED`;
+- calendar delay cost is explicit.
 
-После substantive edits нужно получить одну интегрированную версию текста и прочитать ее всей командой.
+Entry points:
 
-**Статус:** еще не закрыто.
+- [Algorithm: VS-Certify-Delayed](ALGORITHM.md)
+- [Delayed execution + GADU composition](theory/DELAYED_GADU.md)
 
-До этого нужно пройти следующие общие шаги:
+## 5. Assemble one manuscript and run a full coauthor read
 
-### A. Независимая математическая проверка
+**Status: still open.**
 
-→ [MATH_REVIEW.md](MATH_REVIEW.md)
+Before calling the paper submission-ready, the following tasks remain.
 
-Нужно дать по каждому блоку один из вердиктов:
+### A. Independent mathematical review
 
-- PASS;
-- FIX;
-- BLOCK.
+Each major mathematical object should receive one verdict:
 
-### B. Проверка novelty и границ claims
+- **PASS**
+- **FIX**
+- **BLOCK**
 
-Нужно убедиться, что:
+The review should cover the upper theorem, lower theorem, and delayed/GADU bridge.
 
-- ближайшая литература не поглощает новый результат;
-- формулировки не сильнее доказанного;
-- нет необоснованных `first`, `optimal`, `minimax`, `uniformly better`.
+[Mathematical review checklist →](MATH_REVIEW.md)
 
-### C. Перестройка manuscript
+### B. Novelty and claim-scope review
 
-Нужно согласовать:
+Confirm that:
+
+- the closest literature does not directly subsume the stated contribution;
+- manuscript wording is no stronger than the proved scope;
+- unsupported claims such as “first”, “optimal”, “minimax”, or “uniformly better” do not appear.
+
+### C. Reader-first manuscript reconstruction
+
+The integrated manuscript still needs a single agreed hierarchy for:
 
 - title;
 - abstract;
-- contributions;
+- contribution bullets;
 - related work;
-- порядок theorem pair;
+- theorem-pair ordering;
 - delayed integration;
-- experiment story;
+- experimental story;
 - limitations.
 
-→ [PAPER_REVIEW.md](PAPER_REVIEW.md)
+[Paper-level review →](PAPER_REVIEW.md)
 
-### D. Полное coauthor reading
+### D. Full coauthor reading
 
-После математического и содержательного freeze основной текст нужно прочитать целиком и собрать замечания к одной версии.
+After mathematical and scientific-story freeze, all coauthors should review the same integrated manuscript version rather than separate intermediate drafts.
 
-### E. Финальная сборка
+### E. Final assembly
 
-После отсутствия BLOCK:
+Once no substantive **BLOCK** remains:
 
-- убрать оставшиеся TODO;
-- проверить proof references и numbering;
-- проверить figures/tables/bibliography;
-- собрать финальный PDF;
-- зафиксировать submission version.
+- remove residual TODOs;
+- check proof references and numbering;
+- check figures, tables, and bibliography;
+- compile and visually inspect the final PDF;
+- freeze one submission version.
 
-## Что нужно решить на следующем созвоне
+## Decisions for the next team call
 
-1. Есть ли математический BLOCK?
-2. Считаем ли variance-sensitive theorem pair основной научной историей статьи?
-3. Какие изменения обязательны в manuscript?
-4. Как распределяем оставшиеся задачи и сроки?
+1. Is there any mathematical **BLOCK**?
+2. Is the variance-sensitive theorem pair the primary scientific story?
+3. Which manuscript changes are mandatory before submission?
+4. Who owns each remaining task and deadline?
