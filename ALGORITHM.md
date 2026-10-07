@@ -172,7 +172,7 @@ Each active cell $I$ has center $c_I$ and estimator state:
 - $n_I$: finalized designated count;
 - $\widehat g_I$: empirical mean;
 - $V_I$: empirical variance;
-- $\operatorname{rad}_I$: confidence radius;
+- $\mathrm{rad}_I$: confidence radius;
 - a Boolean resolved flag.
 
 A key implementation rule is:
@@ -218,7 +218,7 @@ $$
 For $n\ge2$, the empirical-Bernstein radius is
 
 $$
-\operatorname{rad}(n,V,\eta) =
+\mathrm{rad}(n,V,\eta) =
 \sqrt{\frac{2V\log(6/\eta)}{n}} +
 \frac{7\log(6/\eta)}{3(n-1)}.
 $$
@@ -226,7 +226,7 @@ $$
 A cell is resolved at level $h$ once
 
 $$
-\operatorname{rad}_I\le\frac{a_{i,h}}{8}.
+\mathrm{rad}_I\le\frac{a_{i,h}}{8}.
 $$
 
 Once resolved, its statistics are frozen for the remainder of that level.
@@ -273,10 +273,10 @@ For every unresolved active center it repeatedly:
    $$
    B_s^{(w)}=\mathbf 1\{Z_s=1,D_s\le w\};
    $$
-6. recomputes $\widehat g_I$, $V_I$, and $\operatorname{rad}_I$;
+6. recomputes $\widehat g_I$, $V_I$, and $\mathrm{rad}_I$;
 7. marks cells with
    $$
-   \operatorname{rad}_I\le\frac{a_{i,h}}8
+   \mathrm{rad}_I\le\frac{a_{i,h}}8
    $$
    as resolved;
 8. advances to the next checkpoint if some cells remain unresolved.
@@ -290,22 +290,22 @@ If the cutoff arrives before a source has fully matured, that source is **not** 
 Once all active cells at the current level are resolved, define
 
 $$
-\operatorname{LCB}(I) =
-\max\{0,\widehat g_I-\operatorname{rad}_I\},
+\mathrm{LCB}(I) =
+\max\{0,\widehat g_I-\mathrm{rad}_I\},
 $$
 
 and
 
 $$
 U_{\mathrm{cell}}(I) =
-\min\{1,\widehat g_I+\operatorname{rad}_I+a_{i,h}\}.
+\min\{1,\widehat g_I+\mathrm{rad}_I+a_{i,h}\}.
 $$
 
 The family lower and upper envelopes are
 
 $$
 \underline M_i^g =
-\max_{I\in\mathcal C_i(h)}\operatorname{LCB}(I),
+\max_{I\in\mathcal C_i(h)}\mathrm{LCB}(I),
 $$
 
 and
