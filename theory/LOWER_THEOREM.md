@@ -123,11 +123,7 @@ $$
 
 the alternatives remain in the declared Lipschitz class and flip the best family at the selected center.
 
-At a packed center $c$, write $p=\mu(c)$ for the base Bernoulli mean of family 2. The local Bernoulli information scale is
-
-$
-\frac{p}{s^2}+\frac1s.
-$
+At a packed center $c$, write $p=\mu(c)$ for the base Bernoulli mean of family 2. The local Bernoulli information scale is $\frac{p}{s^2}+\frac1s$.
 
 Consequently the one-layer lower bound has the form
 

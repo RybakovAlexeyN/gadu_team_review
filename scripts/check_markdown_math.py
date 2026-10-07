@@ -27,6 +27,7 @@ STANDALONE_MARKDOWN_TOKENS = {"=", "+", "-", ">", "<"}
 LINK_RE = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 
 errors = []
+repo_root = Path(".").resolve()
 
 for path in sorted(Path(".").rglob("*.md")):
     text = path.read_text(encoding="utf-8")
@@ -54,21 +55,27 @@ for path in sorted(Path(".").rglob("*.md")):
         if in_fence:
             continue
 
-        line = re.sub(r"`[^`]*`", "", raw)
+        clean = re.sub(r"`[^`]*`", "", raw)
+        clean_stripped = clean.strip()
 
         for fragment in FORBIDDEN_FRAGMENTS:
-            if fragment in line:
+            if fragment in clean:
                 errors.append(
                     f"{path}:{lineno}: GitHub-incompatible math fragment {fragment}"
                 )
 
-        if "$$" in raw and stripped != "$$":
+        if clean_stripped == "$":
+            errors.append(
+                f"{path}:{lineno}: lone $ line is not a valid display delimiter"
+            )
+
+        if "$$" in clean and clean_stripped != "$$":
             errors.append(
                 f"{path}:{lineno}: display delimiter $$ must be on its own "
                 "unindented line"
             )
 
-        if stripped == "$$":
+        if clean_stripped == "$$":
             if raw != "$$":
                 errors.append(
                     f"{path}:{lineno}: indented display-math delimiter"
@@ -78,10 +85,10 @@ for path in sorted(Path(".").rglob("*.md")):
                 display_start = lineno
             continue
 
-        if in_display and stripped in STANDALONE_MARKDOWN_TOKENS:
+        if in_display and clean_stripped in STANDALONE_MARKDOWN_TOKENS:
             errors.append(
                 f"{path}:{lineno}: standalone Markdown token "
-                f"{stripped!r} inside display math"
+                f"{clean_stripped!r} inside display math"
             )
 
     if in_display:
@@ -96,7 +103,7 @@ for path in sorted(Path(".").rglob("*.md")):
             continue
         resolved = (path.parent / target).resolve()
         try:
-            resolved.relative_to(Path(".").resolve())
+            resolved.relative_to(repo_root)
         except ValueError:
             errors.append(f"{path}: relative link escapes repository: {href}")
             continue

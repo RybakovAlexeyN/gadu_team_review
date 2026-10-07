@@ -104,11 +104,7 @@ $$
 c\,\mathrm{kl}(1-\delta,\delta)\,H_s,
 $$
 
-where $H_s$ is the weighted packing sum carrying, at each packed center $c$, the local factor
-
-$
-\frac{\mu(c)}{s^2}+\frac1s.
-$
+where $H_s$ is the weighted packing sum carrying, at each packed center $c$, the local factor $\frac{\mu(c)}{s^2}+\frac1s$.
 
 ## F. Multiple layers
 

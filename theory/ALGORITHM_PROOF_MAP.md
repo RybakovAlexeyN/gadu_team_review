@@ -6,10 +6,10 @@ The purpose is adversarial review: a reviewer should be able to point to one row
 
 ## Status convention
 
-- **DOCUMENTED** — the logical implication is written explicitly in the current review materials.
+- **DOCUMENTED** — the logical implication is written explicitly in the current review materials; this is not an independent human verification verdict.
 - **DOCUMENTED / CHECK CONCENTRATION** — the algorithmic implication is explicit, while the empirical-Bernstein source theorem/algebra remains a high-value independent check.
 - **DOCUMENTED / CHECK GEOMETRY** — the proof chain is explicit, while the packing/integral calculation remains a high-value independent check.
-- **INTERFACE-DOCUMENTED** — the composition is proved at the declared interface level; this does not mean the historical flagship theorem has been replaced.
+- **INTERFACE-DOCUMENTED** — the composition is written at the declared interface level; this does not mean the historical flagship theorem has been replaced or independently verified.
 
 ## Map
 
