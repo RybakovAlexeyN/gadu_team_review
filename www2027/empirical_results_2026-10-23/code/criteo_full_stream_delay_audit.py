@@ -250,10 +250,12 @@ def ipw_rate_diagnostic(groups, exp_train, exp_test, H=7*DAY, prior=50.0):
                 (trE if split=="train" else teE)[g]+=1
         pool=sum(trE.values())/max(1,sum(train_H.values()))
         rec=[]
-        for g,ntrue in test_H.items():
+        for g,nexposure in exp_test.items():
             ntrain=train_H[g]
-            nexposure=exp_test[g]
-            if ntrain<20 or ntrue<20 or nexposure<1000:
+            ntrue=test_H[g]
+            # Eligibility must NOT depend on held-out conversion outcomes.
+            # Enumerating exposure campaigns retains test-zero-conversion groups.
+            if ntrain<20 or nexposure<1000:
                 continue
             qc=(trE[g]+prior*pool)/(ntrain+prior)
             pred_pool=teE[g]/max(pool,1e-12)
@@ -282,6 +284,8 @@ def ipw_rate_diagnostic(groups, exp_train, exp_test, H=7*DAY, prior=50.0):
             "mature_train_event_count":sum(train_H.values()),
             "mature_test_event_count":sum(test_H.values()),
             "included_campaigns":len(rec),
+            "included_campaigns_with_zero_test_events":sum(int(x[1] == 0) for x in rec),
+            "eligibility_rule":"train_7day_conversion_events_ge_20_AND_test_impressions_ge_1000; no test-outcome selection",
             "included_test_exposures":exposure_count,
             "actual_within_H_conversion_events":actual,
             "early_events":sum(x[3] for x in rec),
@@ -300,7 +304,7 @@ def ipw_rate_diagnostic(groups, exp_train, exp_test, H=7*DAY, prior=50.0):
 def run(input_path,out_path,max_rows=0,H=7*DAY,ws=(3600,DAY,3*DAY),prior=50.0):
     if any(w>=H or w<=0 for w in ws): raise ValueError("require 0 < w < H")
     groups,meta,exp_train,exp_test=parse_log(input_path,max_rows)
-    summary={"experiment":"Criteo full data delay-model audit, version 2",
+    summary={"experiment":"Criteo full data delay-model audit, version 3 (outcome-independent eligibility)",
         "estimand":"P(delay<=w | delay<=H, conversion within H, unique conversion_id, chosen source)",
         "source_data_not_randomized":True,"exposure_policy_GADU_tested":False,
         "real_data_meta":meta,"methods":{"H":H,"windows":list(ws),"shrinkage_prior":prior,
