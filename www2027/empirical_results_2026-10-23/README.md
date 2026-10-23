@@ -1,6 +1,9 @@
 # WWW 2027 / GADU — empirical results for team review (23 October 2026)
 
-**Status: PUBLIC PRELIMINARY EMPIRICAL HANDOFF — not accepted manuscript evidence.**  
+**Status: PUBLIC PRELIMINARY EMPIRICAL HANDOFF — not accepted manuscript evidence.**
+
+**Update 23 Oct:** Removed test-outcome-dependent campaign eligibility from the inverse-window experiment, added regression test, reran full Criteo on pinned revision. This is a **post-hoc methodological repair**, not a fresh independent holdout. All corrected metrics below supersede the original 293-campaign values.
+  
 **Дата:** 23.10.2026 | **Scope:** source-informed independent GADU implementations, strong Cover-UCB baselines, public Criteo Attribution observational data.
 
 > **TL;DR (RU):** В исследованных синтетических сценариях GADU не показывает меньший фактический pseudo-regret, чем корректно настроенный Cover-UCB: предварительная сертификация семейств оказывается дорогой. На 16,47 млн реальных показов Criteo обнаружена неоднородность времён конверсии между кампаниями, которая заметно влияет на оценку windowed positive-only correction. **Реальный regret политики GADU не измерен.**
@@ -57,9 +60,9 @@ This is a genuine **synthetic** Bernoulli/positive-only event-channel study. Whe
 **Completed and successfully reproduced** via GitHub Actions on full authentic **16,468,027 impression rows**. Full methods, code, and numeric summaries are in this public review packet:
 
 - [Real-data scientific methods and restrictions](REAL_DATA_METHODS_AND_FINDINGS.md).
-- [Python 3 stdlib executable](code/criteo_full_stream_delay_audit.py): streams the full public gzip from a pinned publisher mirror revision, does not require raw-data redistribution.
+- [Python 3 stdlib executable](code/criteo_full_stream_delay_audit.py) and [zero-positive-campaign regression test](code/test_outcome_independent_selection.py): streams the full public gzip from a pinned publisher mirror revision, does not require raw-data redistribution.
 - [Real-data machine-readable summary](data/criteo_full_realdata_summary.json).
-- [Original successful full-dataset job and log](https://github.com/RybakovAlexeyN/gadu_ai_research_lab/actions/runs/39954486600) (may require access to the research workspace).
+- [Original successful full-dataset job and log](https://github.com/RybakovAlexeyN/gadu_ai_research_lab/actions/runs/39974114339) (may require access to the research workspace).
 - [Published Criteo dataset](https://huggingface.co/datasets/criteo/criteo-attribution-dataset) — publisher's raw dataset, not rehosted here; CC BY-NC-SA 4.0. We **do not publish original impression rows, user IDs, or licensed source data**.
 
 ### A. Conditional delay calibration, 7-day observation horizon
@@ -76,15 +79,15 @@ There are **108,004** eligible matured positive training events and **72,948** e
 
 ### B. Inverse-window event-count correction on real served impressions
 
-For **293 selected campaigns**, **2,631,942 actual held-out impressions** and **59,926 observed linked conversion events within H = 7d**, use an empirical q from training and estimate event counts from the early window as N_early/q. Compare the sum of per-campaign absolute count errors divided by test impressions:
+For **367 campaigns selected without using test conversion counts**, **2,832,326 actual held-out impressions** and **60,936 observed linked conversion-event groups within H = 7d**, use an empirical q from training and estimate event counts from the early window as N_early/q. Compare the sum of per-campaign absolute count errors divided by test impressions:
 
 | w | Pooled q error ↓ | Campaign q error ↓ | Relative reduction |
 |---|---:|---:|---:|
-| 1h | 0.009787 | 0.002604 | **73.4%** |
-| 24h | 0.004584 | 0.001511 | **67.0%** |
-| 72h | 0.001933 | 0.000867 | **55.1%** |
+| 1h | 0.009225 | 0.002538 | **72.5%** |
+| 24h | 0.004328 | 0.001470 | **66.0%** |
+| 72h | 0.001836 | 0.000845 | **54.0%** |
 
-**CRITICAL SELECTION LIMIT:** Eligible campaigns were filtered by **test-period positives >=20**, as well as train positives and impression support. This is **outcome-dependent test-set selection**. The 55–73% figures are valid descriptive errors *on those selected campaigns*, **not an unbiased estimate of performance across all campaigns**. Further, in the 1h window the global q has **smaller overall signed aggregate bias** despite worse mean absolute per-campaign error. Different aggregation metrics answer different questions.
+**POST-HOC COHORT REPAIR:** The original 293-campaign panel selected campaigns using **test-period positive outcome counts** and could not support generalization to a prospective evaluation population. The corrected panel qualifies campaigns from **train 7-day positive count >=20** and **test exposure count >=1000**, without using held-out outcomes. Campaigns are enumerated from test impressions; a unit test verifies that a train-supported campaign with *zero held-out conversions* is retained. The real-data sample of 367 eligible campaigns happens to contain no such zeros. Because the data had been previously explored, this correction is **not a new blinded holdout**, and it remains a support-based subset. Importantly, the global q has smaller **aggregate signed bias** at 1h despite a higher sum of per-campaign absolute errors.
 
 ### Mandatory source-data limitation
 
@@ -105,7 +108,7 @@ What has **not** passed:
 - An independent end-to-end **author-original** exact-policy replay; the paper's experimental supplement was not available.
 - Fully matched-grid, grid-cost-controlled, multiple delay-law test of continuum GADU; 4 q<1 seeds per cell remain exploratory.
 - Full-public-package raw 80-row and 16-row trajectories + identical runnable GADU policy code; the public packet contains **summaries** of those, and raw CSV from separate prior studies.
-- Independent publisher-semantics signoff for Criteo conversion IDs and correction of outcome-dependent campaign selection.
+- Independent publisher-semantics signoff for Criteo conversion IDs and external review of the post-hoc corrected cohort definition.
 - Real causal counterfactual GADU regret or manuscript G5/G6 acceptance.
 
 **Team review request:** examine whether the paper's actual claim is a bound relative to a Cover upper certificate or a claim of lower **realized** Cover regret. The current data address the latter in synthetic scenarios, but they do not falsify an upper-certificate theorem. Treat the real-data observation study as exploratory model diagnostics pending the corrections above.
