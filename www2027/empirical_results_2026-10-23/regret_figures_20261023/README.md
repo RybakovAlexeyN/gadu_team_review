@@ -24,8 +24,20 @@ The cumulative pseudo-regret R(t) curves were obtained by instrumenting a comple
 
 [Mean regret checkpoints CSV](data/mean_regret_150k_from_validated_trace.csv) | [Reward function parameters CSV](data/tent_functions.csv).
 
+## Additional R(t) curves for censored positive-only feedback (q_w < 1)
+
+The separate archived Stage III executable was also instrumented and replayed, **with source-correct window maturity and the original policy decisions unchanged**. All **16/16** frozen full-horizon regrets agree with the telemetry replay at tolerance 1e-4. Four seeds per world/q cell, T=3,000,000, w=1, q_w in {0.5,0.75}. The stochastic law assigns an early success delay of 1 with probability q_w and delay w+3 otherwise; late positives are excluded from the windowed pseudo-reward. These are *genuinely censored synthetic* rewards, not Criteo data.
+
+- [q=0.5, strong gap](figures/Rt_q0p5_strong_gap.svg)
+- [q=0.75, strong gap](figures/Rt_q0p75_strong_gap.svg)
+- [q=0.5, near tie](figures/Rt_q0p5_near_tie.svg)
+- [q=0.75, near tie](figures/Rt_q0p75_near_tie.svg)
+- [Machine-readable 4-seed means](data/mean_regret_q_lt1_4cells_150k.csv)
+
+The complete 107-checkpoint seed-level q<1 records and the telemetry script are in the companion archive for the experiment author, not fully committed to this public PR. **Only four seeds per condition** and one synthetic delay law; the q=0.5 strong-gap GADU cumulative path is effectively deterministic under its locked geometry. Differences across q cannot be attributed to censoring alone because tuning parameters and budgets also change.
+
 ## Scientific interpretation
 
 The curves show cumulative *latent pseudo-regret*, not realized random regret or upper bound. At T=3m, strong-gap GADU has mean regret 91,957.05 compared with 24,392.09 for optimized immediate Cover-UCB. The GADU search stage accounts for about 69,914.70 regret by t=197,465.
 
-These are pilot-informed tent-shaped synthetic environments, q_w=1 without nontrivial positive censoring, and independent source-informed GADU code. No real advertisement policy regret was measured; no universal algorithm ordering or theorem falsification follows. A separate small q_w<1 study measured only final regret and is reported in the main PR.
+These are pilot-informed tent-shaped synthetic environments, q_w=1 without nontrivial positive censoring, and independent source-informed GADU code. No real advertisement policy regret was measured; no universal algorithm ordering or theorem falsification follows. The separate q_w<1 study now also has telemetry-replayed R(t) curves, with four seeds per cell and one synthetic censoring law; it remains exploratory.
