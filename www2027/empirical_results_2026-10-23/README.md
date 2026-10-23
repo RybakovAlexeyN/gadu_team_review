@@ -8,6 +8,10 @@
 
 > **TL;DR (RU):** В исследованных синтетических сценариях GADU не показывает меньший фактический pseudo-regret, чем корректно настроенный Cover-UCB: предварительная сертификация семейств оказывается дорогой. На 16,47 млн реальных показов Criteo обнаружена неоднородность времён конверсии между кампаниями, которая заметно влияет на оценку windowed positive-only correction. **Реальный regret политики GADU не измерен.**
 
+## New: actual R(t) figures and exact benchmark functions (23 October)
+
+Ilgham requested regret-versus-round plots and the tested reward functions. We reexecuted all 80 frozen world/seed comparisons with a telemetry-only tracer, recovered 104 checkpoints per seed, and checked 80/80 final regret values against the frozen CSV. All five public SVG regret curves, the corresponding 1D tent functions and a mean-checkpoint CSV are available in the [regret figure review pack](regret_figures_20261023/README.md). The full original-source replay archive is available separately to the experiment author. **Plots are from q_w=1 synthetic tests, not nontrivially censored or real-traffic regret.**
+
 ## 1. Scientific questions
 
 - **Synthetic:** Does the independently transcribed WWW GADU policy pay less **realized cumulative latent pseudo-regret** than **source-optimized immediate Cover-UCB** under explicitly fixed finite-horizon Lipschitz/Bernoulli worlds? Which testing phases contribute to regret?
