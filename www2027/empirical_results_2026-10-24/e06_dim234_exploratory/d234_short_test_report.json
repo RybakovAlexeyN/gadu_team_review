@@ -1,0 +1,10 @@
+{
+  "result": "PASS_SCOPED",
+  "tests": {
+    "rng": 320,
+    "search": 24,
+    "compare": 72,
+    "strict_separation": 38,
+    "no_separation": 34
+  }
+}

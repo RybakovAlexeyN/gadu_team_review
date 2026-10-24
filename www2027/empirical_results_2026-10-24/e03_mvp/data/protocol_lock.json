@@ -1,0 +1,29 @@
+{
+  "experiment_id": "WWW27_HETERODIM_GADU_VS_COVER_E02",
+  "date_locked": "2026-10-23",
+  "status": "PRE-EXECUTION LOCK; exploratory source-informed extension, NOT author-original parity",
+  "manuscript_www_main_sha256": "9a196140a7b600d578f69240a0a1a7638299da651728e376a46c4caa10a35b81",
+  "hypothesis": "On known-q synthetic positive-only feedback, GADU can certify an optimal family with lower-dimensional action space, but finite mandatory search may outweigh realized continuation savings versus immediate original-T optimized Cover-UCB.",
+  "primary_estimand": "Paired source-level cumulative latent pseudo-regret difference (GADU minus immediate Cover-UCB) at T=10000000, per locked fixed world; positive means higher GADU regret",
+  "primary_worlds": ["best_1d_strong", "best_2d_strong"],
+  "secondary_worlds": ["best_1d_near_tie"],
+  "world_parameters": {
+    "best_1d_strong": {"peaks": [0.8,0.18], "centers_1d": [0.5], "centers_2d": [0.25,0.75]},
+    "best_2d_strong": {"peaks": [0.18,0.8], "centers_1d": [0.5], "centers_2d": [0.25,0.75]},
+    "best_1d_near_tie": {"peaks": [0.8,0.78], "centers_1d": [0.5], "centers_2d": [0.25,0.75]}
+  },
+  "mean_reward": "f_i(x)=max(0,min(1,p_i-a_i||x-c_i||_2^2)), a_1d=0.10, a_2d=0.09, x in [0,1]^{d_i}; Lipschitz L=0.3",
+  "dims": [1,2], "cover_envelopes_C": [1,1], "L": 0.3,
+  "T": 10000000, "K": 2, "q_w": 0.75, "w": 1, "gamma": 1.0,
+  "delay_law": "success event with D=1 with probability q_w; else D=4; failure emits silence; windowed observed Y=Z*1[D<=1]/q_w; source id recorded",
+  "time_semantics": "Before decision t, matured sample v<=min(t-1,t-w). During testing, compare using all testing sources v<=t-w after action t. Fresh continuation starts with no prior testing sources.",
+  "source_tuning": "Use WWW/main.tex default eta_T preflight and source Bernstein cover certificate. Construct deterministic uniform midpoint Euclidean rho-covers. Base Cover radius chosen before actions at T and frozen; accepted singleton retunes remaining horizon. Search takes M_actual*m_search+w. Conservative feasibility test uses envelope Mbar. Actual D_T uses actual T_init.",
+  "common_randomness": "Potential outcomes indexed by (seed, global calendar round, stable tagged physical family+quantized coordinates), not array index or policy name; independent delay stream for each key",
+  "primary_eval_seeds": [202610240001,202610240002,202610240003,202610240004,202610240005,202610240006,202610240007,202610240008],
+  "secondary_eval_seeds": [202610240101,202610240102,202610240103,202610240104],
+  "primary_analyses": ["Paired seed mean difference with sample SD and correctly-labelled 95% paired t Monte Carlo interval conditional on frozen world", "R(t) mean with absolute regret y-axis", "Per-phase search/select/continue regrets", "Source feasibility and first separated family, correct/incorrect", "Fully counted deployments T and stable grid/clock", "Source-certificates B_union(T), B_selected(T) distinctly labelled upper bounds rather than actual regret"],
+  "secondary_controls": ["Near-tie for non-certification behavior", "Wrong-family certificate count", "Oracle best-family Cover is an informative unfair lower-information benchmark, labelled oracle; do not claim fair comparison", "Geometry audit of every rho-cover against domain and cardinality envelope"],
+  "exclusions": "None after execution except abort-and-report protocol violations; never replace unfavorable scenarios or drop seeds",
+  "limits": "Pilot-informed setting; independently authored simulator; source signature not yet approved by coauthors; two toy delayed-event outcomes; not original manuscript's three-family clipped-quadratic table; no real advertising OPE. The new seeds are unused but settings chosen with known earlier negative evidence.",
+  "decision_rule": "Only claim empirical search-cost/family-dimension findings conditional on selected worlds. No theorem validation, no all-environment superiority, no claim author-parity. A figure may be inserted only after coauthor's explicit source-implementation parity signoff."
+}

@@ -1,0 +1,15 @@
+{
+  "experiment_id": "WWW27_GADU_NESTED_E03_GEOMETRY_REPAIR",
+  "date_locked": "2026-10-23",
+  "status": "PRE-SEED LOCK; POST-HOC correction to E02's nonnested midpoint grids, NOT a pristine replication",
+  "purpose": "Remove geometry artifact caused by dropping coarse-grid optima after a smaller singleton rho is selected; preserve source envelope cardinality and common source clocks",
+  "source_protocol": "protocol_lock.json; same WWW/main.tex source SHA, T=10000000, q=.75, w=1, L=.3, gamma=1, d=(1,2), two clipped-quadratic environments",
+  "change_from_E02": "ONLY deterministic construction of rho-covers. 1D union rho=.5: {.5}; 1D singleton rho=.25: {.25,.5,.75}; 1D search rho=.208333: {1/6,.5,5/6}; 2D rho=.5: 2x2 midpoints; 2D search rho=.208333: union of 4x4 midpoints and 2x2 coarse grid (20 points). All cover radii and envelope cardinalities independently checked before seeds; source-derived m/n and D_T recomputed with M_actual.",
+  "primary_worlds": ["best_1d_strong","best_2d_strong"],
+  "secondary_worlds": ["best_1d_near_tie"],
+  "seeds_primary": [202610240201,202610240202,202610240203,202610240204,202610240205,202610240206,202610240207,202610240208],
+  "seeds_secondary": [202610240301,202610240302,202610240303,202610240304],
+  "no_posthoc_exclusions": true,
+  "outcome_metrics": "same pairwise regret delta at T, stage search/select/continue, certificate correctness and cost budgets; do not repurpose E02 seeds for significance of revised method",
+  "interpretation": "Conditional posthoc robustness test of a new valid nested cover implementation; not a randomized comparison of an untested research hypothesis, not author-reference parity and not universal GADU superiority."
+}

@@ -1,0 +1,21 @@
+{
+  "study":"E06_ILGHAM_D234_HETEROGENEOUS_DIMENSION_SUGGESTION",
+  "status":"EXPLORATORY_PRESEED_LOCK; independently authored K=3 extension; not original author implementation",
+  "proposal":"Best family d=2; other families d=3,4; test whether family certification amortizes search against immediate Cover-UCB",
+  "T":10000000,"dims":[2,3,4],"C":[1,2,3],"L":0.3,"q":0.75,"w":1,"gamma":1.0,
+  "reward_amplitude":0.09,
+  "centers":[[0.25,0.75],[0.5,0.5,0.5],[0.5,0.5,0.5,0.5]],
+  "worlds":{
+    "strong_gap":{"peaks":[0.8,0.28,0.26]},
+    "moderate_gap":{"peaks":[0.8,0.55,0.53]},
+    "near_tie":{"peaks":[0.8,0.785,0.78]}
+  },
+  "seeds":[202610246401,202610246402],
+  "primary_baseline":"Source-certificate tuned immediate Bernstein Cover-UCB, rho preflight(T)",
+  "secondary_diagnostic_baseline":"Immediate Cover-UCB on fixed rho=0.5 union net, explicitly NOT source-optimal tuning",
+  "pairing":"Same seed and physical action identifier, absolute round t, independent success/delay keyed noise; different action does not share realized reward",
+  "outcome":"Per-seed full-horizon cumulative latent pseudo-regret candidate minus immediate tuned Cover; secondary fixed-net baseline; stage regrets; selected family; certificate; actual action count",
+  "no_exclusions":true,"no_manuscript_claim_without_parity":true,
+  "geometry":"Cartesian Euclidean midpoint covering with fixed C envelopes. Add exact singleton coarse midpoint when M envelope permits. Stable physical IDs from BLAKE2b of (family,quantized coordinates)",
+  "limitations":"Only 3 pilot-informed synthetic worlds, 2 seeds per world; adaptive experimental design after earlier E03/E04; not an independently held-out confirmatory test; K=3 code independently adapted; q known; no causal real-world evaluation"
+}

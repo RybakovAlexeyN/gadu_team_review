@@ -1,0 +1,81 @@
+{
+  "evidence_status": "independent_exploratory_G4_NOT_AUTHOR_REPRODUCTION",
+  "clock": "source_predecision_s_plus_w",
+  "date": "2026-10-21",
+  "seeds": [
+    11,
+    17,
+    23,
+    29,
+    41,
+    47,
+    53,
+    59
+  ],
+  "scenarios": [
+    {
+      "name": "easy_gap",
+      "T": 4000,
+      "w": 5,
+      "q": 0.75,
+      "rho": 1,
+      "T_search": 1000,
+      "T_select": 1400,
+      "C": [
+        1,
+        4,
+        8
+      ],
+      "gamma": 0.25
+    },
+    {
+      "name": "near_tie",
+      "T": 4000,
+      "w": 5,
+      "q": 0.75,
+      "rho": 1,
+      "T_search": 1000,
+      "T_select": 1400,
+      "C": [
+        1,
+        1
+      ],
+      "gamma": 0.25
+    },
+    {
+      "name": "center_trap",
+      "T": 4000,
+      "w": 5,
+      "q": 0.75,
+      "rho": 1,
+      "T_search": 1000,
+      "T_select": 1400,
+      "C": [
+        1,
+        1
+      ],
+      "gamma": 0.25
+    },
+    {
+      "name": "strong_gap_exploratory",
+      "T": 4000,
+      "w": 5,
+      "q": 1,
+      "rho": 1,
+      "T_search": 1200,
+      "T_select": 1800,
+      "C": [
+        1,
+        1
+      ],
+      "gamma": 0.25
+    }
+  ],
+  "primary_metric": "per-seed paired pseudo-regret difference: candidate minus Cover-UCB",
+  "caveats": [
+    "Source-transcribed independent algorithms, not author exact C.13/C.14",
+    "Bridge seed/search lengths approximately matched, different stage structures",
+    "Not preregistered confirmatory test; 8 exploratory seeds per world",
+    "WWW and Bridge proofs not independently matched or accepted"
+  ]
+}

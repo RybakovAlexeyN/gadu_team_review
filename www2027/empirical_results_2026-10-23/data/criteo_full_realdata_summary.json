@@ -1,0 +1,233 @@
+{
+  "provenance": {
+    "dataset": "Criteo Attribution",
+    "revision": "904188a63cbad78bee43cd26ff5ee4ac77903986",
+    "github_actions_run_url": "https://github.com/RybakovAlexeyN/gadu_ai_research_lab/actions/runs/39974114339",
+    "run_id": 39974114339,
+    "experiment_lock": "sprints/www2027/2026-10-23/realdata_execution/LOCK_C_OUTCOME_INDEPENDENT_ELIGIBILITY.md",
+    "replaces_run_id": 39954486600,
+    "status": "POST-HOC methodological repair of test outcome selection, not fresh holdout",
+    "scope": "OBSERVATIONAL DELAY/CORRECTION ONLY; NOT REAL GADU POLICY/REGRET",
+    "generated_at_utc": "2026-10-23"
+  },
+  "ipw_rate_diagnostic": {
+    "3600": {
+      "actual_within_H_conversion_events": 60936,
+      "aggregate_relative_bias_campaign": -0.027809983572672916,
+      "aggregate_relative_bias_pooled": -0.010209447196164222,
+      "campaign_cluster_bootstrap_95_interval": [
+        0.004832549549447643,
+        0.008722239945795124
+      ],
+      "early_events": 32746,
+      "eligibility_rule": "train_7day_conversion_events_ge_20_AND_test_impressions_ge_1000; no test-outcome selection",
+      "estimated_events_campaign_shrunk_q": 59241.3708410156,
+      "estimated_events_pooled_q": 60313.87712565454,
+      "event_rate_abs_error_improvement": 0.006687237800675515,
+      "included_campaigns": 367,
+      "included_campaigns_with_zero_test_events": 0,
+      "included_test_exposures": 2832326,
+      "mature_test_event_count": 64084,
+      "mature_train_event_count": 107987,
+      "per_campaign_absolute_event_rate_error_campaign": 0.0025379715695640808,
+      "per_campaign_absolute_event_rate_error_pooled": 0.009225209370239596,
+      "status": "EXECUTED",
+      "warning": "Observational source-linked event count correction, not original GADU Bernoulli/no-interference/off-policy regret."
+    },
+    "86400": {
+      "actual_within_H_conversion_events": 60936,
+      "aggregate_relative_bias_campaign": -0.0020332194157328047,
+      "aggregate_relative_bias_pooled": -0.003951833215566515,
+      "campaign_cluster_bootstrap_95_interval": [
+        0.0020098133846840733,
+        0.003891892328696519
+      ],
+      "early_events": 43608,
+      "eligibility_rule": "train_7day_conversion_events_ge_20_AND_test_impressions_ge_1000; no test-outcome selection",
+      "estimated_events_campaign_shrunk_q": 60812.103741682906,
+      "estimated_events_pooled_q": 60695.19109117624,
+      "event_rate_abs_error_improvement": 0.002858053936978186,
+      "included_campaigns": 367,
+      "included_campaigns_with_zero_test_events": 0,
+      "included_test_exposures": 2832326,
+      "mature_test_event_count": 64084,
+      "mature_train_event_count": 107987,
+      "per_campaign_absolute_event_rate_error_campaign": 0.001470414883161347,
+      "per_campaign_absolute_event_rate_error_pooled": 0.004328468820139533,
+      "status": "EXECUTED",
+      "warning": "Observational source-linked event count correction, not original GADU Bernoulli/no-interference/off-policy regret."
+    },
+    "259200": {
+      "actual_within_H_conversion_events": 60936,
+      "aggregate_relative_bias_campaign": 0.0035306977317243328,
+      "aggregate_relative_bias_pooled": 0.0019172887136419971,
+      "campaign_cluster_bootstrap_95_interval": [
+        0.0006857516371962878,
+        0.0013008224780475292
+      ],
+      "early_events": 52449,
+      "eligibility_rule": "train_7day_conversion_events_ge_20_AND_test_impressions_ge_1000; no test-outcome selection",
+      "estimated_events_campaign_shrunk_q": 61151.146596980354,
+      "estimated_events_pooled_q": 61052.83190505449,
+      "event_rate_abs_error_improvement": 0.0009910928499710068,
+      "included_campaigns": 367,
+      "included_campaigns_with_zero_test_events": 0,
+      "included_test_exposures": 2832326,
+      "mature_test_event_count": 64084,
+      "mature_train_event_count": 107987,
+      "per_campaign_absolute_event_rate_error_campaign": 0.0008452108352927441,
+      "per_campaign_absolute_event_rate_error_pooled": 0.001836303685263751,
+      "status": "EXECUTED",
+      "warning": "Observational source-linked event count correction, not original GADU Bernoulli/no-interference/off-policy regret."
+    }
+  },
+  "main": {
+    "3600": {
+      "campaign_cluster_bootstrap_95_interval": [
+        0.04065793395025698,
+        0.06755775011205739
+      ],
+      "campaign_minus_pool_brier_improvement": 0.055322502354955255,
+      "campaign_q_range_at_n_ge_50": [
+        0.07782101167315175,
+        0.9805194805194806
+      ],
+      "caution": "Calibration of delay conditional on observed conversion within H; not GADU policy regret or causal uplift.",
+      "status": "EXECUTED",
+      "test_actual_conditional_cdf_q_given_H": 0.5306793880572462,
+      "test_brier_campaign_shrunk": 0.19388575839003439,
+      "test_brier_pool": 0.24920826074498964,
+      "test_events": 72948,
+      "train_campaigns_at_least_50_positives": 262,
+      "training_pool_conditional_cdf_q_given_H": 0.5429058183030259,
+      "unseen_test_campaign_count": 0
+    },
+    "86400": {
+      "campaign_cluster_bootstrap_95_interval": [
+        0.015180897826855909,
+        0.025782320073444425
+      ],
+      "campaign_minus_pool_brier_improvement": 0.020819219216373114,
+      "campaign_q_range_at_n_ge_50": [
+        0.3424124513618677,
+        0.989010989010989
+      ],
+      "caution": "Calibration of delay conditional on observed conversion within H; not GADU policy regret or causal uplift.",
+      "status": "EXECUTED",
+      "test_actual_conditional_cdf_q_given_H": 0.7111504085101716,
+      "test_brier_campaign_shrunk": 0.18464950577999314,
+      "test_brier_pool": 0.20546872499636626,
+      "test_events": 72948,
+      "train_campaigns_at_least_50_positives": 262,
+      "training_pool_conditional_cdf_q_given_H": 0.7184456131254398,
+      "unseen_test_campaign_count": 0
+    },
+    "259200": {
+      "campaign_cluster_bootstrap_95_interval": [
+        0.003489495627670317,
+        0.006040622068240639
+      ],
+      "campaign_minus_pool_brier_improvement": 0.004741132192824127,
+      "campaign_q_range_at_n_ge_50": [
+        0.6052631578947368,
+        1
+      ],
+      "caution": "Calibration of delay conditional on observed conversion within H; not GADU policy regret or causal uplift.",
+      "status": "EXECUTED",
+      "test_actual_conditional_cdf_q_given_H": 0.8564319789439052,
+      "test_brier_campaign_shrunk": 0.11822207153012496,
+      "test_brier_pool": 0.12296320372294908,
+      "test_events": 72948,
+      "train_campaigns_at_least_50_positives": 262,
+      "training_pool_conditional_cdf_q_given_H": 0.8590700344431688,
+      "unseen_test_campaign_count": 0
+    }
+  },
+  "real_data_meta": {
+    "attributed_positive_source_links": 442424,
+    "conversion_ids_crossing_timestamps": 2910,
+    "conversion_ids_crossing_uids": 2910,
+    "distinct_conversion_event_keys": 438730,
+    "distinct_conversion_ids": 438730,
+    "distinct_raw_conversion_ids": 435810,
+    "duplicate_source_links": 367466,
+    "elapsed_parse_seconds": 49.96,
+    "grouping_key": [
+      "uid",
+      "conversion_id",
+      "conversion_timestamp"
+    ],
+    "ids_with_attribution_one": 237157,
+    "ids_with_multiple_links": 139762,
+    "impressions": 16468027,
+    "input": "https://huggingface.co/datasets/criteo/criteo-attribution-dataset/resolve/904188a63cbad78bee43cd26ff5ee4ac77903986/criteo_attribution_dataset.tsv.gz?download=true",
+    "invalid_positive": 0,
+    "last_impression_timestamp": 2671199,
+    "negative_impression_to_conversion_lags": 0,
+    "positive_source_links": 806196
+  },
+  "sensitivity_last_touch": {
+    "3600": {
+      "campaign_cluster_bootstrap_95_interval": [
+        0.04065793395025698,
+        0.06755775011205739
+      ],
+      "campaign_minus_pool_brier_improvement": 0.055322502354955255,
+      "campaign_q_range_at_n_ge_50": [
+        0.07782101167315175,
+        0.9805194805194806
+      ],
+      "caution": "Calibration of delay conditional on observed conversion within H; not GADU policy regret or causal uplift.",
+      "status": "EXECUTED",
+      "test_actual_conditional_cdf_q_given_H": 0.5306793880572462,
+      "test_brier_campaign_shrunk": 0.19388575839003439,
+      "test_brier_pool": 0.24920826074498964,
+      "test_events": 72948,
+      "train_campaigns_at_least_50_positives": 262,
+      "training_pool_conditional_cdf_q_given_H": 0.5429058183030259,
+      "unseen_test_campaign_count": 0
+    },
+    "86400": {
+      "campaign_cluster_bootstrap_95_interval": [
+        0.015180897826855909,
+        0.025782320073444425
+      ],
+      "campaign_minus_pool_brier_improvement": 0.020819219216373114,
+      "campaign_q_range_at_n_ge_50": [
+        0.3424124513618677,
+        0.989010989010989
+      ],
+      "caution": "Calibration of delay conditional on observed conversion within H; not GADU policy regret or causal uplift.",
+      "status": "EXECUTED",
+      "test_actual_conditional_cdf_q_given_H": 0.7111504085101716,
+      "test_brier_campaign_shrunk": 0.18464950577999314,
+      "test_brier_pool": 0.20546872499636626,
+      "test_events": 72948,
+      "train_campaigns_at_least_50_positives": 262,
+      "training_pool_conditional_cdf_q_given_H": 0.7184456131254398,
+      "unseen_test_campaign_count": 0
+    },
+    "259200": {
+      "campaign_cluster_bootstrap_95_interval": [
+        0.003489495627670317,
+        0.006040622068240639
+      ],
+      "campaign_minus_pool_brier_improvement": 0.004741132192824127,
+      "campaign_q_range_at_n_ge_50": [
+        0.6052631578947368,
+        1
+      ],
+      "caution": "Calibration of delay conditional on observed conversion within H; not GADU policy regret or causal uplift.",
+      "status": "EXECUTED",
+      "test_actual_conditional_cdf_q_given_H": 0.8564319789439052,
+      "test_brier_campaign_shrunk": 0.11822207153012496,
+      "test_brier_pool": 0.12296320372294908,
+      "test_events": 72948,
+      "train_campaigns_at_least_50_positives": 262,
+      "training_pool_conditional_cdf_q_given_H": 0.8590700344431688,
+      "unseen_test_campaign_count": 0
+    }
+  },
+  "test_n": 72948,
+  "train_n": 108004
+}
