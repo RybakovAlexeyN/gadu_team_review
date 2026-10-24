@@ -22,13 +22,13 @@
 
 **Environment:** two clipped-quadratic synthetic action families on `[0,1]` (1D) and `[0,1]^2` (2D):
 
-$
+```math
 f_1(x) = \min(1,\max(0,p_1-0.10(x-0.5)^2))
-$
+```
 
-$
+```math
 f_2(x,y) = \min(1,\max(0,p_2-0.09((x-0.25)^2+(y-0.75)^2)))
-$
+```
 
 Three worlds differing in `(p1,p2)`:
 
