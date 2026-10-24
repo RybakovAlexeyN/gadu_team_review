@@ -1,0 +1,1202 @@
+[
+  {
+    "world": "strong_gap",
+    "seed": 202610246401,
+    "T": 10000000,
+    "dims": [
+      2,
+      3,
+      4
+    ],
+    "peak_parameters": [
+      0.8,
+      0.28,
+      0.26
+    ],
+    "eta": 1.0,
+    "rho_search": 0.4166666666666667,
+    "search_envelope": 134,
+    "search_actions": 113,
+    "search_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.4166666666666667,
+        "axis": 2,
+        "base_count": 4,
+        "count": 5,
+        "envelope": 6,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 27,
+        "count": 27,
+        "envelope": 28,
+        "radius_witness": 0.28867513459481287,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 81,
+        "count": 81,
+        "envelope": 100,
+        "radius_witness": 0.3333333333333333,
+        "coarse_retained": true
+      }
+    ],
+    "search_m": 12434,
+    "compare_n": 6217,
+    "T_search": 1405043,
+    "T_init": 1423695,
+    "epsilon": 0.24999636209551807,
+    "base_rho": 1.0,
+    "base_actions": 3,
+    "base_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "diagnostic_rho": 0.5,
+    "diagnostic_actions": 30,
+    "diagnostic_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 8,
+        "count": 9,
+        "envelope": 16,
+        "radius_witness": 0.4330127018922193,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 16,
+        "count": 17,
+        "envelope": 48,
+        "radius_witness": 0.5,
+        "coarse_retained": true
+      }
+    ],
+    "winner": 0,
+    "certificate_correct": true,
+    "accepted": true,
+    "certification_round": 1405044,
+    "switch_round": 1405044,
+    "economic_D": 6435716.401056533,
+    "economic_accept_cost": 4688115.723552022,
+    "continuation_family": [
+      0
+    ],
+    "continuation_rho": 0.5,
+    "continuation_actions": 4,
+    "continuation_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      }
+    ],
+    "regret_search": 753267.2850021132,
+    "regret_compare": 0.0,
+    "regret_continue": 11130.839999917,
+    "regret_candidate": 764398.1250020302,
+    "regret_source_cover": 113890.92499071262,
+    "regret_fixed_cover": 29788.601249597144,
+    "delta_vs_source": 650507.2000113175,
+    "delta_vs_fixed": 734609.523752433,
+    "source_baseline_family_pulls": [
+      9997316,
+      1412,
+      1272
+    ],
+    "fixed_baseline_family_pulls": [
+      9967154,
+      12045,
+      20801
+    ],
+    "continue_family_pulls": [
+      8594956,
+      0,
+      0
+    ],
+    "search_exceeds_source": true,
+    "search_exceeds_fixed": true,
+    "elapsed_seconds": 5.78889124300008
+  },
+  {
+    "world": "strong_gap",
+    "seed": 202610246402,
+    "T": 10000000,
+    "dims": [
+      2,
+      3,
+      4
+    ],
+    "peak_parameters": [
+      0.8,
+      0.28,
+      0.26
+    ],
+    "eta": 1.0,
+    "rho_search": 0.4166666666666667,
+    "search_envelope": 134,
+    "search_actions": 113,
+    "search_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.4166666666666667,
+        "axis": 2,
+        "base_count": 4,
+        "count": 5,
+        "envelope": 6,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 27,
+        "count": 27,
+        "envelope": 28,
+        "radius_witness": 0.28867513459481287,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 81,
+        "count": 81,
+        "envelope": 100,
+        "radius_witness": 0.3333333333333333,
+        "coarse_retained": true
+      }
+    ],
+    "search_m": 12434,
+    "compare_n": 6217,
+    "T_search": 1405043,
+    "T_init": 1423695,
+    "epsilon": 0.24999636209551807,
+    "base_rho": 1.0,
+    "base_actions": 3,
+    "base_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "diagnostic_rho": 0.5,
+    "diagnostic_actions": 30,
+    "diagnostic_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 8,
+        "count": 9,
+        "envelope": 16,
+        "radius_witness": 0.4330127018922193,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 16,
+        "count": 17,
+        "envelope": 48,
+        "radius_witness": 0.5,
+        "coarse_retained": true
+      }
+    ],
+    "winner": 0,
+    "certificate_correct": true,
+    "accepted": true,
+    "certification_round": 1405044,
+    "switch_round": 1405044,
+    "economic_D": 6435716.401056533,
+    "economic_accept_cost": 4688115.723552022,
+    "continuation_family": [
+      0
+    ],
+    "continuation_rho": 0.5,
+    "continuation_actions": 4,
+    "continuation_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      }
+    ],
+    "regret_search": 753267.2850021132,
+    "regret_compare": 0.0,
+    "regret_continue": 11438.797499910304,
+    "regret_candidate": 764706.0825020235,
+    "regret_source_cover": 113894.09124071048,
+    "regret_fixed_cover": 29790.01499959489,
+    "delta_vs_source": 650811.9912613131,
+    "delta_vs_fixed": 734916.0675024287,
+    "source_baseline_family_pulls": [
+      9997313,
+      1333,
+      1354
+    ],
+    "fixed_baseline_family_pulls": [
+      9967657,
+      11697,
+      20646
+    ],
+    "continue_family_pulls": [
+      8594956,
+      0,
+      0
+    ],
+    "search_exceeds_source": true,
+    "search_exceeds_fixed": true,
+    "elapsed_seconds": 4.025809987000002
+  },
+  {
+    "world": "moderate_gap",
+    "seed": 202610246401,
+    "T": 10000000,
+    "dims": [
+      2,
+      3,
+      4
+    ],
+    "peak_parameters": [
+      0.8,
+      0.55,
+      0.53
+    ],
+    "eta": 1.0,
+    "rho_search": 0.4166666666666667,
+    "search_envelope": 134,
+    "search_actions": 113,
+    "search_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.4166666666666667,
+        "axis": 2,
+        "base_count": 4,
+        "count": 5,
+        "envelope": 6,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 27,
+        "count": 27,
+        "envelope": 28,
+        "radius_witness": 0.28867513459481287,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 81,
+        "count": 81,
+        "envelope": 100,
+        "radius_witness": 0.3333333333333333,
+        "coarse_retained": true
+      }
+    ],
+    "search_m": 12434,
+    "compare_n": 6217,
+    "T_search": 1405043,
+    "T_init": 1423695,
+    "epsilon": 0.24999636209551807,
+    "base_rho": 1.0,
+    "base_actions": 3,
+    "base_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "diagnostic_rho": 0.5,
+    "diagnostic_actions": 30,
+    "diagnostic_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 8,
+        "count": 9,
+        "envelope": 16,
+        "radius_witness": 0.4330127018922193,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 16,
+        "count": 17,
+        "envelope": 48,
+        "radius_witness": 0.5,
+        "coarse_retained": true
+      }
+    ],
+    "winner": -1,
+    "certificate_correct": null,
+    "accepted": false,
+    "certification_round": -1,
+    "switch_round": 1423695,
+    "economic_D": 6435716.401056533,
+    "economic_accept_cost": null,
+    "continuation_family": [
+      0,
+      1,
+      2
+    ],
+    "continuation_rho": 1.0,
+    "continuation_actions": 3,
+    "continuation_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "regret_search": 390691.84499791136,
+    "regret_compare": 3232.839999999898,
+    "regret_continue": 98583.53624625568,
+    "regret_candidate": 492508.22124416695,
+    "regret_source_cover": 114686.92124042712,
+    "regret_fixed_cover": 37837.22562459347,
+    "delta_vs_source": 377821.30000373983,
+    "delta_vs_fixed": 454670.9956195735,
+    "source_baseline_family_pulls": [
+      9991153,
+      5112,
+      3735
+    ],
+    "fixed_baseline_family_pulls": [
+      9906037,
+      34958,
+      59005
+    ],
+    "continue_family_pulls": [
+      8567813,
+      4860,
+      3632
+    ],
+    "search_exceeds_source": true,
+    "search_exceeds_fixed": true,
+    "elapsed_seconds": 4.000607273000014
+  },
+  {
+    "world": "moderate_gap",
+    "seed": 202610246402,
+    "T": 10000000,
+    "dims": [
+      2,
+      3,
+      4
+    ],
+    "peak_parameters": [
+      0.8,
+      0.55,
+      0.53
+    ],
+    "eta": 1.0,
+    "rho_search": 0.4166666666666667,
+    "search_envelope": 134,
+    "search_actions": 113,
+    "search_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.4166666666666667,
+        "axis": 2,
+        "base_count": 4,
+        "count": 5,
+        "envelope": 6,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 27,
+        "count": 27,
+        "envelope": 28,
+        "radius_witness": 0.28867513459481287,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 81,
+        "count": 81,
+        "envelope": 100,
+        "radius_witness": 0.3333333333333333,
+        "coarse_retained": true
+      }
+    ],
+    "search_m": 12434,
+    "compare_n": 6217,
+    "T_search": 1405043,
+    "T_init": 1423695,
+    "epsilon": 0.24999636209551807,
+    "base_rho": 1.0,
+    "base_actions": 3,
+    "base_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "diagnostic_rho": 0.5,
+    "diagnostic_actions": 30,
+    "diagnostic_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 8,
+        "count": 9,
+        "envelope": 16,
+        "radius_witness": 0.4330127018922193,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 16,
+        "count": 17,
+        "envelope": 48,
+        "radius_witness": 0.5,
+        "coarse_retained": true
+      }
+    ],
+    "winner": -1,
+    "certificate_correct": null,
+    "accepted": false,
+    "certification_round": -1,
+    "switch_round": 1423695,
+    "economic_D": 6435716.401056533,
+    "economic_accept_cost": null,
+    "continuation_family": [
+      0,
+      1,
+      2
+    ],
+    "continuation_rho": 1.0,
+    "continuation_actions": 3,
+    "continuation_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "regret_search": 390691.84499791136,
+    "regret_compare": 3295.010000000379,
+    "regret_continue": 98742.58874620906,
+    "regret_candidate": 492729.44374412077,
+    "regret_source_cover": 114474.14499050441,
+    "regret_fixed_cover": 36920.38437461797,
+    "delta_vs_source": 378255.29875361634,
+    "delta_vs_fixed": 455809.0593695028,
+    "source_baseline_family_pulls": [
+      9992036,
+      4327,
+      3637
+    ],
+    "fixed_baseline_family_pulls": [
+      9906776,
+      35363,
+      57861
+    ],
+    "continue_family_pulls": [
+      8567215,
+      4644,
+      4446
+    ],
+    "search_exceeds_source": true,
+    "search_exceeds_fixed": true,
+    "elapsed_seconds": 4.039496891999988
+  },
+  {
+    "world": "near_tie",
+    "seed": 202610246401,
+    "T": 10000000,
+    "dims": [
+      2,
+      3,
+      4
+    ],
+    "peak_parameters": [
+      0.8,
+      0.785,
+      0.78
+    ],
+    "eta": 1.0,
+    "rho_search": 0.4166666666666667,
+    "search_envelope": 134,
+    "search_actions": 113,
+    "search_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.4166666666666667,
+        "axis": 2,
+        "base_count": 4,
+        "count": 5,
+        "envelope": 6,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 27,
+        "count": 27,
+        "envelope": 28,
+        "radius_witness": 0.28867513459481287,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 81,
+        "count": 81,
+        "envelope": 100,
+        "radius_witness": 0.3333333333333333,
+        "coarse_retained": true
+      }
+    ],
+    "search_m": 12434,
+    "compare_n": 6217,
+    "T_search": 1405043,
+    "T_init": 1423695,
+    "epsilon": 0.24999636209551807,
+    "base_rho": 1.0,
+    "base_actions": 3,
+    "base_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "diagnostic_rho": 0.5,
+    "diagnostic_actions": 30,
+    "diagnostic_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 8,
+        "count": 9,
+        "envelope": 16,
+        "radius_witness": 0.4330127018922193,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 16,
+        "count": 17,
+        "envelope": 48,
+        "radius_witness": 0.5,
+        "coarse_retained": true
+      }
+    ],
+    "winner": -1,
+    "certificate_correct": null,
+    "accepted": false,
+    "certification_round": -1,
+    "switch_round": 1423695,
+    "economic_D": 6435716.401056533,
+    "economic_accept_cost": null,
+    "continuation_family": [
+      0,
+      1,
+      2
+    ],
+    "continuation_rho": 1.0,
+    "continuation_actions": 3,
+    "continuation_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "regret_search": 60009.61500054777,
+    "regret_compare": 217.59499999998854,
+    "regret_continue": 108438.91499402576,
+    "regret_candidate": 168666.12499457353,
+    "regret_source_cover": 126889.12248769248,
+    "regret_fixed_cover": 94679.1250009344,
+    "delta_vs_source": 41777.00250688105,
+    "delta_vs_fixed": 73986.99999363914,
+    "source_baseline_family_pulls": [
+      7129938,
+      2144784,
+      725278
+    ],
+    "fixed_baseline_family_pulls": [
+      7464465,
+      1249361,
+      1286174
+    ],
+    "continue_family_pulls": [
+      6296336,
+      1598849,
+      681120
+    ],
+    "search_exceeds_source": false,
+    "search_exceeds_fixed": false,
+    "elapsed_seconds": 4.018998403999831
+  },
+  {
+    "world": "near_tie",
+    "seed": 202610246402,
+    "T": 10000000,
+    "dims": [
+      2,
+      3,
+      4
+    ],
+    "peak_parameters": [
+      0.8,
+      0.785,
+      0.78
+    ],
+    "eta": 1.0,
+    "rho_search": 0.4166666666666667,
+    "search_envelope": 134,
+    "search_actions": 113,
+    "search_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.4166666666666667,
+        "axis": 2,
+        "base_count": 4,
+        "count": 5,
+        "envelope": 6,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 27,
+        "count": 27,
+        "envelope": 28,
+        "radius_witness": 0.28867513459481287,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.4166666666666667,
+        "axis": 3,
+        "base_count": 81,
+        "count": 81,
+        "envelope": 100,
+        "radius_witness": 0.3333333333333333,
+        "coarse_retained": true
+      }
+    ],
+    "search_m": 12434,
+    "compare_n": 6217,
+    "T_search": 1405043,
+    "T_init": 1423695,
+    "epsilon": 0.24999636209551807,
+    "base_rho": 1.0,
+    "base_actions": 3,
+    "base_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "diagnostic_rho": 0.5,
+    "diagnostic_actions": 30,
+    "diagnostic_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 4,
+        "count": 4,
+        "envelope": 4,
+        "radius_witness": 0.3535533905932738,
+        "coarse_retained": false
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 8,
+        "count": 9,
+        "envelope": 16,
+        "radius_witness": 0.4330127018922193,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 0.5,
+        "axis": 2,
+        "base_count": 16,
+        "count": 17,
+        "envelope": 48,
+        "radius_witness": 0.5,
+        "coarse_retained": true
+      }
+    ],
+    "winner": -1,
+    "certificate_correct": null,
+    "accepted": false,
+    "certification_round": -1,
+    "switch_round": 1423695,
+    "economic_D": 6435716.401056533,
+    "economic_accept_cost": null,
+    "continuation_family": [
+      0,
+      1,
+      2
+    ],
+    "continuation_rho": 1.0,
+    "continuation_actions": 3,
+    "continuation_by_family": [
+      {
+        "family": 0,
+        "dim": 2,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 1,
+        "radius_witness": 0.7071067811865476,
+        "coarse_retained": true
+      },
+      {
+        "family": 1,
+        "dim": 3,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 2,
+        "radius_witness": 0.8660254037844386,
+        "coarse_retained": true
+      },
+      {
+        "family": 2,
+        "dim": 4,
+        "rho": 1.0,
+        "axis": 1,
+        "base_count": 1,
+        "count": 1,
+        "envelope": 3,
+        "radius_witness": 1.0,
+        "coarse_retained": true
+      }
+    ],
+    "regret_search": 60009.61500054777,
+    "regret_compare": 217.59499999998854,
+    "regret_continue": 110614.30499321454,
+    "regret_candidate": 170841.5149937623,
+    "regret_source_cover": 125444.36623796582,
+    "regret_fixed_cover": 95784.2456258439,
+    "delta_vs_source": 45397.14875579649,
+    "delta_vs_fixed": 75057.2693679184,
+    "source_baseline_family_pulls": [
+      7376433,
+      2002369,
+      621198
+    ],
+    "fixed_baseline_family_pulls": [
+      7412021,
+      1280576,
+      1307403
+    ],
+    "continue_family_pulls": [
+      5866196,
+      1916516,
+      793593
+    ],
+    "search_exceeds_source": false,
+    "search_exceeds_fixed": false,
+    "elapsed_seconds": 4.2862341110001125
+  }
+]
