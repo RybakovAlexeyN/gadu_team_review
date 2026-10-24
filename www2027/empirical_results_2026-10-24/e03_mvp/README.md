@@ -4,13 +4,15 @@
 
 ## Open / download first
 
+**If GitHub shows “Invalid PDF”:** that is a GitHub preview error, not invalid figure data. [Open the PNG-first gallery](figures/README.md) to view all three charts inline; use the **Download PDF** links below for the actual LaTeX-ready files without opening GitHub's embedded PDF viewer. The three PDFs were hash-verified against the original stored bytes and rendered successfully in two independent readers.
+
 | Figure | GitHub preview | PDF for LaTeX | Vector SVG | High-res PNG |
 |---|---|---|---|---|
-| **1. Cumulative latent pseudo-regret R(t)** (three worlds, paired seeds) | [Preview](figures/fig1_cumulative_regret.png) | **[PDF](figures/fig1_cumulative_regret.pdf)** | [SVG](figures/fig1_cumulative_regret.svg) | [PNG](figures/fig1_cumulative_regret.png) |
-| **2. Regret by Search / Compare / Continue** | [Preview](figures/fig2_stage_decomposition.png) | **[PDF](figures/fig2_stage_decomposition.pdf)** | [SVG](figures/fig2_stage_decomposition.svg) | [PNG](figures/fig2_stage_decomposition.png) |
-| **3. Synthetic reward functions** | [Preview](figures/fig3_reward_functions.png) | **[PDF](figures/fig3_reward_functions.pdf)** | [SVG](figures/fig3_reward_functions.svg) | [PNG](figures/fig3_reward_functions.png) |
+| **1. Cumulative latent pseudo-regret R(t)** (three worlds, paired seeds) | [Preview](figures/fig1_cumulative_regret.png) | **[Download PDF](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/figures/fig1_cumulative_regret.pdf)** | [SVG](figures/fig1_cumulative_regret.svg) | [PNG](figures/fig1_cumulative_regret.png) |
+| **2. Regret by Search / Compare / Continue** | [Preview](figures/fig2_stage_decomposition.png) | **[Download PDF](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/figures/fig2_stage_decomposition.pdf)** | [SVG](figures/fig2_stage_decomposition.svg) | [PNG](figures/fig2_stage_decomposition.png) |
+| **3. Synthetic reward functions** | [Preview](figures/fig3_reward_functions.png) | **[Download PDF](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/figures/fig3_reward_functions.pdf)** | [SVG](figures/fig3_reward_functions.svg) | [PNG](figures/fig3_reward_functions.png) |
 
-**[Download the compact figures + methods package](E03_COAUTHOR_FIGURES_DATA.zip)** (PDF/SVG/PNG + Methods, raw/summary CSV and reproducible plotting script). The downloadable archive contains the exact same scientific data as this page; the link works from GitHub, not from inside the extracted archive. Each figure is also embedded here for immediate review:
+**[Download the compact figures + methods package](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/E03_COAUTHOR_FIGURES_DATA.zip)** (PDF/SVG/PNG + Methods, raw/summary CSV and reproducible plotting script). The downloadable archive contains the exact same scientific data as this page; the link works from GitHub, not from inside the extracted archive. Each figure is also embedded here for immediate review:
 
 ![Fig 1: cumulative pseudo-regret](figures/fig1_cumulative_regret.png)
 
