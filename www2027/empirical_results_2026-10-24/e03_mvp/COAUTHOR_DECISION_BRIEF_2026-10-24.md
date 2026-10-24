@@ -1,14 +1,16 @@
 # Coauthor decision brief — WWW 2027 GADU empirical E03 (24 Oct 2026)
 
+**View the charts without PDF errors:** [PNG-first figure gallery](figures/README.md). Use the direct PDF download links below for LaTeX instead of GitHub's embedded PDF viewer.
+
 **Request to Ilgham:** Please examine the three figures and decide whether these results belong in the draft as a clearly labelled *exploratory finite-horizon cost diagnostic* or should remain supplementary/future work. **Do not treat this bundle as a reproduction of the final author algorithm until parity is checked.** No manuscript changes or submissions have been made here.
 
 ## 1. Paper-ready files — use these first
 
 | Priority | Material | Use |
 |---|---|---|
-| 1 | [Fig. 1 regret trajectories — PDF](figures/fig1_cumulative_regret.pdf) · [PNG preview](figures/fig1_cumulative_regret.png) | Primary comparison, three synthetic worlds |
-| 2 | [Fig. 2 Search / Compare / Continue — PDF](figures/fig2_stage_decomposition.pdf) | Explain the finite-horizon loss mechanism |
-| 3 | [Fig. 3 test functions — PDF](figures/fig3_reward_functions.pdf) | Show the 1D/2D clipped-quadratic means |
+| 1 | [Fig. 1 regret trajectories — PDF](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/figures/fig1_cumulative_regret.pdf) · [PNG preview](figures/fig1_cumulative_regret.png) | Primary comparison, three synthetic worlds |
+| 2 | [Fig. 2 Search / Compare / Continue — PDF](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/figures/fig2_stage_decomposition.pdf) | Explain the finite-horizon loss mechanism |
+| 3 | [Fig. 3 test functions — PDF](https://raw.githubusercontent.com/RybakovAlexeyN/gadu_team_review/a8453a57668706f3f077845be5148e46c34e8328/www2027/empirical_results_2026-10-24/e03_mvp/figures/fig3_reward_functions.pdf) | Show the 1D/2D clipped-quadratic means |
 | 4 | [Proposed figure captions + Methods + Results](CAPTIONS_METHODS_RESULTS.md) | Candidate English text; **requires author edits and approval** |
 | 5 | [Exact final summary](data/table_e03_final.csv) · [20 paired seeds](data/e03_seed_runs.csv) · [2,080 saved trajectory points](data/e03_per_seed_trajectory_checkpoints.csv) | Numbers and original sampled time histories |
 | 6 | [Download self-contained ZIP](E03_COAUTHOR_FIGURES_DATA.zip) · [rebuild & verify](README.md#reproduce-without-rerunning-10m-decisions) | Use without new 10M trials |
