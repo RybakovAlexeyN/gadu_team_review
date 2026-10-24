@@ -1,0 +1,60 @@
+{
+  "archive_sha256": "07088248c5a8dec874de119d7266afa039fee00bd7d11367e7b2c8d6be23543e",
+  "archive_manifest_pass": true,
+  "file_hashes_verified": 31,
+  "seed_rows_checked": 20,
+  "telemetry_series_checked": 40,
+  "telemetry_points_exported": 2080,
+  "original_manuscript_main_sha256": "9a196140a7b600d578f69240a0a1a7638299da651728e376a46c4caa10a35b81",
+  "plot_bands": "pointwise two-sided 95% t Monte Carlo, conditional on fixed world/implementation/seeds, not simultaneous",
+  "summary": [
+    {
+      "scenario": "best_1d_strong",
+      "n": 8,
+      "gadu_regret": 638590.9216101067,
+      "cover_regret": 2444.3721874998473,
+      "regret_search": 624418.5333283122,
+      "regret_select": 0.0,
+      "regret_continue": 14172.388281794447,
+      "mean_delta": 636146.5494226068,
+      "sd_delta": 824.2607059902924,
+      "t95_lower": 635457.4502275217,
+      "t95_upper": 636835.648617692,
+      "accepted_n": 8,
+      "correct_certificates_n": 8,
+      "search_share": 0.9778067808323033
+    },
+    {
+      "scenario": "best_2d_strong",
+      "n": 8,
+      "gadu_regret": 126135.89677066363,
+      "cover_regret": 12267.837812383448,
+      "regret_search": 114915.55333324465,
+      "regret_select": 0.6200000000000001,
+      "regret_continue": 11219.723437418983,
+      "mean_delta": 113868.05895828019,
+      "sd_delta": 1006.905359278761,
+      "t95_lower": 113026.26501182206,
+      "t95_upper": 114709.85290473832,
+      "accepted_n": 8,
+      "correct_certificates_n": 8,
+      "search_share": 0.9110455966566008
+    },
+    {
+      "scenario": "best_1d_near_tie",
+      "n": 4,
+      "gadu_regret": 57308.911614761906,
+      "cover_regret": 12397.107500039323,
+      "regret_search": 44338.53333347583,
+      "regret_select": 500.39453124982515,
+      "regret_continue": 12469.983750036246,
+      "mean_delta": 44911.80411472258,
+      "sd_delta": 501.31885565596457,
+      "t95_lower": 44114.09394474689,
+      "t95_upper": 45709.51428469827,
+      "accepted_n": 0,
+      "correct_certificates_n": 0,
+      "search_share": 0.7736760668484742
+    }
+  ]
+}
