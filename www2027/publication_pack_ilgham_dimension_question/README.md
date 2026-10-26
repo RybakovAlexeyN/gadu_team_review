@@ -1,5 +1,7 @@
 # Does retiring inferior high-dimensional families reduce regret?
 
+> **RESEARCH STATUS UPDATE — 26 October 2026: No paper submission in the current cycle.** Ilgham decided the manuscript needs substantial revision and requested a team planning call to define the next work stage and assign responsibilities; Alexey agrees. This pack is retained solely as an exploratory coauthor research archive, **not a submitted or submission-approved WWW 2027 artifact**. No follow-up meeting date or owner assignments have been confirmed. See the [canonical decision record](https://github.com/RybakovAlexeyN/gadu_ai_research_lab/blob/main/context/TEAM_DECISION_2026-10-26_NO_SUBMISSION_AND_NEXT_STAGE.md) (private R&D repository; access required).
+
 **Publication-oriented coauthor pack · 26 October 2026 · exploratory synthetic evidence**
 
 > **Ilgham's question.** The best reward-function family has **dimension d=2**, whereas weaker families have **d=3 and d=4**. Can Search → Compare → certificate → optimize-the-winner repay its sampling cost by avoiding wasteful exploration in inferior high-dimensional families?
