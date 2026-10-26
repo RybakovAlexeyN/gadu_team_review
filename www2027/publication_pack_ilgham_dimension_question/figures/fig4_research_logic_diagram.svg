@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 800" role="img" aria-labelledby="title desc">
+<title id="title">Figure 4. Which mechanism is supported by the experiments and which author-algorithm claim is still open.</title>
+<desc id="desc">Conceptual diagram of Ilgham's question, the family dimension setting, Search/Compare/certificate, matching staged retirement ablation, strong direct comparator, and limitations. Not a synthetic trajectory result.</desc>
+<defs><marker id="arrow" markerWidth="11" markerHeight="8" refX="10" refY="4" orient="auto"><path d="M0 0 L11 4 L0 8Z" fill="#58748e"/></marker></defs>
+<rect width="1300" height="800" fill="white"/>
+<text x="50" y="60" font-size="30" font-family="Arial,Helvetica,sans-serif" font-weight="700" fill="#1b3149">What did we actually test?</text>
+<text x="50" y="95" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#5f7187">Research logic and claim boundary — conceptual figure (not empirical data)</text>
+<rect x="245" y="140" width="815" height="92" rx="10" fill="#eaf1f7" stroke="#b8cede" stroke-width="1.5"/>
+<text x="650" y="175" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#18354f">Ilgham's hypothesis</text>
+<text x="650" y="208" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#35556e">Best family d=2; inferior families d=3,4. Can family selection save regret?</text>
+<line x1="650" y1="234" x2="650" y2="277" stroke="#58748e" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="360" y="288" width="580" height="105" rx="10" fill="#f2f5f8" stroke="#bfced9"/>
+<text x="650" y="325" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#233c53">GADU-inspired staged policy</text>
+<text x="650" y="358" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#3a5874">Stage 1 → candidate certificate → Stage 2</text>
+<line x1="650" y1="396" x2="650" y2="438" stroke="#58748e" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="339" y1="438" x2="962" y2="438" stroke="#58748e" stroke-width="2"/>
+<line x1="339" y1="438" x2="339" y2="473" stroke="#58748e" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="962" y1="438" x2="962" y2="473" stroke="#58748e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="59" y="484" width="560" height="134" rx="10" fill="#e7f5ef" stroke="#86bdab" stroke-width="2"/>
+<text x="339" y="518" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#16694f">TESTED: retirement mechanism</text>
+<text x="339" y="550" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#235e50">Matched Stage 1, geometric Stage 2</text>
+<text x="339" y="579" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#216e56">4,151.6 → 1,605.8 (−61.3%)</text>
+<rect x="683" y="484" width="559" height="134" rx="10" fill="#fff2e8" stroke="#d6a27c" stroke-width="2"/>
+<text x="962" y="518" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#975b2d">NOT A FULL-ALGORITHM WIN</text>
+<text x="962" y="550" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#885c3e">Direct geometry-aware UCB is stronger</text>
+<text x="962" y="579" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700" fill="#90552e">1,205.8 &lt; 1,605.8</text>
+<line x1="339" y1="621" x2="339" y2="667" stroke="#58748e" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="962" y1="621" x2="962" y2="667" stroke="#58748e" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="59" y="682" width="1183" height="65" rx="10" fill="#eff3f6" stroke="#abbcca" stroke-dasharray="8 5"/>
+<text x="650" y="712" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="21" font-weight="700" fill="#24455d">STILL OPEN: the authors' exact GADU-Cover vs source-tuned Cover-UCB</text>
+<text x="650" y="738" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#506a7e">Author Stage 1/2, preflight, valid covers, economic fallback and clean restart are not yet source matched.</text>
+<text x="50" y="786" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#718391">E20 illustrative cell: d=(2,3,4), strong gap, q=.75, T=20k, six seeds. Conceptual diagram; NOT the paper's final algorithm.</text>
+</svg>
