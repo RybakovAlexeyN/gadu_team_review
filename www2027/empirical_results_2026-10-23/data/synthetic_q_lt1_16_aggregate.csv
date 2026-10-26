@@ -1,0 +1,5 @@
+q_w,family_gap,T,w,n_paired_seeds,cover_mean_pseudoregret,gadu_mean_pseudoregret,gadu_minus_cover_mean,paired_diff_sample_sd,accepted_count,accepted_wrong_count
+0.75,0.62,3000000,1,4,135539.66,145952.44,10412.79,69.44,4,0
+0.75,0.02,3000000,1,4,138795.19,140568.17,1772.98,455.28,0,0
+0.5,0.62,3000000,1,4,135818.41,379112.42,243294.01,34.61,4,0
+0.5,0.02,3000000,1,4,139848.34,143520.53,3672.19,856.96,0,0

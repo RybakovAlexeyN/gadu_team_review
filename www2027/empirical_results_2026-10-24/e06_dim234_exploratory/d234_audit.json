@@ -1,0 +1,127 @@
+{
+  "audit": "PASS_INTERNAL_CROSSCHECK_NOT_AUTHOR_EQUIVALENCE",
+  "n": 6,
+  "no_exclusions": true,
+  "setup": "K=3; d=(2,3,4); good family=2D; q=.75; T=10m; 3 pilot worlds x 2 seeds",
+  "source_baseline_adaptive_radius": 1.0,
+  "source_baseline_actions": 3,
+  "fixed_diagnostic_radius": 0.5,
+  "fixed_diagnostic_actions": 30,
+  "search_actions": 113,
+  "search_decisions": 1405043,
+  "positive_candidate_minus_source_count": 6,
+  "search_floor_exceeds_source_count": 4,
+  "summary": [
+    {
+      "world": "strong_gap",
+      "n": 2,
+      "candidate_regret": 764552.1037520268,
+      "source_cover_regret": 113892.50811571155,
+      "fixed_cover_regret": 29789.308124596017,
+      "paired_delta_source": 650659.5956363153,
+      "paired_delta_fixed": 734762.7956274308,
+      "mean_search": 753267.2850021132,
+      "mean_compare": 0.0,
+      "mean_continue": 11284.818749913651,
+      "certificate_count": 2,
+      "all_source_delta_positive": true,
+      "baseline_rho": 1.0,
+      "baseline_action_count": 3
+    },
+    {
+      "world": "moderate_gap",
+      "n": 2,
+      "candidate_regret": 492618.83249414386,
+      "source_cover_regret": 114580.53311546578,
+      "fixed_cover_regret": 37378.80499960572,
+      "paired_delta_source": 378038.2993786781,
+      "paired_delta_fixed": 455240.02749453817,
+      "mean_search": 390691.84499791136,
+      "mean_compare": 3263.9250000001384,
+      "mean_continue": 98663.06249623236,
+      "certificate_count": 0,
+      "all_source_delta_positive": true,
+      "baseline_rho": 1.0,
+      "baseline_action_count": 3
+    },
+    {
+      "world": "near_tie",
+      "n": 2,
+      "candidate_regret": 169753.81999416792,
+      "source_cover_regret": 126166.74436282915,
+      "fixed_cover_regret": 95231.68531338914,
+      "paired_delta_source": 43587.07563133877,
+      "paired_delta_fixed": 74522.13468077878,
+      "mean_search": 60009.61500054777,
+      "mean_compare": 217.59499999998854,
+      "mean_continue": 109526.60999362015,
+      "certificate_count": 0,
+      "all_source_delta_positive": true,
+      "baseline_rho": 1.0,
+      "baseline_action_count": 3
+    }
+  ],
+  "per_run_oracles": [
+    {
+      "world": "strong_gap",
+      "seed": 202610246401,
+      "Search_analytic_gap": -2.1131709218025208e-06,
+      "regret_continuation_grid_floor": 0.0,
+      "regret_continuation_excess": 11130.839999917,
+      "baseline_grid_floor": 112499.99999999983,
+      "source_cover_excess": 1390.924990712796,
+      "search_cost_exceeds_source": true
+    },
+    {
+      "world": "strong_gap",
+      "seed": 202610246402,
+      "Search_analytic_gap": -2.1131709218025208e-06,
+      "regret_continuation_grid_floor": 0.0,
+      "regret_continuation_excess": 11438.797499910304,
+      "baseline_grid_floor": 112499.99999999983,
+      "source_cover_excess": 1394.0912407106516,
+      "search_cost_exceeds_source": true
+    },
+    {
+      "world": "moderate_gap",
+      "seed": 202610246401,
+      "Search_analytic_gap": 2.088665496557951e-06,
+      "regret_continuation_grid_floor": 96483.43124999985,
+      "regret_continuation_excess": 2100.104996255832,
+      "baseline_grid_floor": 112499.99999999983,
+      "source_cover_excess": 2186.9212404272985,
+      "search_cost_exceeds_source": true
+    },
+    {
+      "world": "moderate_gap",
+      "seed": 202610246402,
+      "Search_analytic_gap": 2.088665496557951e-06,
+      "regret_continuation_grid_floor": 96483.43124999985,
+      "regret_continuation_excess": 2259.1574962092127,
+      "baseline_grid_floor": 112499.99999999983,
+      "source_cover_excess": 1974.1449905045883,
+      "search_cost_exceeds_source": true
+    },
+    {
+      "world": "near_tie",
+      "seed": 202610246401,
+      "Search_analytic_gap": -5.47763193026185e-07,
+      "regret_continuation_grid_floor": 96483.43124999985,
+      "regret_continuation_excess": 11955.483744025914,
+      "baseline_grid_floor": 112499.99999999983,
+      "source_cover_excess": 14389.122487692657,
+      "search_cost_exceeds_source": false
+    },
+    {
+      "world": "near_tie",
+      "seed": 202610246402,
+      "Search_analytic_gap": -5.47763193026185e-07,
+      "regret_continuation_grid_floor": 96483.43124999985,
+      "regret_continuation_excess": 14130.873743214688,
+      "baseline_grid_floor": 112499.99999999983,
+      "source_cover_excess": 12944.366237965995,
+      "search_cost_exceeds_source": false
+    }
+  ],
+  "limitations": "Author code parity BLOCKED, n=2/cell and pilot-selected functions, K=3 independently generalized, no paper-ready causal/quantitative inference"
+}

@@ -1,0 +1,8 @@
+{
+  "lock_sha256": "f72ae21457b29b31b4fff82cfecfced735ed73d009b97bb48bfb1db11bb56476",
+  "pilot_sha256": "b8d1e58ecc4c06f195338f9173ca83c69ecd017589f5e8eab6a00d6f609f8a0d",
+  "preflight_sha256": "f04320d0f01a4f45fdbe18575f8145dcd8cadbb2b5068f56727b1fb5a57a2666",
+  "python": "3.13.5",
+  "numpy": "2.3.5",
+  "numba": "active"
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 760" role="img" aria-labelledby="title desc">
+<title id="title">Figure 3. Reward-optimistic exploration can fail to collect family-certificate information.</title>
+<desc id="desc">E18 optimistic Stage 1 gave 7140.2 of 7200 pulls to the apparent best family and issued zero of 108 certificates. E19 certificate-gap sampling issued 21 of 108, including 18 of 18 strong gap high-q settings. E18 and E19 are not paired, because they used different seeds and reward landscapes.</desc>
+<rect width="1320" height="760" fill="#ffffff"/>
+<text x="56" y="64" fill="#1a3046" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700">The information objective matters in Stage 1</text>
+<text x="56" y="106" fill="#637589" font-family="Arial,Helvetica,sans-serif" font-size="18">E18 versus E19: two independent exploratory experiments, NOT a paired policy comparison</text>
+<line x1="56" y1="138" x2="1264" y2="138" stroke="#e1e7ed" stroke-width="2"/>
+<text x="57" y="190" font-size="22" font-weight="700" fill="#25384e" font-family="Arial,Helvetica,sans-serif">A  |  E18 optimistic Stage 1: where did its 7,200 pulls go?</text>
+<text x="57" y="223" font-size="17" fill="#65768a" font-family="Arial,Helvetica,sans-serif">d = (2,3,4), strong gap, q = 0.75, six seeds; mean count per family</text>
+<rect x="57" y="268" rx="7" width="1185.1" height="72" fill="#326b99"/>
+<rect x="1242.1" y="268" width="4.40" height="72" fill="#d7a55a"/>
+<rect x="1246.5" y="268" width="5.53" height="72" fill="#c47e56"/>
+<text x="73" y="314" fill="#ffffff" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">d=2: 7,140.2 pulls (99.17%)</text>
+<text x="57" y="370" fill="#326b99" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700">■ d=2 best: 7,140.2</text>
+<text x="490" y="370" fill="#a3763b" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700">■ d=3: 26.5</text>
+<text x="842" y="370" fill="#a45d37" font-family="Arial,Helvetica,sans-serif" font-size="18" font-weight="700">■ d=4: 33.3</text>
+<line x1="56" y1="403" x2="1264" y2="403" stroke="#e1e7ed" stroke-width="2"/>
+<text x="57" y="451" font-size="22" font-weight="700" fill="#25384e" font-family="Arial,Helvetica,sans-serif">B  |  Certificate acquisition across independently seeded experiments</text>
+<text x="57" y="480" font-size="16" fill="#65768a" font-family="Arial,Helvetica,sans-serif">Number of issued certificates / opportunities; not controlled for landscape differences</text>
+<text x="62" y="533" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#263b51" font-weight="700">All dimensions, gaps, q</text>
+<text x="62" y="621" font-family="Arial,Helvetica,sans-serif" font-size="18" fill="#263b51" font-weight="700">Strong gap, q = .75</text><rect x="370" y="504" width="396" height="47" fill="#eff2f5" rx="5"/><text x="384" y="534" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#435668">E18: 0/108</text>
+<rect x="790" y="504" width="396" height="47" fill="#eff2f5" rx="5"/><rect x="790" y="504" width="77.0" height="47" rx="5" fill="#18846d"/><text x="804" y="534" font-size="17" font-weight="700" fill="#264e50" font-family="Arial,Helvetica,sans-serif">E19: 21/108</text><rect x="370" y="593" width="396" height="47" fill="#eff2f5" rx="5"/><text x="384" y="623" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#435668">E18: 0/18</text>
+<rect x="790" y="593" width="396" height="47" fill="#eff2f5" rx="5"/><rect x="790" y="593" width="396.0" height="47" rx="5" fill="#18846d"/><text x="804" y="623" font-size="17" font-weight="700" fill="#ffffff" font-family="Arial,Helvetica,sans-serif">E19: 18/18</text><rect x="57" y="671" width="1195" height="47" fill="#f4f7f9" rx="6"/>
+<text x="72" y="700" fill="#344d62" font-family="Arial,Helvetica,sans-serif" font-size="17">E18 exploits high rewards; E19 targets the competitor uncertainty blocking certification.</text>
+<text x="57" y="745" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#6f8292">Source: frozen E18/E19 reports and extracted aggregate CSV; distinct seeds/landscapes, not proof that this modification alone caused the difference.</text>
+</svg>

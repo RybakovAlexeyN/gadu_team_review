@@ -1,0 +1,6 @@
+world,gap,T,q_w,w,n_paired_seeds,cover_mean_pseudoregret,gadu_mean_pseudoregret,fixednet_null_mean_pseudoregret,gadu_minus_cover_mean,paired_t95_low,paired_t95_high,gadu_worse_count,gadu_accepted_correct_count
+strong_gap,0.62,3000000,1,1,16,24392.09,91957.05,91980.83,67564.96,67497.82,67632.11,16,16
+moderate_gap,0.35,3000000,1,1,16,24682.17,65299.41,65323.19,40617.25,40572.89,40661.60,16,16
+near_tie,0.02,3000000,1,1,16,26849.22,36434.57,36079.84,9585.35,9417.18,9753.53,16,0
+exact_tie,0,3000000,1,1,16,4880.86,13768.75,13383.19,8887.89,8742.33,9033.45,16,0
+offcenter,0.62,3000000,1,1,16,139798.63,205080.43,205067.90,65281.80,65233.58,65330.03,16,16

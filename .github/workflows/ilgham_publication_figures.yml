@@ -1,0 +1,34 @@
+name: Ilgham publication figures — verify and export PDF/PNG
+on:
+  push:
+    branches:
+      - review/www2027-empirical-results-20261023
+    paths:
+      - 'www2027/publication_pack_ilgham_dimension_question/**'
+      - '.github/workflows/ilgham_publication_figures.yml'
+  pull_request:
+    paths:
+      - 'www2027/publication_pack_ilgham_dimension_question/**'
+      - '.github/workflows/ilgham_publication_figures.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-verification-and-figure-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original source-hashes and all 4 figure numeric claims
+        run: python www2027/publication_pack_ilgham_dimension_question/verify_and_export.py
+      - name: Install vector-raster export dependency
+        run: python -m pip install --quiet cairosvg
+      - name: Export 4 vector PDFs and 4 high-resolution PNGs from SVG
+        run: python www2027/publication_pack_ilgham_dimension_question/verify_and_export.py --export
+      - name: Upload coauthor publication graphics (PDF + PNG, no private raw data)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ilgham-publication-4figures-pdf-png
+          path: www2027/publication_pack_ilgham_dimension_question/dist/figures/
+          if-no-files-found: error
+          retention-days: 30

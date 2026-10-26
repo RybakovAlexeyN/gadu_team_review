@@ -1,0 +1,4 @@
+setting,policy,mean_cumulative_pseudo_regret,T,q,n_seeds,certificates,source
+"d=(2,3,4) strong gap","matched staged, geometric Stage 2, no retirement",4151.586410379713,20000,0.75,6,6,E20_SUMMARY.csv:hetero_234/strong/0.75
+"d=(2,3,4) strong gap","staged, certified retirement, geometric Stage 2",1605.7826622106734,20000,0.75,6,6,E20_SUMMARY.csv:hetero_234/strong/0.75
+"d=(2,3,4) strong gap","direct bespoke geometry-aware UCB",1205.8335991288334,20000,0.75,6,,E20_SUMMARY.csv:hetero_234/strong/0.75
