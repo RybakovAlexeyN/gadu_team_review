@@ -1,5 +1,11 @@
 # Heterogeneous family dimensions — coauthor research handoff (26 October 2026)
 
+> ### Впервые открываете этот PR? / First time here?
+>
+> **[НАЧАТЬ ЗДЕСЬ: что именно мы сделали по вопросу Ильгама о d=2/3/4?](START_HERE_ILGHAM.md)** — постановка, ответ за 30 секунд, главный график, что доказано / не доказано и единственный ключевой вопрос к автору.
+>
+> **One-line answer:** retirement of inferior 3D/4D families lowers regret against a same-Stage-1 no-retirement control (E20: 4151.6 → 1605.8), but does not beat direct geometry-aware UCB (1205.8), and the authors' latest GADU-Cover has **not** been evaluated.
+>
 **For Ilgham / Yuriy — scientific review, not manuscript-ready empirical evidence.**
 
 **Short verdict:** We investigated the *mechanism* suggested on 24 October: the optimal family has smaller parameter-space dimension (`d=(2,3,4)` with best `d=2`), and explicit family certification might prevent continued sampling of inferior higher-dimensional families. **Retirement helps strongly relative to the *same Stage-1* algorithm without retirement; nevertheless our independently implemented staged surrogates do not beat a bespoke geometry-aware UCB in any of the studied certified strong-gap cells. We have NOT evaluated the authors' final GADU-Cover policy.**
