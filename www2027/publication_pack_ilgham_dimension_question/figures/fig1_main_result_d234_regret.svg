@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 730" role="img" aria-labelledby="title desc">
+<title id="title">Figure 1. Family retirement saves regret against the matched staged policy, but not against direct geometric UCB.</title>
+<desc id="desc">For d=2,3,4 strong gap q=.75 at T=20,000, average cumulative latent pseudo-regret: staged no retirement 4151.6, staged with certified retirement 1605.8, direct geometry-aware UCB 1205.8. Six seeds. Lower is better.</desc>
+<rect width="1260" height="730" fill="#ffffff"/>
+<text x="55" y="67" fill="#182d43" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="700">Retirement helps, but is not enough to win</text>
+<text x="55" y="102" fill="#526478" font-family="Arial,Helvetica,sans-serif" font-size="19">Optimal family: d = 2  |  Inferior families: d = 3, 4  |  Strong gap, q = 0.75</text>
+<text x="55" y="136" fill="#66778a" font-family="Arial,Helvetica,sans-serif" font-size="17">T = 20,000 decisions  •  six matched seeds  •  lower cumulative pseudo-regret is better</text>
+<line x1="55" x2="1205" y1="169" y2="169" stroke="#dfe6ed" stroke-width="2"/>
+<text x="55" y="209" fill="#25384b" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700">Policy</text>
+<text x="469" y="209" fill="#25384b" font-family="Arial,Helvetica,sans-serif" font-size="19" font-weight="700">Mean cumulative pseudo-regret</text><line x1="465.00" y1="238" x2="465.00" y2="555" stroke="#e7ecf1" stroke-width="1"/><text x="465.00" y="580" text-anchor="middle" fill="#617286" font-size="16" font-family="Arial,Helvetica,sans-serif">0</text><line x1="605.00" y1="238" x2="605.00" y2="555" stroke="#e7ecf1" stroke-width="1"/><text x="605.00" y="580" text-anchor="middle" fill="#617286" font-size="16" font-family="Arial,Helvetica,sans-serif">1000</text><line x1="745.00" y1="238" x2="745.00" y2="555" stroke="#e7ecf1" stroke-width="1"/><text x="745.00" y="580" text-anchor="middle" fill="#617286" font-size="16" font-family="Arial,Helvetica,sans-serif">2000</text><line x1="885.00" y1="238" x2="885.00" y2="555" stroke="#e7ecf1" stroke-width="1"/><text x="885.00" y="580" text-anchor="middle" fill="#617286" font-size="16" font-family="Arial,Helvetica,sans-serif">3000</text><line x1="1025.00" y1="238" x2="1025.00" y2="555" stroke="#e7ecf1" stroke-width="1"/><text x="1025.00" y="580" text-anchor="middle" fill="#617286" font-size="16" font-family="Arial,Helvetica,sans-serif">4000</text>
+<text x="55" y="270" fill="#182d43" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700">Matched staged: no retirement</text>
+<text x="55" y="296" fill="#64768a" font-family="Arial,Helvetica,sans-serif" font-size="15">same Stage 1, all families remain eligible</text>
+<rect x="465" y="255" width="581.22" height="53" rx="6" fill="#ad7041"/>
+<text x="1062.2" y="289" fill="#20354c" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">4,151.6</text>
+<text x="55" y="375" fill="#182d43" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700">Staged: certified retirement</text>
+<text x="55" y="401" fill="#64768a" font-family="Arial,Helvetica,sans-serif" font-size="15">same Stage 1; 6/6 correct certificates</text>
+<rect x="465" y="360" width="224.81" height="53" rx="6" fill="#18846d"/>
+<text x="705.8" y="394" fill="#20354c" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">1,605.8</text>
+<text x="55" y="480" fill="#182d43" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="700">Direct geometry-aware UCB</text>
+<text x="55" y="506" fill="#64768a" font-family="Arial,Helvetica,sans-serif" font-size="15">no mandatory Stage 1</text>
+<rect x="465" y="465" width="168.82" height="53" rx="6" fill="#386998"/>
+<text x="649.8" y="499" fill="#20354c" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700">1,205.8</text>
+<line x1="55" x2="1205" y1="604" y2="604" stroke="#dfe6ed" stroke-width="2"/>
+<text x="55" y="639" fill="#18846d" font-size="21" font-family="Arial,Helvetica,sans-serif" font-weight="700">−61.3% vs matched no-retirement</text>
+<text x="620" y="639" fill="#985d32" font-size="21" font-family="Arial,Helvetica,sans-serif" font-weight="700">+399.95 vs direct geo-UCB</text>
+<text x="55" y="678" fill="#465c71" font-size="15" font-family="Arial,Helvetica,sans-serif">Paired 95% CI for staged − direct geo-UCB: [250.18, 549.72] (descriptive; within six selected seeds).</text>
+<text x="55" y="708" fill="#798494" font-size="13" font-family="Arial,Helvetica,sans-serif">E20 frozen 18-cell summary • independent GADU-inspired surrogate and bespoke geometric comparator; not original author GADU-Cover.</text>
+</svg>
