@@ -1,0 +1,27 @@
+name: Ilgham E17-E21 public summary integrity
+on:
+  push:
+    branches:
+      - review/www2027-empirical-results-20261023
+    paths:
+      - 'www2027/empirical_results_2026-10-26/ilgham_heterodimensional_followup/**'
+      - '.github/workflows/www27_ilgham_e17_e21_public_integrity.yml'
+  pull_request:
+    paths:
+      - 'www2027/empirical_results_2026-10-26/ilgham_heterodimensional_followup/**'
+      - '.github/workflows/www27_ilgham_e17_e21_public_integrity.yml'
+permissions:
+  contents: read
+jobs:
+  verify-public-scientific-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check identical original synthetic data blobs and coauthor summary
+        run: |
+          cd www2027/empirical_results_2026-10-26/ilgham_heterodimensional_followup
+          test "$(git hash-object data/E17_36cell_summary.csv)" = cca8fcbec48327e2d39a16dcdf96f5ef7d45725b
+          test "$(git hash-object data/E20_18cell_summary.csv)" = c19ffe65b4822e216da4ba63f83f3126ccc5ab49
+          test "$(git hash-object data/E21_108case_certificate_feasibility.csv)" = ebcf22a90d4c9a172f0049919d8217a68c2d84ce
+          python verify_public_summary.py
