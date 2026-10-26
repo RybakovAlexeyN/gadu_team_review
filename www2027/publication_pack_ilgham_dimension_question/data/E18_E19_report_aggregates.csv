@@ -1,0 +1,8 @@
+experiment,layout,gap,q,horizon,seed_sets,quantity,value,denominator,source_type,scope_note
+E18,hetero_234,strong,0.75,20000,6,stage1_best_family_mean_pulls,7140.2,,frozen_report,"Reported mean Stage1 counts over six distinct seeds"
+E18,hetero_234,strong,0.75,20000,6,stage1_inferior_family_d3_mean_pulls,26.5,,frozen_report,"Reported mean Stage1 counts over six distinct seeds"
+E18,hetero_234,strong,0.75,20000,6,stage1_inferior_family_d4_mean_pulls,33.3,,frozen_report,"Reported mean Stage1 counts over six distinct seeds"
+E18,all_layouts,all_gaps,both,20000,108,observed_adaptive_certifications,0,108,frozen_report,"0 certificates in 108 matched five-policy cases"
+E19,all_layouts,all_gaps,both,20000,108,observed_adaptive_certifications,21,108,frozen_report,"Different seeds and sampled landscapes from E18; not paired"
+E18,all_layouts,strong,0.75,20000,18,observed_adaptive_certifications,0,18,frozen_report,"Strong-gap q=.75 subset"
+E19,all_layouts,strong,0.75,20000,18,observed_adaptive_certifications,18,18,frozen_report,"Different seeds from E18; not paired"
