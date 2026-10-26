@@ -66,7 +66,7 @@ Large reward gap, `q=.75`, `T=20,000`, six independent random seeds **per listed
 | **(2,3,4)** | **1,605.8** | **4,151.6** | **1,205.8** | 6/6 |
 | (2,4,5) | 1,658.9 | 10,741.0 | **1,284.3** | 6/6 |
 
-* **Important correction needed before using the equal-dimensional control:** The frozen E20 `E20_SUMMARY.csv` reports `regret_adaptive_no_retire_geo_stage2=1452.4` at `(2,2,2)` despite an earlier independent report giving a larger no-retirement aggregate. We prioritize the exact frozen cell CSV for this public table; the equal-dimension no-retirement equality needs author-side inspection of the raw trajectories before interpreting its retirement effect. The heterogeneous examples are unambiguous in the published CSV.
+* **Equal-dimension control:** The frozen E20 summary reports equal regret for retirement and no-retirement **with geometric Stage 2** in this cell. That can occur when a geometric policy naturally concentrates on the best family without forced exclusion. Do not confuse this with the separately reported **fine-grid Stage 2 without retirement** (2,138.6), which is a different continuation policy. See the methods note.
 
 For `d=(2,3,4)`, family retirement reduces regret **by 2,545.8 (61.3%)** relative to the *same Stage-1* no-retirement control. But paying Stage-1 overhead still leaves the staged method **+399.95** regret worse than direct geometry UCB, with a **descriptive, within-cell six-seed paired 95% interval [250.18, 549.72]** (not multiplicity corrected, nor a population-world interval). [E20 complete 18-cell summary](data/E20_18cell_summary.csv).
 
