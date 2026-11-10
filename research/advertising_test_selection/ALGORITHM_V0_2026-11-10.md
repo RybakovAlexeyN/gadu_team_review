@@ -74,7 +74,7 @@ Command: `python window_graph_ucb_v0.py` (NumPy dependency). On 2026-11-10, the 
 
 ## 7. Alexander Savelyev's proposal (29 October 2026): joint Lipschitz-constrained likelihood
 
-**Provenance / status.** This is an attributed **research proposal**, discussed by Alexander Savelyev, Alexey Rybakov, and Ilgham Latypov on 29 October 2026. The meeting notes and noisy ASR transcript are in [the call summary](../../context/team_call_2026-10-29.md) and [the full call transcript](../../context/team_call_2026-10-29_full_transcript.md). The equations below formalize the *substance of the discussion*; in particular the delayed-feedback log-likelihood is **a mathematical reconstruction in the meeting notes, not a verbatim transcription of Alexander's board or an author-approved final model**.
+**Provenance / status.** This is an attributed **research proposal**, discussed by Alexander Savelyev, Alexey Rybakov, and Ilgham Latypov on 29 October 2026. The meeting notes and noisy ASR transcript are in [the call summary](https://github.com/RybakovAlexeyN/rnd/blob/main/context/team_call_2026-10-29.md) and [the full call transcript](https://github.com/RybakovAlexeyN/rnd/blob/main/context/team_call_2026-10-29_full_transcript.md). The equations below formalize the *substance of the discussion*; in particular the delayed-feedback log-likelihood is **a mathematical reconstruction in the meeting notes, not a verbatim transcription of Alexander's board or an author-approved final model**.
 
 ### 7.1. Motivation: avoid treating related points as unrelated
 
